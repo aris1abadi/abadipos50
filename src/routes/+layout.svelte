@@ -1,7 +1,5 @@
 <script>
 	import '../app.css';
-	import Header from '$lib/Header.svelte';
-	import { prosesClickVal, hapusOrderVal, headerContent, simpanOrderVal } from '$lib/stores/store';
 	import { Modal } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
 	import { io } from '$lib/realtime';
@@ -12,7 +10,7 @@
 	let qrShow = false;
 
 	onMount(() => {
-		$headerContent.show = false;
+		
 		io.on('qr', (msg) => {
 			qrcode_src = msg;
 			qrShow = true;

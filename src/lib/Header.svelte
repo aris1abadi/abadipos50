@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
 	import {
 		Drawer,
 		CloseButton,
@@ -10,18 +12,14 @@
 		SidebarDropdownItem,
 		Select,
 		Dropdown,
-		DropdownItem,
-		Checkbox,
-		Helper,
-		Button,
-		Chevron,
+		DropdownItem,		
 		Avatar,
 		FloatingLabelInput
 	} from 'flowbite-svelte';
 	import { sineIn } from 'svelte/easing';
 	import { createEventDispatcher, onMount } from 'svelte';
 	import { rupiah } from '$lib/myFunction.js';
-	import { dataBahanStore } from './stores/store';
+	
 
 	const dispatch = createEventDispatcher();
 	let hidden2 = true;
@@ -97,6 +95,9 @@
 		console.log('suplieIdx: ', headerContent.suplier);
 	}
 
+	/**
+	 * @param {string | number} idx
+	 */
 	function bahanClick(idx) {
 		bahanOpen = false;
 		dispatch('eventItemClick', idx);
@@ -293,7 +294,7 @@
 </div>
 
 <Drawer
-	placement="right"
+	placement="left"
 	transitionType="fly"
 	{transitionParams}
 	bind:hidden={hidden2}

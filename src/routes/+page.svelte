@@ -19,8 +19,17 @@
 
 	//import { Datepicker, Input, initTE } from "tw-elements";
 
+	/**
+	 * @type {any[]}
+	 */
 	let closeTransaksiNow = [];
+	/**
+	 * @type {any[]}
+	 */
 	let jmlTransaksi = [];
+	/**
+	 * @type {number[]}
+	 */
 	let hargaTransaksi = [];
 	let transaksiNumber = 0;
 	let totalPenjualan = 0;
@@ -37,7 +46,7 @@
 		io.on('myMenu', (msg) => {
 			//$dataMenuStore = msg;
 			$dataMenuStore = [];
-			msg.forEach((menu) => {
+			msg.forEach((/** @type {{ id: any; nama: any; harga: any; stok: any; resepId: any; }} */ menu) => {
 				let dt = {
 					id: menu.id,
 					nama: menu.nama,
@@ -74,8 +83,8 @@
 			//console.log(msg)
 			$dataMenuStore.forEach((menu, index) => {
 				closeTransaksiNow.forEach((tn) => {
-					tn.item.forEach((item) => {
-						item.itemDetil.forEach((detil) => {
+					tn.item.forEach((/** @type {{ itemDetil: any[]; }} */ item) => {
+						item.itemDetil.forEach((/** @type {{ id: any; jml: any; harga: any; }} */ detil) => {
 							if (detil.id === menu.id) {
 								jmlTransaksi[index] += detil.jml;
 								hargaTransaksi[index] = detil.harga;

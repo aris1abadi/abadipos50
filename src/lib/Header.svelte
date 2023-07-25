@@ -147,14 +147,15 @@
 					on:click={() => prosesClick()}
 					class="col-span-4 w-full h-full border border-orange-700 rounded-xl"
 				>
-					<div class="text-xs">
+					<div class="text-xs" whitespace="nowrap">
 						{headerContent.pelanggan} | {headerContent.jenisOrder} | Id:{headerContent.idTransaksi}
 					</div>
-					<div class="space-x-4">
+					<div class="space-x-4" whitespace="nowrap">
 						<span class="text-sm">{headerContent.totalItem} item </span>
 						<span class="font-bold text-xl">{rupiah(headerContent.totalTagihan)}</span>
 					</div>
 				</button>
+				
 				<button on:click={() => simpanClick()}>
 					<svg
 						class="w-6 h-6 ml-4 text-gray-800 dark:text-white"
@@ -294,7 +295,7 @@
 </div>
 
 <Drawer
-	placement="left"
+	placement="right"
 	transitionType="fly"
 	{transitionParams}
 	bind:hidden={hidden2}

@@ -67,7 +67,7 @@ export const n_order = writable({
 export let n_beli = writable({
 	id: '00',
 	suplier: {},
-	userId: {},
+	user: {},
 	waktuBeli: Date.now(),
 	waktuTerima: Date.now(),
 	status: 'Pesan',

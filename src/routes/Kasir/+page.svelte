@@ -10,10 +10,8 @@
 		n_order,
 		newOrder,
 		dataPelanggan,
-		totalBayar,		
-		headerContent,		
-		dataSuplier,
-		
+		headerContent,
+		dataSuplier
 	} from '$lib/stores/store.js';
 	import { goto } from '$app/navigation';
 
@@ -22,11 +20,13 @@
 	//import { goto } from '$app/navigation';
 	import Pad from '$lib/Pad.svelte';
 
-	import { bikinIdTransaksi, rupiah, getJam } from '$lib/myFunction';
+	import { bikinIdTransaksi, rupiah, getJam, getTanggal } from '$lib/myFunction';
 	// @ts-ignore
 	import Pembayaran from '$lib/Pembayaran.svelte';
 	import { Modal } from 'flowbite-svelte';
 	import Header from '$lib/Header.svelte';
+
+	import { Dropdown, Avatar, Card, DropdownItem, Chevron, Input } from 'flowbite-svelte';
 
 	let loginProgress, loginSwipeable, introProgress, zoomOut;
 	tick().then(() => (zoomOut = true));
@@ -41,7 +41,7 @@
 	let padShow = [];
 	let modalOpen = false;
 	let jmlMeja = 10;
-	let mejaCount = [];
+	let mejaCount = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	let varPembayaran = {
 		btnShow: true,
 		modeBayar: 'Kasir',
@@ -49,6 +49,12 @@
 		suplier: $dataSuplier,
 		data: $n_order
 	};
+	let menuItem = [];
+	let mode1 = false;
+	let menuOpen = false;
+	let pelangganOpen = false;
+	let orderOpen = false;
+	let homeOpen = false;
 
 	//let waktuOrder = String(new Date());
 
@@ -57,11 +63,9 @@
 	//----------------------------------
 	onMount(() => {
 		//initTE({ Datepicker, Input });
+		menuItem = [];
 		$headerContent.mode = 'Kasir';
 		$headerContent.show = true;
-		for (let i = 1; i < jmlMeja + 1; i++) {
-			mejaCount.push(i);
-		}
 
 		kirimKeServer('getMenu');
 
@@ -72,6 +76,23 @@
 			}
 			kirimKeServer('getTransaksiJualCount');
 			kirimKeServer('getPelanggan');
+			hapusOrder();
+		} else {
+			$n_order.item.itemDetil.forEach((item, index) => {
+				$dataMenuStore.forEach((menu, idx) => {
+					if (item.id === menu.id) {
+						//update data stok
+						let newData = {
+							id: item.id,
+							nama: item.nama,
+							harga: item.harga,
+							jml: item.jml,
+							stok: menu.stok
+						};
+						menuItem.push(newData);
+					}
+				});
+			});
 		}
 
 		io.on('myMenu', (msg) => {
@@ -89,7 +110,6 @@
 						harga: menu.harga,
 						stok: menu.stok,
 						stokId: menu.stokId,
-						orderCount: 0,
 						stokUse: 0
 					};
 					$dataMenuStore.push(dt);
@@ -132,130 +152,7 @@
 		io.emit('fromClient', msg);
 	}
 
-	// @ts-ignore
-	function menuClick(idx, sts) {
-		//console.log($dataMenuStore[event.detail.index].nama)
-		if ($n_order.totalItem === 0) {
-			//cek id
-			kirimKeServer('getTransaksiJualCount');
-			//io.emit('fromClient',{cmd:'cekTransaksiCount',payload:""})
-		}
-
-		if (sts === '+') {
-			if ($dataMenuStore[idx].stok > $dataMenuStore[idx].stokUse) {
-				$dataMenuStore[idx].orderCount += 1;
-
-				$dataMenuStore[idx].stokUse += 1;
-				updateStok(idx);
-			} else if ($dataMenuStore[idx].stok === -1) {
-				$dataMenuStore[idx].orderCount += 1;
-			}
-			updateItem();
-		} else if (sts === '-') {
-			if ($dataMenuStore[idx].orderCount > 0) {
-				$dataMenuStore[idx].orderCount -= 1;
-
-				$dataMenuStore[idx].stokUse -= 1;
-				updateStok(idx);
-			}
-			updateItem();
-		}
-	}
-
-	// @ts-ignore
-	function updateStok(idx) {
-		let stokId = $dataMenuStore[idx].stokId;
-		let stokUse = $dataMenuStore[idx].stokUse;
-
-		$dataMenuStore.forEach((menu, index) => {
-			if (stokId === menu.stokId) {
-				$dataMenuStore[index].stokUse = stokUse;
-			}
-		});
-	}
-
-	// @ts-ignore
-	function hapusPadClick(data, idx) {
-		//$dataMenuStore[idx].stok += $dataMenuStore[idx].orderCount
-		//console.log(data.orderCount)
-		//console.log($dataMenuStore[idx].orderCount)
-		//console.log($dataMenuStore[idx].orderCountNew)
-		if ($dataMenuStore[idx].stok !== -1) {
-			$dataMenuStore[idx].stok += $dataMenuStore[idx].orderCount;
-
-			updateStok(idx);
-		}
-		if (!$newOrder) {
-			console.log('hapus item lama');
-			io.emit('hapusItemLama', $n_order._id);
-			//hapus itemtransaksijual di local
-			$dataTransaksiJual.forEach((dj, index) => {
-				if (dj._id === $n_order._id) {
-					$dataTransaksiJual[index].item = [];
-				}
-			});
-			$n_order.item = [];
-		}
-
-		$dataMenuStore[idx].orderCount = 0;
-		$dataMenuStore[idx].orderCountNew = 0;
-
-		updateItem();
-	}
-	function enterClick(data, idx) {
-		if ($dataMenuStore[idx].stok !== -1) {
-			if ($dataMenuStore[idx].stok - data.orderCount < 0) {
-				console.log('stok kurang');
-			} else {
-				$dataMenuStore[idx].stok -= data.orderCount;
-
-				updateStok(idx);
-			}
-
-			//updateItem();
-		}
-
-		updateItem();
-		padShow[idx] = false;
-	}
-	function padClick(data, idx) {
-		$dataMenuStore[idx].orderCount = data.orderCount;
-
-		//$dataMenuStore[idx].stok += $dataMenuStore[idx].orderCount
-	}
-
-	function updateItem() {
-		$n_order.totalItem = 0;
-		$n_order.totalTagihan = 0;
-		$dataMenuStore.forEach((el) => {
-			$n_order.totalItem += el.orderCount;
-			$n_order.totalTagihan += el.orderCount * el.harga;
-		});
-		$headerContent.totalItem = $n_order.totalItem;
-		$headerContent.totalTagihan = $n_order.totalTagihan;
-	}
-
-	function penjualanProsesClick() {
-		if ($n_order.totalItem !== 0) {
-			//$headerContent.mode = 'bayarPenjualan';
-			//$showPembayaran = true;
-			if ($newOrder) {
-				// @ts-ignore
-				varPembayaran.pelanggan = $dataPelanggan;
-				varPembayaran.data = $n_order;
-			}
-			//goto('/pembayaran');
-			modalOpen = true;
-		}
-	}
-
 	function hapusOrder() {
-		let menuDummy = $dataMenuStore;
-		$dataMenuStore.forEach((menu, index) => {
-			$dataMenuStore[index].orderCount = 0;
-			$dataMenuStore[index].stokUse = 0;
-		});
-
 		$n_order.id = bikinIdTransaksi('J', $transaksiJualCount);
 		$n_order.pelanggan = $dataPelanggan[0];
 		$n_order.jenisOrder = 'Bungkus';
@@ -270,252 +167,430 @@
 		$n_order.totalTagihan = 0;
 		$n_order.item = [];
 
-		$totalBayar = 0;
-
-		$headerContent.totalItem = 0;
-		$headerContent.totalTagihan = 0;
-		$headerContent.pelanggan = $n_order.pelanggan.nama;
-		$headerContent.idTransaksi = $n_order.id;
-		$headerContent.jenisOrder = $n_order.jenisOrder;
-
 		$newOrder = true;
 	}
-	
 
-	function btnSimpanClick() {
-		if ($n_order.totalItem > 0) {
-			let jmlItem = 0;
-
-			let itemNow = {
-				time: Date.now(),
-				itemDetil: []
-			};
-			if ($newOrder) {
-				for (let i = 0; i < $dataMenuStore.length; i++) {
-					if ($dataMenuStore[i].orderCount > 0) {
-						//$dataMenuStore[i].stok = $dataMenuStore[i].stok - $dataMenuStore[i].orderCountNew;
-						let order = {
-							id: $dataMenuStore[i].id,
-							nama: $dataMenuStore[i].nama,
-							harga: $dataMenuStore[i].harga,
-							jml: $dataMenuStore[i].orderCount,
-							catatan: $dataMenuStore[i].catatan
-						};
-						//if (!$newOrder) order.jml = $dataMenuStore[i].orderCountNew;
-						// @ts-ignore
-						itemNow.itemDetil.push(order);
+	function pilihMenuClick(menu) {
+		//tesTxt = JSON.stringify(menu)
+		let newItem = {
+			id: '',
+			nama: '',
+			harga: 0,
+			jml: 0,
+			stok: 0
+		};
+		menuOpen = false;
+		if (menuItem.length > 0) {
+			let isSama = false;
+			menuItem.forEach((item, index) => {
+				if (item.id === menu.id) {
+					isSama = true;
+					menuItem[index].jml += 1;
+					if (menuItem[idx].stok !== -1) {
+						menuItem[idx].stok -= 1;
 					}
 				}
-
-				// @ts-ignore
-				$n_order.item.push(itemNow);				
-				$n_order.pelanggan = $dataPelanggan[0]
-				
-				
-
-				$n_order.status = 'open';
-				$n_order.waktuOrder = Date.now();
-				$n_order.totalBayar = varPembayaran.data.totalBayar;
-				//$dataTransaksiJual.push($n_order);
-
-				//simpan data ransaksi
-				io.emit('simpanTransaksiJual', $n_order);
-				//io.emit('simpanTransaksiJualCount', $transaksiJualCount);
-
-				$newOrder = false;
-			} else {
-				$n_order.item = [];
-				$dataMenuStore.forEach((menu, index) => {
-					if (menu.orderCount > 0) {
-						let order = {
-							id: $dataMenuStore[index].id,
-							nama: $dataMenuStore[index].nama,
-							harga: $dataMenuStore[index].harga,
-							jml: $dataMenuStore[index].orderCount,
-							catatan: $dataMenuStore[index].catatan
-						};
-						jmlItem += order.jml;
-						//if (!$newOrder) order.jml = $dataMenuStore[i].orderCountNew;
-						// @ts-ignore
-						itemNow.itemDetil.push(order);
-					}
-				});
-				$n_order.totalItem = jmlItem;
-				// @ts-ignore
-				$n_order.item.push(itemNow);
-				$n_order.totalBayar += varPembayaran.data.totalBayar;
-				if ($n_order.totalBayar > $n_order.totalTagihan) {
-					$n_order.totalBayar = $n_order.totalTagihan;
+			});
+			if (!isSama) {
+				newItem.id = menu.id;
+				newItem.nama = menu.nama;
+				newItem.harga = menu.harga;
+				newItem.jml = 1;
+				if (menu.stok !== -1) {
+					newItem.stok = menu.stok - 1;
+				} else {
+					newItem.stok = menu.stok;
 				}
-				//$dataTransaksiJual[$orderIdxNow] = $n_order;
-				io.emit('updateTransaksiJual', $n_order);
-				//console.log('jml Item: ' + $n_order.totalItem);
+
+				menuItem.push(newItem);
+				menuItem = menuItem;
 			}
-			//io.emit('updateStok', itemNow);
-			//console.log('Order disimpan',JSON.stringify($n_order));
-			hapusOrder();
-			//showModal = false;
-			modalOpen = false;
-			
-			//$headerMode = 'penjualan';
-			//goto('/penjualan');
-		}else{
-			console.log("order masih kosong")
-			alert("Belum ada Transaksi")
+		} else {
+			newItem.id = menu.id;
+			newItem.nama = menu.nama;
+			newItem.harga = menu.harga;
+			newItem.jml = 1;
+
+			if (menu.stok !== -1) {
+				newItem.stok = menu.stok - 1;
+			} else {
+				newItem.stok = menu.stok;
+			}
+			menuItem.push(newItem);
+			menuItem = menuItem;
+		}
+		//console.log(menuItem);
+		updateTotal();
+	}
+	function hapusItemOrder(idx) {
+		if (menuItem[idx].stok !== -1) {
+			menuItem[idx].stok += 1;
+		}
+		if (--menuItem[idx].jml === 0) {
+			let newMenu = [];
+			menuItem.forEach((menu, index) => {
+				if (index !== idx) {
+					newMenu.push(menu);
+				}
+			});
+
+			menuItem = newMenu;
+		}
+
+		updateTotal();
+	}
+
+	function tambahItemClick(idx) {
+		if (menuItem[idx].stok !== -1) {
+			menuItem[idx].stok -= 1;
+		}
+		menuItem[idx].jml += 1;
+		updateTotal();
+	}
+
+	function updateTotal() {
+		let t_tagihan = 0;
+		let t_item = 0;
+		menuItem.forEach((menu, index) => {
+			t_item += menu.jml;
+			t_tagihan += menu.jml * menu.harga;
+		});
+		$n_order.totalItem = t_item;
+		$n_order.totalTagihan = t_tagihan;
+	}
+
+	function pelangganClick(pelanggan) {
+		$n_order.pelanggan = pelanggan;
+		pelangganOpen = false;
+	}
+
+	function orderListClick(order) {
+		$n_order.jenisOrder = order;
+		if (order !== 'DiWarung') {
+			orderOpen = false;
 		}
 	}
 
-	function btnSelesaiClick() {
-		if (
-			$n_order.totalTagihan === $n_order.totalBayar ||
-			varPembayaran.data.totalBayar >=
-			$n_order.totalTagihan - ($n_order.totalBayar + varPembayaran.totaBayar)
-		) {
-			if ($newOrder) {
-				let itemNow = {
-					time: Date.now(),
-					itemDetil: []
-				};
-				$dataMenuStore.forEach((menu, i) => {
-					//$dataMenuStore[i].stok = $dataMenuStore[i].stok - $dataMenuStore[i].orderCountNew;
-					let order = {
-						id: $dataMenuStore[i].id,
-						nama: $dataMenuStore[i].nama,
-						harga: $dataMenuStore[i].harga,
-						jml: $dataMenuStore[i].orderCountNew,
-						catatan: $dataMenuStore[i].catatan
-					};
-					//if (!$newOrder) order.jml = $dataMenuStore[i].orderCountNew;
-					// @ts-ignore
-					itemNow.itemDetil.push(order);
-				});
+	function mejaClick(meja) {
+		$n_order.meja = meja;
+		mejaOpen = false;
+		orderOpen = false;
+	}
 
-				// @ts-ignore
-				$n_order.item.push(itemNow);
+	let placement = 'top';
+	let mejaOpen = false;
+	const orderList = ['Bungkus', 'DiWarung', 'Pesan', 'Online', 'Gojeg'];
+	let totalBayar = 0;
 
-				$n_order.pelanggan = varPembayaran.data.pelanggan
-				$n_order.status = 'close';
+	function btnSimpanPenjualan() {
+		let simpanItem = [];
+		menuItem.forEach((menu) => {
+			let dt = {
+				id: menu.id,
+				nama: menu.nama,
+				harga: menu.harga,
+				jml: menu.jml
+			};
+			simpanItem.push(dt)
+		});
 
-				$n_order.totalBayar = varPembayaran.data.totalBayar;
-				//$n_order.totalTagihan = $totalTagihan;
-				//simpan data ransaksi
-				io.emit('simpanTransaksiJual', $n_order);
-				//io.emit('simpanTransaksiJualCount', $transaksiJualCount);
-			} else {
-				io.emit('closeTransaksiJual', $n_order);
-			}
+		let itemNow = {
+			time: Date.now(),
+			itemDetil: simpanItem
+		};
+		$n_order.item = itemNow;
 
-			hapusOrder();
-			$newOrder = true;
-			modalOpen = false;
+		if ($newOrder) {
+			io.emit('simpanTransaksiJual', $n_order);
 		} else {
-			console.log('Pembayaran kurang');
-			alert("Pembayaran kurang")
+			io.emit('updateTransaksiJual', $n_order);
 		}
+		hapusSemua();
+
+		hapusOrder();
+	}
+
+	function hapusSemua() {
+		menuItem = [];
+		$n_order.totalTagihan = 0; 
+		$n_order.totalItem = 0;
+		hapusOrder()
+	}
+	let bayarOpen = false;
+
+	function bayarClick() {
+		if (totalBayar >= $n_order.totalTagihan) {
+			$n_order.totalBayar = $n_order.totalTagihan;
+		} else {
+			$n_order.totalBayar = totalBayar;
+		}
+		bayarOpen = false;
+		//simpan pembayaran
+		btnSimpanPenjualan()
 	}
 </script>
 
-<Modal title="Pembayaran" bind:open={modalOpen} outsideclose>
-	<Pembayaran
-		bind:varPembayaran
-		on:eventSimpanClick={() => btnSimpanClick()}
-		on:eventSelesaiClick={() => btnSelesaiClick()}
-	/>
-</Modal>
+{#if mode1}
+	<div>tes mode1</div>
+{:else}
+	<button />
 
-<Header
-	on:eventProsesClick={() => penjualanProsesClick()}
-	on:eventHapusOrder={() => hapusOrder()}
-	on:eventHeaderSimpan={() => btnSimpanClick()}
-	bind:headerContent={$headerContent}
-/>
-
-<!--------------------------------------------------------->
-<div class="h-full w-full p-3 overflow-y-auto bg-white">
-	{#if typeof $dataMenuStore !== 'undefined' && $dataMenuStore.length > 0}
-		{#each $dataMenuStore as menu, index}
-			<div class={$dataMenuStore[index].orderCount > 0 ? 'bg-orange-200' : 'bg-white'}>
-				<div class="w-full h-fit mb-2 py-2 border-t-2 border-orange-100">
-					<div class="grid grid-cols-12">
-						<div class="col-span-2 w-12 h-12 mr-5 ml-2 border border-orange-400 rounded-lg">
-							<img class="border rounded-lg" src="bahan1.jpeg" alt="minus" />
-						</div>
-						<div class="col-span-6 w-full h-full font-mono font-bold text-base">
-							<div class={$dataMenuStore[index].stok === 0 ? 'text-red-700' : 'text-black'}>
-								<div>{menu.nama}</div>
-								<div class="text-xs font-thin">
-									{rupiah(menu.harga)}
-									{#if menu.stok === 0}
-										Habis
-									{:else if menu.stok > 0}
-										stok:{menu.stok - menu.stokUse}
-									{/if}
-								</div>
-							</div>
-						</div>
-						<div class="col-span-4 w-full h-full content-center">
-							<div class="grid grid-cols-3">
-								<div>
-									<button on:click={() => menuClick(index, '-')} class="w-1/2 h-full mr-5">
-										<img src="minus1.png" alt="minus" />
-
-										<!--
-								<Fa icon={faMinusSquare} size="2x" />
-								-->
-									</button>
-								</div>
-								<div>
-									<button
-										on:click={() => {
-											padShow[index] = !padShow[index];
-										}}
-										class="w-full h-full font-mono text-xl"
-									>
-										{menu.orderCount}
-									</button>
-								</div>
-								<div>
-									<button
-										on:click={() => {
-											//menu.orderCount += 1;
-											//$totalItemBelanja += 1;
-											//$totalTagihanBelanja += menu.harga
-											menuClick(index, '+');
-										}}
-										class="w-1/2 h-full ml-5"
-									>
-										<img src="plus1.png" alt="plus" />
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					{#if padShow[index]}
-						<Pad
-							bind:padVal={menu.orderCount}
-							on:eventPadClick={() => padClick(menu, index)}
-							on:eventHapusPad={() => hapusPadClick(menu, index)}
-							on:eventEnterPad={() => enterClick(menu, index)}
-						/>
-					{/if}
+	<div>
+		<div class="w-full h-20 p-4 mb-8">
+			<div class=" border-2 rounded-lg border-orange-500">
+				<div
+					class="w-full h-8 border-b-2 border-orange-500 bg-orange-500 text-white text-xl font-bold text-center"
+				>
+					Penjualan
 				</div>
-			</div>
-		{/each}
-	{:else}
-		<div class="border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto">
-			<div class="animate-pulse flex space-x-4">
-				<div class="rounded-full bg-slate-200 h-10 w-10" />
-				<div class="flex-1 space-y-6 py-1">
-					<div class="h-2 bg-slate-200 rounded" />
-					<div class="space-y-3">
-						<div class="grid grid-cols-3 gap-4">
-							<div class="h-2 bg-slate-200 rounded col-span-2" />
-							<div class="h-2 bg-slate-200 rounded col-span-1" />
-						</div>
-						<div class="h-2 bg-slate-200 rounded" />
+				<div class="grid grid-cols-2 w-full h-12 mt-2">
+					<div class="ml-2 text-xs text-left">order ID :<b> {$n_order.id}</b></div>
+					<div class="ml-2 text-xs text-left">Pelanggan :<b> {$n_order.pelanggan.nama}</b></div>
+					<div class="ml-2 text-xs text-left">
+						Untuk:<b>{getTanggal($n_order.waktuKirim)} {getJam($n_order.waktuKirim)}</b>
+					</div>
+					<div class="ml-2 text-xs text-left">
+						Jenis Order: <b>
+							{#if $n_order.jenisOrder === 'DiWarung'}
+								Meja {$n_order.meja}
+							{:else}
+								{$n_order.jenisOrder}
+							{/if}
+						</b>
 					</div>
 				</div>
 			</div>
 		</div>
-	{/if}
-</div>
+
+		{#if menuItem}
+			<div class="max-h-88 w-full p-4 overflow-y-auto">
+				{#each menuItem as item, index}
+					<div class="grid grid-cols-8 px-4 h-12 border-b-2">
+						<div class="align-middle text-left pt-2">{item.jml}</div>
+						<button
+							on:click={() => {
+								tambahItemClick(index);
+							}}
+							class="col-span-4 border-none text-left"
+						>
+							{item.nama}
+							<div class="text-xs">
+								Stok:
+								{#if item.stok === -1}
+									-
+								{:else}
+									{item.stok}
+								{/if}
+							</div>
+						</button>
+						<button
+							on:click={() => {
+								hapusItemOrder(index);
+							}}
+							class="w-full h-full flex justify-center"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="#000000"
+								stroke-width="1"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								><polyline points="3 6 5 6 21 6" /><path
+									d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+								/><line x1="10" y1="11" x2="10" y2="17" /><line
+									x1="14"
+									y1="11"
+									x2="14"
+									y2="17"
+								/></svg
+							>
+						</button>
+
+						<div class="col-span-2 text-right">
+							{rupiah(item.jml * item.harga)}
+						</div>
+					</div>
+				{/each}
+				
+			</div>
+			{#if $n_order.totalTagihan !== 0}
+					<div class="grid grid-cols-8 px-4 h-8 mt-2">
+						<div class="col-span-4" />
+						<div class="col-span-2 font-semibold border-b-2">Total</div>
+						<div class="col-span-2 font-bold border-b-2 text-right">
+							{rupiah($n_order.totalTagihan)}
+						</div>
+					</div>
+
+					<div class="grid grid-cols-8 px-4 h-8">
+						<button on:click={() => hapusSemua()}
+							><svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="#000000"
+								stroke-width="1"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								><polyline points="3 6 5 6 21 6" /><path
+									d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+								/><line x1="10" y1="11" x2="10" y2="17" /><line
+									x1="14"
+									y1="11"
+									x2="14"
+									y2="17"
+								/></svg
+							>
+							<div class="text-xs font-mono">Batal</div>
+						</button>
+						<div class="col-span-3 px-4">
+							{#if bayarOpen === false}
+							<button
+								on:click={() => btnSimpanPenjualan()}
+								class="w-full h-full border rounded-lg text-center text-white font-bold bg-orange-500"
+								>Simpan</button
+							>
+							{/if}
+						</div>
+						<div class="col-span-2 font-semibold border-b-2">Bayar</div>
+						<button class="col-span-2 border-b-2 w-full text-right">{rupiah(totalBayar)}</button>
+						<Dropdown bind:open={bayarOpen}>
+							<div class="grid grid-cols-5 gap-2 border-gray-800 bg-gray-100 p-2">
+								<DropdownItem class="col-span-5 w-full border-b border-black justify-end">
+									<div class="grid grid-cols-5">
+										<div class="col-span-3 text-right">Kembalian:</div>
+										<div class="col-span-2 text-right font-bold">
+											{rupiah(totalBayar - $n_order.totalTagihan)}
+										</div>
+									</div>
+								</DropdownItem>
+
+								<DropdownItem
+									on:click={() => {
+										totalBayar += 2000;
+									}}
+									class="border border-gray-400 rounded-lg">2.000</DropdownItem
+								>
+								<DropdownItem
+									on:click={() => {
+										totalBayar += 5000;
+									}}
+									class="border border-gray-400 rounded">5.000</DropdownItem
+								>
+								<DropdownItem
+									on:click={() => {
+										totalBayar += 10000;
+									}}
+									class="border border-gray-400 rounded">10rb</DropdownItem
+								>
+								<DropdownItem
+									on:click={() => {
+										totalBayar += $n_order.totalTagihan;
+									}}
+									class="border border-gray-400 rounded">Pas</DropdownItem
+								>
+								<DropdownItem
+									on:click={() => {
+										totalBayar = 0;
+									}}
+									class="border border-gray-400 rounded">Hapus</DropdownItem
+								>
+								<DropdownItem
+									on:click={() => {
+										totalBayar += 20000;
+									}}
+									class="border border-gray-400 rounded">20rb</DropdownItem
+								>
+								<DropdownItem
+									on:click={() => {
+										totalBayar += 50000;
+									}}
+									class="border border-gray-400 rounded">50rb</DropdownItem
+								>
+								<DropdownItem
+									on:click={() => {
+										totalBayar += 100000;
+									}}
+									class="border border-gray-400 rounded">100rb</DropdownItem
+								>
+								<DropdownItem
+									on:click={() => bayarClick()}
+									class="col-span-2 w-full border bg-orange-500 text-white rounded text-center"
+									>Simpan</DropdownItem
+								>
+							</div>
+						</Dropdown>
+					</div>
+				{/if}
+		{/if}
+	</div>
+
+	<Dropdown
+		{placement}
+		bind:open={pelangganOpen}
+		triggeredBy="#btnPelanggan"
+		class="w-40 h-96 overflow-y-auto bg-slate-100"
+	>
+		{#if $dataPelanggan}
+			{#each $dataPelanggan as pelanggan, index}
+				<DropdownItem on:click={() => pelangganClick(pelanggan)} class="border-b-2 border-slate-300"
+					>{pelanggan.nama}</DropdownItem
+				>
+			{/each}
+		{/if}
+	</Dropdown>
+
+	<Dropdown {placement} bind:open={orderOpen} triggeredBy="#btnOrder" class="w-32 bg-slate-100">
+		{#each orderList as order}
+			<DropdownItem
+				on:click={() => orderListClick(order)}
+				class="flex items-center justify-between"
+			>
+				{#if order === 'DiWarung'}
+					<Chevron placement="left">{order}</Chevron>
+				{:else}
+					{order}
+				{/if}
+			</DropdownItem>
+			{#if order === 'DiWarung'}
+				<Dropdown
+					placement="left-end"
+					bind:open={mejaOpen}
+					class="grid grid-cols-2 w-48 h-96 p-4 overflow-y-auto "
+				>
+					{#each mejaCount as meja}
+						<DropdownItem on:click={() => mejaClick(meja)}>
+							<Avatar size="sm" src="meja.png" rounded />
+							<div class="text-xs">Meja {meja}</div>
+						</DropdownItem>
+					{/each}
+				</Dropdown>
+			{/if}
+		{/each}
+	</Dropdown>
+
+	<Dropdown
+		{placement}
+		bind:open={menuOpen}
+		triggeredBy="#btnMenu"
+		class="w-72 h-3/4 grid grid-cols-2 gap-2 p-4 overflow-y-auto bg-slate-100"
+	>
+		{#if $dataMenuStore}
+			{#each $dataMenuStore as menu, index}
+				<Card class="h-24 w-full ">
+					<button on:click={() => pilihMenuClick(menu)} class="flex flex-col items-center">
+						<Avatar size="sm" src="lb1.jpeg" rounded />
+						<div class="text-xs font-medium text-gray-900 dark:text-white">{menu.nama}</div>
+						<span class="mb-2 text-xs text-gray-500 dark:text-gray-400">{rupiah(menu.harga)}</span>
+					</button>
+				</Card>
+			{/each}
+		{/if}
+	</Dropdown>
+{/if}

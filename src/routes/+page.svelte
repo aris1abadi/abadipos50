@@ -112,12 +112,10 @@
 	<meta name="description" content="pos app" />
 </svelte:head>
 
-<div class=" w-full h-full grid grid-cols-2 p-10 gap-4" >
-	<button on:click={() => mulaiJualanClick()} class="w-full h-20 border">
-		Mulai Jualan
-	</button>
-
-	<button class="w-full h-20 border">
-
-	</button>
+<div class=" w-full h-1/2 grid grid-cols-3" >
+	<div></div>
+	<img src="logo2023.png" alt="Logo lesehanpundong" class="w-full h-1/2 mt-20"/>
+	<div></div>	
+	
 </div>
+<div class="text-2xl font-bold text-center">0822 6528 5223</div>

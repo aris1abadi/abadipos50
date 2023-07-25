@@ -6,7 +6,7 @@
 	let padCount = 0;
 
 	function padClick(val) {
-		if (padCount < 3) {
+		if (padCount < 7) {
 			padVal = padVal * 10 + val;
 			padCount += 1;
 			dispatch('eventPadClick')
@@ -32,7 +32,7 @@
 	}
 </script>
 
-<div class="grid grid-cols-7 gap-4 text-xl text-center font-mono mt-8 ml-4 mr-4">
+<div class="grid grid-cols-7 gap-4 text-xl text-center font-mono my-2 mx-4 ">
 	<button
 		on:click={() => {
 			padClick(1);

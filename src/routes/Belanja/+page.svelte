@@ -101,13 +101,7 @@
 		//hide padShow
 	});
 
-	function jmlClick(idx = 0) {
-		updateTotal();
-	}
-
-	function hargaClick(idx = 0) {
-		updateTotal();
-	}
+	
 
 	/**
 	 * @param {number} idx
@@ -268,7 +262,8 @@
 		</div>
 		<div class="grid grid-cols-2 w-full h-12 mt-2">
 			<div class="ml-2 text-xs text-left">Belanja ID :<b> {$n_beli.id}</b></div>
-			<div class="ml-2 text-xs text-left">Suplier :<b> {$n_beli.suplier.nama}</b></div>
+			<div class="ml-2 text-xs text-left">Suplier :<b>
+				 {$n_beli.suplier.nama}</b></div>
 			<div class="ml-2 text-xs text-left">
 				Waktu:<b>{getTanggal($n_beli.waktuBeli)} {getJam($n_beli.waktuBeli)}</b>
 			</div>

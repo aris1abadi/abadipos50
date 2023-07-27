@@ -6,8 +6,8 @@
 		dataTransaksiJual,
 		transaksiJualCount,
 		dataPelanggan,
-
-		headerContent
+		dataSuplier
+		
 
 	} from '$lib/stores/store.js';
 	import { io } from '$lib/realtime';
@@ -42,6 +42,7 @@
 		sendToServer('getTransaksiJual');		
 		sendToServer('getTransaksiJualCount');
 		sendToServer('getPelanggan');
+		sendToServer('getSuplier');
 
 		io.on('myMenu', (msg) => {
 			//$dataMenuStore = msg;
@@ -78,6 +79,11 @@
 			$dataPelanggan = msg;
 		});
 
+		io.on('mySuplier', (msg) => {
+			$dataSuplier = msg;
+		});
+
+
 		io.on('myCloseTransaksiNow', (msg) => {
 			closeTransaksiNow = msg;
 			//console.log(msg)
@@ -99,11 +105,6 @@
 		});
 	});
 
-	function mulaiJualanClick(){
-		$headerContent.show = true
-		goto("/Kasir")
-
-	}
 	
 </script>
 

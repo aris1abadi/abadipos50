@@ -65,7 +65,7 @@
 			<DropdownItem href="/Kasir" on:click={()=>{onRequest();homeOpen = false}}>Penjualan</DropdownItem>
 			<DropdownItem href="/Belanja" on:click={()=>{onRequest();homeOpen = false}} >Belanja</DropdownItem>
 			<DropdownItem href="/Dashboard" on:click={()=>{onRequest();homeOpen = false}}>Laporan</DropdownItem>
-			<DropdownItem href="/Setup" on:click={()=>{onRequest();homeOpen = false}}>Setting</DropdownItem>
+			<DropdownItem href="/" on:click={()=>{onRequest();homeOpen = false}}>Setting</DropdownItem>
 		</Dropdown>
 		
 		

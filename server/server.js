@@ -4,7 +4,7 @@ import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 
-import { handler } from '../../../build/handler.js';
+import { handler } from '../build/handler.js';
 import { MongoClient } from 'mongodb';
 import qrcode from 'qrcode';
 
@@ -90,6 +90,8 @@ ioServer.on('connection', (socket) => {
 			loadPelanggan();
 		} else if (msg === 'getCloseTransaksiNow') {
 			loadCloseTransaksiNow();
+		}else if(msg === 'getTransaksiBeliNow'){
+			loadTransaksiBeliNow()
 		}
 	});
 
@@ -339,7 +341,7 @@ async function loadCloseTransaksiNow() {
 			})
 			// @ts-ignore
 			ioServer.emit('myCloseTransaksiNow', dataHariIni);
-			console.log(dataNow)
+			//console.log(dataNow)
 		}
 		//
 	} catch (err) {
@@ -631,6 +633,7 @@ async function closeTransaksiJual(data) {
 				$set: {
 					pelanggan: data.pelanggan,
 					jenisOrder: data.jenisOrder,
+					waktuKirim: data.waktuKirim,
 					status: 'close',
 					totalTagihan: data.totalTagihan,
 					totalBayar: data.totalBayar,
@@ -638,8 +641,8 @@ async function closeTransaksiJual(data) {
 				}
 			}
 		);
-		console.log('close transaksi');
-		loadTransaksiJual();
+		console.log('close transaksi ID: ',data.id); 
+		loadTransaksiJualOpen();
 		////
 	} catch (err) {
 		console.log(err);
@@ -731,6 +734,41 @@ async function simpanBahan(newData) {
 				dataBahan = dta
 				ioServer.emit('myBahan', dta);
 			}
+		//
+	} catch (err) {
+		console.log(err);
+	}
+}
+
+async function loadTransaksiBeliNow(){
+	try {
+		// @ts-ignore
+		const client = await clientPromise;
+		const db = client.db('abadipos');
+		
+		const hariIni = getTanggal(Date.now())
+		const timeNow = getTimeNow()
+		//console.log("tanggal sekarang" + tanggal)
+		const dataNow = await db
+			.collection('transaksiBeli')
+			.find({ waktuBeli:{$gt:timeNow}})
+			.toArray();
+		if (dataNow) {
+			//sortir close order
+			//let hariIni = getTanggal(Date.now())
+			// @ts-ignore
+			let dataHariIni = []
+			// @ts-ignore
+			dataNow.forEach((dt) => {
+				let wto = getTanggal(dt.waktuBeli)
+				if (hariIni === wto) {
+					dataHariIni.push(dt)
+				}
+			})
+			// @ts-ignore
+			ioServer.emit('myTransaksiBeliNow', dataHariIni);
+			//console.log(dataNow)
+		}
 		//
 	} catch (err) {
 		console.log(err);

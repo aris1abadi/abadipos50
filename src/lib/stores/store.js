@@ -48,6 +48,7 @@ export const totalTagihanBelanja = writable(0)
 export const transaksiJualCount = writable(0);
 export const transaksiBeliCount = writable(0);
 export const showPembayaran = writable(false);
+export const displayMode = writable("Kasir")
 export const n_order = writable({
 	id: ' ',
 	pelanggan: {},

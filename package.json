@@ -47,8 +47,6 @@
 		"socket.io": "^4.7.1",
 		"socket.io-client": "^4.7.1",
 		"svelte-fullscreen": "^2.0.0",
-		"svelty-picker": "^3.6.0",
-		"svelty-picker-raz": "^3.4.4",
 		"tailwind-merge": "^1.13.2",
 		"whatsapp-web.js": "^1.18.4"
 	}

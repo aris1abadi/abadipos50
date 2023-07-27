@@ -5,24 +5,14 @@
 	import { io } from '$lib/realtime';
 
 	import {
-		BottomNav,
-		BottomNavItem,
-		Skeleton,
-		Tooltip,
-		ImagePlaceholder,
-		Dropdown,
-		Checkbox,
-		Search,
-		BottomNavHeader,
-		Avatar,
-		Card,
-		Button,
-		MegaMenu,
-		ButtonGroup,
-		Select,
+		BottomNav,	
+		Dropdown,		
 		DropdownItem,
-		Chevron
+		Chevron,
+		BottomNavItem
 	} from 'flowbite-svelte';
+
+	import {displayMode} from "$lib/stores/store"
 
 	import Fullscreen from "svelte-fullscreen";
 	import { goto } from '$app/navigation';
@@ -32,9 +22,6 @@
 	let qrcode_src = '';
 	let qrShow = false;
 
-	let menuOpen = false;
-	let pelangganOpen = false;
-	let orderOpen = false;
 	let homeOpen = false;
 
 	onMount(() => {
@@ -74,11 +61,11 @@
 
 <!--on:click={()=>{onRequest();homeOpen = false}}-->
 		<Dropdown {placement} bind:open={homeOpen}  class="w-32 bg-slate-100 text-xl" triggeredBy="#btnHome">
-			<DropdownItem href="/" >Home</DropdownItem>
-			<DropdownItem href="/Kasir">Penjualan</DropdownItem>
-			<DropdownItem href="/Belanja" >Belanja</DropdownItem>
-			<DropdownItem>Laporan</DropdownItem>
-			<DropdownItem>Setting</DropdownItem>
+			<DropdownItem href="/" on:click={()=>{onRequest();homeOpen = false}}>Home</DropdownItem>
+			<DropdownItem href="/Kasir" on:click={()=>{onRequest();homeOpen = false}}>Penjualan</DropdownItem>
+			<DropdownItem href="/Belanja" on:click={()=>{onRequest();homeOpen = false}} >Belanja</DropdownItem>
+			<DropdownItem href="/Dashboard" on:click={()=>{onRequest();homeOpen = false}}>Laporan</DropdownItem>
+			<DropdownItem href="/Setup" on:click={()=>{onRequest();homeOpen = false}}>Setting</DropdownItem>
 		</Dropdown>
 		
 		
@@ -91,35 +78,19 @@
 				homeOpen = true;
 			}}>
 				
-					<svg
-						class="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-primary-600 dark:group-hover:text-primary-500"
-						fill="currentColor"
-						viewBox="0 0 20 20"
-						xmlns="http://www.w3.org/2000/svg"
-						aria-hidden="true"
-					>
-						<path
-							d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
-						/>
-					</svg>
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+				  </svg>
+				  
 				
 				<div class="text-xs">Menu</div>
 			</BottomNavItem>
 			<BottomNavItem btnName="Wallet" appBtnPosition="middle" on:click={() =>btnAntrianClick()}>
-				<svg
-					class="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-primary-600 dark:group-hover:text-primary-500"
-					fill="currentColor"
-					viewBox="0 0 20 20"
-					xmlns="http://www.w3.org/2000/svg"
-					aria-hidden="true"
-				>
-					<path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
-					<path
-						clip-rule="evenodd"
-						fill-rule="evenodd"
-						d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
-					/>
-				</svg>
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+				  </svg>
+				  
+				<div class="text-xs">Antrian</div>
 				
 			</BottomNavItem>
 			<button id="btnMenu" class="flex items-center justify-center">
@@ -156,7 +127,8 @@
 						<path
 							d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z"
 						/>
-					</svg>			
+					</svg>
+					<div class="text-xs">Order</div>			
 				
 			</BottomNavItem>
 			<BottomNavItem btnName="Profile" appBtnPosition="right" id="btnPelanggan">
@@ -173,8 +145,12 @@
 							fill-rule="evenodd"
 							d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z"
 						/>
-					</svg>		
-				
+					</svg>	
+					{#if $displayMode === "Kasir"}	
+					<div class="text-xs">Pelanggan</div>
+					{:else if $displayMode === "Belanja"}
+					<div class="text-xs">Suplier</div>
+					{/if}
 			</BottomNavItem>
 		</BottomNav>
 	</div>

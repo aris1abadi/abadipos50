@@ -11,20 +11,19 @@
 		newOrder,
 		dataPelanggan,
 		headerContent,
-		dataSuplier
+		displayMode
 	} from '$lib/stores/store.js';
 	import { goto } from '$app/navigation';
 
 	import { tick } from 'svelte';
 	import { io } from '$lib/realtime';
-	//import { goto } from '$app/navigation';
-	import Pad from '$lib/Pad.svelte';
+
+	//import SveltyPicker from 'svelty-picker';
+	//import { id } from 'svelty-picker/i18n';
 
 	import { bikinIdTransaksi, rupiah, getJam, getTanggal } from '$lib/myFunction';
+
 	// @ts-ignore
-	import Pembayaran from '$lib/Pembayaran.svelte';
-	import { Modal } from 'flowbite-svelte';
-	import Header from '$lib/Header.svelte';
 
 	import { Dropdown, Avatar, Card, DropdownItem, Chevron, Input } from 'flowbite-svelte';
 
@@ -38,33 +37,25 @@
 	/**
 	 * @type {any[]}
 	 */
-	let padShow = [];
-	let modalOpen = false;
-	let jmlMeja = 10;
+
 	let mejaCount = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-	let varPembayaran = {
-		btnShow: true,
-		modeBayar: 'Kasir',
-		pelanggan: $dataPelanggan,
-		suplier: $dataSuplier,
-		data: $n_order
-	};
+
 	let menuItem = [];
 	let mode1 = false;
 	let menuOpen = false;
 	let pelangganOpen = false;
 	let orderOpen = false;
-	let homeOpen = false;
+	let waktuOpen = false;
 
 	//let waktuOrder = String(new Date());
 
-	//let waktuOrder = $n_order.waktuOrder;
+	let waktuOrder = $n_order.waktuOrder;
 	//let padPesenanShow = false;
 	//----------------------------------
 	onMount(() => {
 		//initTE({ Datepicker, Input });
 		menuItem = [];
-		$headerContent.mode = 'Kasir';
+		$displayMode = 'Kasir';
 		$headerContent.show = true;
 
 		kirimKeServer('getMenu');
@@ -266,7 +257,11 @@
 
 	function orderListClick(order) {
 		$n_order.jenisOrder = order;
-		if (order !== 'DiWarung') {
+		if (order === 'DiWarung') {
+			orderOpen = true;
+		} else if (order === 'Pesan') {
+			orderOpen = true;
+		} else {
 			orderOpen = false;
 		}
 	}
@@ -282,7 +277,7 @@
 	const orderList = ['Bungkus', 'DiWarung', 'Pesan', 'Online', 'Gojeg'];
 	let totalBayar = 0;
 
-	function btnSimpanPenjualan() {
+	function simpanTransaksi() {
 		let simpanItem = [];
 		menuItem.forEach((menu) => {
 			let dt = {
@@ -291,7 +286,7 @@
 				harga: menu.harga,
 				jml: menu.jml
 			};
-			simpanItem.push(dt)
+			simpanItem.push(dt);
 		});
 
 		let itemNow = {
@@ -305,28 +300,50 @@
 		} else {
 			io.emit('updateTransaksiJual', $n_order);
 		}
-		hapusSemua();
+	}
 
-		hapusOrder();
+	function btnSimpanPenjualan() {
+		simpanTransaksi();
+		hapusSemua();
 	}
 
 	function hapusSemua() {
 		menuItem = [];
-		$n_order.totalTagihan = 0; 
+		$n_order.totalTagihan = 0;
 		$n_order.totalItem = 0;
-		hapusOrder()
+		hapusOrder();
 	}
 	let bayarOpen = false;
 
 	function bayarClick() {
-		if (totalBayar >= $n_order.totalTagihan) {
+		if (totalBayar + $n_order.totalBayar >= $n_order.totalTagihan) {
 			$n_order.totalBayar = $n_order.totalTagihan;
 		} else {
-			$n_order.totalBayar = totalBayar;
+			$n_order.totalBayar += totalBayar;
 		}
 		bayarOpen = false;
 		//simpan pembayaran
-		btnSimpanPenjualan()
+		btnSimpanPenjualan();
+	}
+
+	let timeSelect = Date.now();
+
+	function waktuKirimChange() {
+		//console.log("waktu kirim: ",getTanggal(timeSelect))
+		$n_order.waktuKirim = timeSelect;
+		orderOpen = false;
+		waktuOpen = false;
+	}
+
+	function ambilClick() {
+		if (totalBayar + $n_order.totalBayar >= $n_order.totalTagihan) {
+			$n_order.totalBayar = $n_order.totalTagihan;
+			bayarOpen = false;
+			simpanTransaksi();
+			io.emit('closeTransaksiJual', $n_order);
+			//sendToServer('getTransaksiJualOpen');
+			hapusSemua();
+		}
 	}
 </script>
 
@@ -336,7 +353,7 @@
 	<button />
 
 	<div>
-		<div class="w-full h-20 p-4 mb-8">
+		<div class="w-full h-20 py-4 px-2 mb-8">
 			<div class=" border-2 rounded-lg border-orange-500">
 				<div
 					class="w-full h-8 border-b-2 border-orange-500 bg-orange-500 text-white text-xl font-bold text-center"
@@ -362,10 +379,10 @@
 			</div>
 		</div>
 
-		{#if menuItem}
+		{#if menuItem.length > 0}
 			<div class="max-h-88 w-full p-4 overflow-y-auto">
 				{#each menuItem as item, index}
-					<div class="grid grid-cols-8 px-4 h-12 border-b-2">
+					<div class="grid grid-cols-8 pl-4 h-12 border-b-2">
 						<div class="align-middle text-left pt-2">{item.jml}</div>
 						<button
 							on:click={() => {
@@ -387,7 +404,7 @@
 							on:click={() => {
 								hapusItemOrder(index);
 							}}
-							class="w-full h-full flex justify-center"
+							class="w-full h-full flex justify-center pt-2"
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -410,124 +427,146 @@
 							>
 						</button>
 
-						<div class="col-span-2 text-right">
+						<div class="col-span-2 text-right pt-2">
 							{rupiah(item.jml * item.harga)}
 						</div>
 					</div>
 				{/each}
-				
 			</div>
 			{#if $n_order.totalTagihan !== 0}
-					<div class="grid grid-cols-8 px-4 h-8 mt-2">
-						<div class="col-span-4" />
-						<div class="col-span-2 font-semibold border-b-2">Total</div>
-						<div class="col-span-2 font-bold border-b-2 text-right">
-							{rupiah($n_order.totalTagihan)}
-						</div>
+				<div class="grid grid-cols-8 px-4 h-8 mt-2">
+					<div class="col-span-4" />
+					<div class="col-span-2 font-semibold border-b-2">Total(-DP)</div>
+					<div class="col-span-2 font-bold border-b-2 text-right">
+						{rupiah($n_order.totalTagihan - $n_order.totalBayar)}
 					</div>
+				</div>
 
-					<div class="grid grid-cols-8 px-4 h-8">
-						<button on:click={() => hapusSemua()}
-							><svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="#000000"
-								stroke-width="1"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								><polyline points="3 6 5 6 21 6" /><path
-									d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-								/><line x1="10" y1="11" x2="10" y2="17" /><line
-									x1="14"
-									y1="11"
-									x2="14"
-									y2="17"
-								/></svg
-							>
-							<div class="text-xs font-mono">Batal</div>
-						</button>
-						<div class="col-span-3 px-4">
-							{#if bayarOpen === false}
+				<div class="grid grid-cols-8 px-4 h-8">
+					<button on:click={() => hapusSemua() } 
+						>
+						<div class="flex justify-center">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="#000000"
+							stroke-width="1"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							><polyline points="3 6 5 6 21 6" /><path
+								d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+							/><line x1="10" y1="11" x2="10" y2="17" /><line
+								x1="14"
+								y1="11"
+								x2="14"
+								y2="17"
+							/></svg
+						>
+					</div>
+						<div class="text-xs font-mono">Batal</div>
+					</button>
+					<div class="col-span-3 px-4">
+						{#if bayarOpen === false}
 							<button
 								on:click={() => btnSimpanPenjualan()}
 								class="w-full h-full border rounded-lg text-center text-white font-bold bg-orange-500"
 								>Simpan</button
 							>
-							{/if}
-						</div>
-						<div class="col-span-2 font-semibold border-b-2">Bayar</div>
-						<button class="col-span-2 border-b-2 w-full text-right">{rupiah(totalBayar)}</button>
-						<Dropdown bind:open={bayarOpen}>
-							<div class="grid grid-cols-5 gap-2 border-gray-800 bg-gray-100 p-2">
-								<DropdownItem class="col-span-5 w-full border-b border-black justify-end">
-									<div class="grid grid-cols-5">
-										<div class="col-span-3 text-right">Kembalian:</div>
-										<div class="col-span-2 text-right font-bold">
-											{rupiah(totalBayar - $n_order.totalTagihan)}
-										</div>
-									</div>
-								</DropdownItem>
-
-								<DropdownItem
-									on:click={() => {
-										totalBayar += 2000;
-									}}
-									class="border border-gray-400 rounded-lg">2.000</DropdownItem
-								>
-								<DropdownItem
-									on:click={() => {
-										totalBayar += 5000;
-									}}
-									class="border border-gray-400 rounded">5.000</DropdownItem
-								>
-								<DropdownItem
-									on:click={() => {
-										totalBayar += 10000;
-									}}
-									class="border border-gray-400 rounded">10rb</DropdownItem
-								>
-								<DropdownItem
-									on:click={() => {
-										totalBayar += $n_order.totalTagihan;
-									}}
-									class="border border-gray-400 rounded">Pas</DropdownItem
-								>
-								<DropdownItem
-									on:click={() => {
-										totalBayar = 0;
-									}}
-									class="border border-gray-400 rounded">Hapus</DropdownItem
-								>
-								<DropdownItem
-									on:click={() => {
-										totalBayar += 20000;
-									}}
-									class="border border-gray-400 rounded">20rb</DropdownItem
-								>
-								<DropdownItem
-									on:click={() => {
-										totalBayar += 50000;
-									}}
-									class="border border-gray-400 rounded">50rb</DropdownItem
-								>
-								<DropdownItem
-									on:click={() => {
-										totalBayar += 100000;
-									}}
-									class="border border-gray-400 rounded">100rb</DropdownItem
-								>
-								<DropdownItem
-									on:click={() => bayarClick()}
-									class="col-span-2 w-full border bg-orange-500 text-white rounded text-center"
-									>Simpan</DropdownItem
-								>
-							</div>
-						</Dropdown>
+						{/if}
 					</div>
-				{/if}
+					<div class="col-span-2 font-semibold border-b-2">Bayar</div>
+					<button class="col-span-2 border-b-2 w-full text-right">{rupiah(totalBayar)}</button>
+					<Dropdown bind:open={bayarOpen}>
+						<div class="grid grid-cols-5 gap-2 border-gray-800 bg-gray-100 p-2">
+							<DropdownItem class="col-span-5 w-full h-16 border-b border-black justify-end">
+								<div class="grid grid-cols-6 w-full h-full">
+									<div class="col-span-2 w-full h-full">
+										{#if totalBayar >= $n_order.totalTagihan - $n_order.totalBayar}
+											<button
+												on:click={() => ambilClick()}
+												class="w-full h-full rounded bg-orange-500 text-white">Ambil</button
+											>
+										{/if}
+									</div>
+									<div class="col-span-2 text-right">Kembalian:</div>
+									<div class="col-span-2 text-right font-bold">
+										{rupiah(totalBayar - ($n_order.totalTagihan - $n_order.totalBayar))}
+									</div>
+								</div>
+							</DropdownItem>
+
+							<DropdownItem
+								on:click={() => {
+									totalBayar += 2000;
+								}}
+								class="border border-gray-400 rounded-lg">2.000</DropdownItem
+							>
+							<DropdownItem
+								on:click={() => {
+									totalBayar += 5000;
+								}}
+								class="border border-gray-400 rounded">5.000</DropdownItem
+							>
+							<DropdownItem
+								on:click={() => {
+									totalBayar += 10000;
+								}}
+								class="border border-gray-400 rounded">10rb</DropdownItem
+							>
+							<DropdownItem
+								on:click={() => {
+									totalBayar += $n_order.totalTagihan - $n_order.totalBayar;
+								}}
+								class="border border-gray-400 rounded">Pas</DropdownItem
+							>
+							<DropdownItem
+								on:click={() => {
+									totalBayar = 0;
+								}}
+								class="border border-gray-400 rounded">Hapus</DropdownItem
+							>
+							<DropdownItem
+								on:click={() => {
+									totalBayar += 20000;
+								}}
+								class="border border-gray-400 rounded">20rb</DropdownItem
+							>
+							<DropdownItem
+								on:click={() => {
+									totalBayar += 50000;
+								}}
+								class="border border-gray-400 rounded">50rb</DropdownItem
+							>
+							<DropdownItem
+								on:click={() => {
+									totalBayar += 100000;
+								}}
+								class="border border-gray-400 rounded">100rb</DropdownItem
+							>
+							<DropdownItem
+								on:click={() => bayarClick()}
+								class="col-span-2 w-full border bg-orange-500 text-white rounded text-center"
+								>Simpan</DropdownItem
+							>
+						</div>
+					</Dropdown>
+				</div>
+			{/if}
+		{:else}
+				
+			<div class="animate-bounce w-full h-20 grid grid-cols-11 absolute inset-x-0 bottom-24" >
+				<div class="col-span-5"></div>
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-full h-full">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5" />
+				  </svg>
+				  
+				  
+				<div class="col-span-5"></div>
+			</div>
+			
 		{/if}
 	</div>
 
@@ -548,11 +587,8 @@
 
 	<Dropdown {placement} bind:open={orderOpen} triggeredBy="#btnOrder" class="w-32 bg-slate-100">
 		{#each orderList as order}
-			<DropdownItem
-				on:click={() => orderListClick(order)}
-				class="flex items-center justify-between"
-			>
-				{#if order === 'DiWarung'}
+			<DropdownItem on:click={() => orderListClick(order)} class="flex items-center justify-left">
+				{#if order === 'DiWarung' || order === 'Pesan'}
 					<Chevron placement="left">{order}</Chevron>
 				{:else}
 					{order}
@@ -571,6 +607,21 @@
 						</DropdownItem>
 					{/each}
 				</Dropdown>
+			{:else if order === 'Pesan'}
+				<Dropdown placement="left-end" bind:open={waktuOpen} class="bg-gray-100">
+					<DropdownItem>
+						<div>Waktu Kirim/Ambil</div>
+						<input
+							type="datetime-local"
+							id="waktuKirim"
+							name="waktuKirim"
+							bind:value={timeSelect}
+							min={Date.now()}
+							max="2025-06-14T00:00"
+							on:change={() => waktuKirimChange()}
+						/>
+					</DropdownItem>
+				</Dropdown>
 			{/if}
 		{/each}
 	</Dropdown>
@@ -579,10 +630,12 @@
 		{placement}
 		bind:open={menuOpen}
 		triggeredBy="#btnMenu"
-		class="w-72 h-3/4 grid grid-cols-2 gap-2 p-4 overflow-y-auto bg-slate-100"
+		class="w-full h-96 grid grid-cols-4 gap-2 p-4 overflow-y-auto bg-slate-100"
 	>
 		{#if $dataMenuStore}
+
 			{#each $dataMenuStore as menu, index}
+				<!--
 				<Card class="h-24 w-full ">
 					<button on:click={() => pilihMenuClick(menu)} class="flex flex-col items-center">
 						<Avatar size="sm" src="lb1.jpeg" rounded />
@@ -590,6 +643,14 @@
 						<span class="mb-2 text-xs text-gray-500 dark:text-gray-400">{rupiah(menu.harga)}</span>
 					</button>
 				</Card>
+			-->
+			<DropdownItem class="px-0">
+			<Card padding="none" img="lb1.jpeg" on:click={() => pilihMenuClick(menu)}>
+				<div class="text-xs text-center font-medium text-gray-900 dark:text-white">{menu.nama}</div>
+				<div class="text-center text-xs text-gray-500 dark:text-gray-400">{rupiah(menu.harga)}</div>
+					
+			</Card>
+		</DropdownItem>
 			{/each}
 		{/if}
 	</Dropdown>

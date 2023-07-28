@@ -635,15 +635,7 @@
 		{#if $dataMenuStore}
 
 			{#each $dataMenuStore as menu, index}
-				<!--
-				<Card class="h-24 w-full ">
-					<button on:click={() => pilihMenuClick(menu)} class="flex flex-col items-center">
-						<Avatar size="sm" src="lb1.jpeg" rounded />
-						<div class="text-xs font-medium text-gray-900 dark:text-white">{menu.nama}</div>
-						<span class="mb-2 text-xs text-gray-500 dark:text-gray-400">{rupiah(menu.harga)}</span>
-					</button>
-				</Card>
-			-->
+			
 			<DropdownItem class="px-0">
 			<Card padding="none" img="lb1.jpeg" on:click={() => pilihMenuClick(menu)}>
 				<div class="text-xs text-center font-medium text-gray-900 dark:text-white">{menu.nama}</div>

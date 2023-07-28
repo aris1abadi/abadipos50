@@ -6,5 +6,4 @@ import ioClient from 'socket.io-client';
 const endpoint = 'http://abadinet.my.id:3000/';
 
 const socket = ioClient(endpoint);
-
 export const io = socket;

@@ -1,0 +1,626 @@
+[{
+  "_id": {
+    "$oid": "64a531a5c83c011fbef87643"
+  },
+  "idTransaksi": "B20230705001",
+  "suplier": {
+    "_id": "64884745e0d035036bd5b954",
+    "id": "S01",
+    "nama": "Sudirwan",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": null,
+  "totalTagihan": 105000,
+  "status": "open",
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64a53dd8c9f6a98c023c4da5"
+  },
+  "idTransaksi": "B20230705002",
+  "suplier": {
+    "_id": "64884745e0d035036bd5b954",
+    "id": "S01",
+    "nama": "Sudirwan",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1688550834643"
+  },
+  "totalTagihan": 105000,
+  "status": "open",
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64a55b6289a20317b1c31606"
+  },
+  "idTransaksi": "B20230705003",
+  "suplier": {
+    "_id": "64884745e0d035036bd5b954",
+    "id": "S01",
+    "nama": "Sudirwan",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1688550834643"
+  },
+  "totalTagihan": 105000,
+  "status": "open",
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64a55c84b39ff815f69efd80"
+  },
+  "idTransaksi": "B20230705004",
+  "suplier": {
+    "_id": "64884745e0d035036bd5b954",
+    "id": "S01",
+    "nama": "Sudirwan",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1688558446506"
+  },
+  "totalTagihan": 260000,
+  "status": "open",
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64a55d91c2e6780c89b4ed05"
+  },
+  "idTransaksi": "B20230705005",
+  "suplier": {
+    "_id": "64884745e0d035036bd5b954",
+    "id": "S01",
+    "nama": "Sudirwan",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1688558760347"
+  },
+  "totalTagihan": 130000,
+  "status": "open",
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64a69eaedf8888bcf7fa2b1e"
+  },
+  "idTransaksi": "B20230706001",
+  "suplier": {
+    "_id": "64884745e0d035036bd5b954",
+    "id": "S01",
+    "nama": "Sudirwan",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1688640998897"
+  },
+  "totalTagihan": 362500,
+  "status": "open",
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64a6c07334e77477961d317a"
+  },
+  "idTransaksi": "B20230706002",
+  "suplier": {
+    "_id": "64884745e0d035036bd5b954",
+    "id": "S01",
+    "nama": "Sudirwan",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1688649786293"
+  },
+  "totalTagihan": 365000,
+  "status": "open",
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64acf97b56ffc1a9c45c9bf0"
+  },
+  "idTransaksi": "B20230711001",
+  "suplier": null,
+  "waktu": {
+    "$numberLong": "1689057190874"
+  },
+  "totalTagihan": 0,
+  "status": "open",
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64acfa1856ffc1a9c45c9bf2"
+  },
+  "idTransaksi": "B20230711002",
+  "suplier": null,
+  "waktu": {
+    "$numberLong": "1689057190874"
+  },
+  "totalTagihan": 0,
+  "status": "open",
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64acfa2f56ffc1a9c45c9bf4"
+  },
+  "idTransaksi": "B20230711003",
+  "suplier": null,
+  "waktu": {
+    "$numberLong": "1689057827285"
+  },
+  "totalTagihan": 0,
+  "status": "open",
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64acfb8756ffc1a9c45c9bf6"
+  },
+  "idTransaksi": "B20230711004",
+  "suplier": null,
+  "waktu": {
+    "$numberLong": "1689057827285"
+  },
+  "totalTagihan": 0,
+  "status": "open",
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64acfc3656ffc1a9c45c9bf8"
+  },
+  "idTransaksi": "B20230711005",
+  "suplier": null,
+  "waktu": {
+    "$numberLong": "1689058343399"
+  },
+  "totalTagihan": 0,
+  "status": "open",
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64acfd8c56ffc1a9c45c9bfa"
+  },
+  "idTransaksi": "B20230711002",
+  "suplier": {
+    "_id": "64884745e0d035036bd5b954",
+    "id": "S01",
+    "nama": "Sudirwan",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1689058343399"
+  },
+  "totalTagihan": 0,
+  "status": "open",
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64acfda856ffc1a9c45c9bfc"
+  },
+  "idTransaksi": "B20230711003",
+  "suplier": {},
+  "waktu": {
+    "$numberLong": "1689058724353"
+  },
+  "totalTagihan": 0,
+  "status": "open",
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64acfe2356ffc1a9c45c9bfe"
+  },
+  "idTransaksi": "B20230711002",
+  "suplier": {
+    "_id": "64884745e0d035036bd5b954",
+    "id": "S01",
+    "nama": "Sudirwan",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1689058724353"
+  },
+  "totalTagihan": 0,
+  "status": "open",
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64ad392d56ffc1a9c45c9c00"
+  },
+  "idTransaksi": "B20230711001",
+  "suplier": {
+    "_id": "64aced798abc06c6af059816",
+    "id": "S03",
+    "nama": "Pasar",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1689069180759"
+  },
+  "totalTagihan": 0,
+  "status": "open",
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64ad44fe56ffc1a9c45c9c03"
+  },
+  "idTransaksi": "B20230711002",
+  "suplier": {
+    "_id": "64acedbb8abc06c6af059819",
+    "id": "S06",
+    "nama": "Toko fitri",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1689076857539"
+  },
+  "totalTagihan": 0,
+  "status": "open",
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64ad479256ffc1a9c45c9c06"
+  },
+  "idTransaksi": "B20230711003",
+  "suplier": {
+    "_id": "64acedbb8abc06c6af059819",
+    "id": "S06",
+    "nama": "Toko fitri",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1689069180759"
+  },
+  "totalTagihan": 0,
+  "status": "open",
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64ad480356ffc1a9c45c9c0a"
+  },
+  "idTransaksi": "B20230711004",
+  "suplier": {
+    "_id": "64acedbb8abc06c6af059819",
+    "id": "S06",
+    "nama": "Toko fitri",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1689069180759"
+  },
+  "totalTagihan": 0,
+  "status": "open",
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64af4357c79767caa73750c3"
+  },
+  "idTransaksi": "B20230713001",
+  "suplier": {
+    "_id": "64884745e0d035036bd5b954",
+    "id": "S01",
+    "nama": "Sudirwan",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1689203244742"
+  },
+  "totalTagihan": 0,
+  "status": "open",
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64af5e87c79767caa73750c9"
+  },
+  "idTransaksi": "B20230713002",
+  "suplier": {
+    "_id": "64884745e0d035036bd5b954",
+    "id": "S01",
+    "nama": "Sudirwan",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1689214469579"
+  },
+  "totalTagihan": 0,
+  "status": "open",
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64afcd087f9a734116a1a639"
+  },
+  "idTransaksi": "B20230713003",
+  "suplier": {
+    "_id": "64aceddc8abc06c6af05981a",
+    "id": "S07",
+    "nama": "Warung Mbak tri",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1689236432284"
+  },
+  "totalTagihan": 0,
+  "status": "open",
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64afcd637f9a734116a1a63b"
+  },
+  "idTransaksi": "B20230713004",
+  "suplier": {
+    "_id": "64aced658abc06c6af059815",
+    "id": "S02",
+    "nama": "Jayanti",
+    "alamat": "Ngupit",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1689236429932"
+  },
+  "totalTagihan": 0,
+  "status": "open",
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64bd56481828b0533888cc22"
+  },
+  "idTransaksi": "B20230723001",
+  "suplier": {
+    "_id": "64bc00d764cbac76b035f74a",
+    "id": "S12",
+    "nama": "Umum",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1690129979560"
+  },
+  "totalTagihan": 72000,
+  "status": "open",
+  "user": {},
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64bd57673acfe5a569a211cf"
+  },
+  "idTransaksi": "B20230723002",
+  "suplier": {
+    "_id": "64bc00d764cbac76b035f74a",
+    "id": "S12",
+    "nama": "Umum",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1690130264971"
+  },
+  "totalTagihan": 72000,
+  "status": "open",
+  "user": {},
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64bd58628db323f94036f3a3"
+  },
+  "idTransaksi": "B20230723003",
+  "suplier": {
+    "_id": "64bc00d764cbac76b035f74a",
+    "id": "S12",
+    "nama": "Umum",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1690130518313"
+  },
+  "totalTagihan": 24000,
+  "status": "open",
+  "user": {},
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64bd5b688db323f94036f3a5"
+  },
+  "idTransaksi": "B20230723004",
+  "suplier": {
+    "_id": "64bc00d764cbac76b035f74a",
+    "id": "S12",
+    "nama": "Umum",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1690130518313"
+  },
+  "totalTagihan": 130000,
+  "status": "open",
+  "user": {},
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64bf4302be3c0b25672e694c"
+  },
+  "idTransaksi": "B20230725001",
+  "suplier": {
+    "_id": "64aced658abc06c6af059815",
+    "id": "S02",
+    "nama": "Jayanti",
+    "alamat": "Ngupit",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1690254648805"
+  },
+  "totalTagihan": 622500,
+  "status": "open",
+  "user": {},
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64bf5391be3c0b25672e694e"
+  },
+  "idTransaksi": "B20230725002",
+  "suplier": {
+    "_id": "64bc00d764cbac76b035f74a",
+    "id": "S12",
+    "nama": "Umum",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1690259548622"
+  },
+  "totalTagihan": 36000,
+  "status": "open",
+  "user": {},
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64bf9f00be3c0b25672e6950"
+  },
+  "idTransaksi": "B20230725003",
+  "suplier": {
+    "_id": "64aced658abc06c6af059815",
+    "id": "S02",
+    "nama": "Jayanti",
+    "alamat": "Ngupit",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1690279631859"
+  },
+  "totalTagihan": 250000,
+  "status": "open",
+  "user": {},
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64c088547c94b547987269c2"
+  },
+  "idTransaksi": "B20230726001",
+  "suplier": {
+    "_id": "64bc00d764cbac76b035f74a",
+    "id": "S12",
+    "nama": "Umum",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1690339253729"
+  },
+  "totalTagihan": 420000,
+  "status": "open",
+  "user": {},
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64c08a937c94b547987269c4"
+  },
+  "idTransaksi": "B20230726002",
+  "suplier": {
+    "_id": "64bc00d764cbac76b035f74a",
+    "id": "S12",
+    "nama": "Umum",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1690339651989"
+  },
+  "totalTagihan": 260000,
+  "status": "open",
+  "user": {},
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64c09053a84ae12d648f1b7f"
+  },
+  "idTransaksi": "B20230726003",
+  "suplier": {
+    "_id": "64bc00d764cbac76b035f74a",
+    "id": "S12",
+    "nama": "Umum",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1690340703016"
+  },
+  "totalTagihan": 28000,
+  "status": "open",
+  "user": {},
+  "Pembayaran": []
+}]

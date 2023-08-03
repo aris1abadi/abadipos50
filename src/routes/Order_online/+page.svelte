@@ -45,6 +45,7 @@
 						stok: menu.stok,
 						resepId: menu.resepId,
 						orderCount: 0,
+						kategori:menu.kategori,
 						stokUse:0
 					};
 					$dataMenuStore.push(dt);

@@ -11,7 +11,9 @@
 		newOrder,
 		dataPelanggan,
 		headerContent,
-		displayMode
+		displayMode,
+		dataKategoriMenu,
+		newPelangganGlobal
 	} from '$lib/stores/store.js';
 	import { goto } from '$app/navigation';
 
@@ -25,7 +27,16 @@
 
 	// @ts-ignore
 
-	import { Dropdown, Avatar, Card, DropdownItem, Chevron, Input } from 'flowbite-svelte';
+	import {
+		Dropdown,
+		Avatar,
+		Card,
+		DropdownItem,
+		Chevron,
+		Input,
+		Tabs,
+		TabItem
+	} from 'flowbite-svelte';
 
 	let loginProgress, loginSwipeable, introProgress, zoomOut;
 	tick().then(() => (zoomOut = true));
@@ -58,15 +69,14 @@
 		$displayMode = 'Kasir';
 		$headerContent.show = true;
 
-		kirimKeServer('getMenu');
+		//kirimKeServer('getMenu');
 
 		if ($newOrder) {
 			//kirimKeServer('getMenuPesenan');
 			if (!$dataTransaksiJual) {
 				kirimKeServer('getTransaksiJual');
 			}
-			kirimKeServer('getTransaksiJualCount');
-			kirimKeServer('getPelanggan');
+			kirimKeServer('getTransaksiJualCount');			
 			hapusOrder();
 		} else {
 			$n_order.item.itemDetil.forEach((item, index) => {
@@ -86,28 +96,10 @@
 			});
 		}
 
-		io.on('myMenu', (msg) => {
-			if (typeof $dataMenuStore !== 'undefined' && $dataMenuStore.length > 0) {
-				$dataMenuStore.forEach((menu, index) => {
-					$dataMenuStore[index].stok = msg[index].stok;
-				});
-			} else {
-				$dataMenuStore = [];
-				// @ts-ignore
-				msg.forEach((menu) => {
-					let dt = {
-						id: menu.id,
-						nama: menu.nama,
-						harga: menu.harga,
-						stok: menu.stok,
-						stokId: menu.stokId,
-						stokUse: 0
-					};
-					$dataMenuStore.push(dt);
-				});
-				//console.log($dataMenuStore);
-			}
-		});
+		
+		
+
+		
 
 		io.on('paymentStatus', (msg) => {
 			console.log(msg);
@@ -124,10 +116,7 @@
 			//console.log('id transaksi jual: ' + $n_order.id);
 		});
 
-		io.on('myPelanggan', (msg) => {
-			$dataPelanggan = msg;
-			//console.log('pelanggan: ', $dataPelanggan);
-		});
+		
 
 		io.on('myStok', (msg) => {
 			//console.log(msg);
@@ -177,8 +166,8 @@
 				if (item.id === menu.id) {
 					isSama = true;
 					menuItem[index].jml += 1;
-					if (menuItem[idx].stok !== -1) {
-						menuItem[idx].stok -= 1;
+					if (menuItem[index].stok !== -1) {
+						menuItem[index].stok -= 1;
 					}
 				}
 			});
@@ -345,11 +334,15 @@
 			hapusSemua();
 		}
 	}
+
+	function tambahPelangganClick(){
+		$newPelangganGlobal = true
+		goto("/Setup")
+	}
 </script>
 
-{#if mode1}
-	<div>tes mode1</div>
-{:else}
+{#if (($dataMenuStore.length > 0) && ($dataPelanggan.length > 0))}
+
 	<button />
 
 	<div>
@@ -443,29 +436,28 @@
 				</div>
 
 				<div class="grid grid-cols-8 px-4 h-8">
-					<button on:click={() => hapusSemua() } 
-						>
+					<button on:click={() => hapusSemua()}>
 						<div class="flex justify-center">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="24"
-							height="24"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="#000000"
-							stroke-width="1"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							><polyline points="3 6 5 6 21 6" /><path
-								d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-							/><line x1="10" y1="11" x2="10" y2="17" /><line
-								x1="14"
-								y1="11"
-								x2="14"
-								y2="17"
-							/></svg
-						>
-					</div>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="#000000"
+								stroke-width="1"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								><polyline points="3 6 5 6 21 6" /><path
+									d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+								/><line x1="10" y1="11" x2="10" y2="17" /><line
+									x1="14"
+									y1="11"
+									x2="14"
+									y2="17"
+								/></svg
+							>
+						</div>
 						<div class="text-xs font-mono">Batal</div>
 					</button>
 					<div class="col-span-3 px-4">
@@ -556,17 +548,25 @@
 				</div>
 			{/if}
 		{:else}
-				
-			<div class="animate-bounce w-full h-20 grid grid-cols-11 absolute inset-x-0 bottom-24" >
-				<div class="col-span-5"></div>
-				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-full h-full">
-					<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5" />
-				  </svg>
-				  
-				  
-				<div class="col-span-5"></div>
+			<div class="animate-bounce w-full h-20 grid grid-cols-11 absolute inset-x-0 bottom-24">
+				<div class="col-span-5" />
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					class="w-full h-full"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5"
+					/>
+				</svg>
+
+				<div class="col-span-5" />
 			</div>
-			
 		{/if}
 	</div>
 
@@ -583,6 +583,10 @@
 				>
 			{/each}
 		{/if}
+		<div slot="footer" class=" p-2 w-40 h-full mb-10">
+		
+			<button class="w-full h-full border rounded border-orange-500 " on:click={() => tambahPelangganClick()}>Tambah Pelanggan</button>
+		</div>
 	</Dropdown>
 
 	<Dropdown {placement} bind:open={orderOpen} triggeredBy="#btnOrder" class="w-32 bg-slate-100">
@@ -626,24 +630,85 @@
 		{/each}
 	</Dropdown>
 
-	<Dropdown
-		{placement}
-		bind:open={menuOpen}
-		triggeredBy="#btnMenu"
-		class="w-full h-96 grid grid-cols-4 gap-2 p-4 overflow-y-auto bg-slate-100"
-	>
-		{#if $dataMenuStore}
-
-			{#each $dataMenuStore as menu, index}
-			
-			<DropdownItem class="px-0">
-			<Card padding="none" img="lb1.jpeg" on:click={() => pilihMenuClick(menu)}>
-				<div class="text-xs text-center font-medium text-gray-900 dark:text-white">{menu.nama}</div>
-				<div class="text-center text-xs text-gray-500 dark:text-gray-400">{rupiah(menu.harga)}</div>
-					
-			</Card>
-		</DropdownItem>
+	<Dropdown {placement} bind:open={menuOpen} class="h-80 w-full mb-32" triggeredBy="#btnMenu">
+		
+		<Tabs style="underline" >
+			{#each $dataKategoriMenu as kategori}
+			{#if kategori === "Makanan"}
+			<TabItem open title={kategori}>
+				
+				<div class="w-full h-full grid grid-cols-4 gap-4 px-2 mt-0 overflow-y-auto bg-slate-100">
+					{#if $dataMenuStore}
+						{#each $dataMenuStore as menu, index}
+							{#if menu.kategori === kategori}
+								<Card
+									padding="none"
+									class="w-full h-18"
+									img={menu.gambar}
+									on:click={() => pilihMenuClick(menu)}
+								>
+									<div class="text-xs text-center font-medium text-gray-900 dark:text-white">
+										{menu.nama}
+									</div>
+									<div class="text-center text-xs text-gray-500 dark:text-gray-400">
+										{rupiah(menu.harga)}
+									</div>
+								</Card>
+							{/if}
+						{/each}
+					{/if}
+				</div>
+			</TabItem>
+			{:else}
+			<TabItem title={kategori}>
+				
+				<div class="w-full h-full grid grid-cols-4 gap-2 px-2 mt-0 overflow-y-auto bg-slate-100">
+					{#if $dataMenuStore}
+						{#each $dataMenuStore as menu, index}
+							{#if menu.kategori === kategori}
+								<Card
+									padding="none"
+									class="w-full h-18"
+									img={menu.gambar}
+									on:click={() => pilihMenuClick(menu)}
+								>
+									<div class="text-xs text-center font-medium text-gray-900 dark:text-white">
+										{menu.nama}
+									</div>
+									<div class="text-center text-xs text-gray-500 dark:text-gray-400">
+										{rupiah(menu.harga)}
+									</div>
+								</Card>
+							{/if}
+						{/each}
+					{/if}
+				</div>
+			</TabItem>
+			{/if}
 			{/each}
-		{/if}
+			
+
+		</Tabs>
+		<div class="w-full h-20"></div>
+		
+		
 	</Dropdown>
+
+	{:else}
+	<div class="border border-orange-500 shadow rounded-md p-4 max-w-sm w-full mx-auto my-10">
+		<div class="animate-pulse flex space-x-4">
+			<div class="rounded-full bg-slate-200 h-10 w-10" />
+			<div class="flex-1 space-y-6 py-1">
+				<div class="h-2 bg-slate-200 rounded" />
+				<div class="space-y-3">
+					<div class="grid grid-cols-3 gap-4">
+						<div class="h-2 bg-slate-200 rounded col-span-2" />
+						<div class="h-2 bg-slate-200 rounded col-span-1" />
+					</div>
+					<div class="h-2 bg-slate-200 rounded" />
+				</div>
+			</div>
+		</div>
+	</div>
+
 {/if}

@@ -1,27 +1,14 @@
-; import { io } from '$lib/realtime';
+
 import { writable } from 'svelte/store'
 
-export const dataBahanStore = writable()
+export const dataBahanStore = writable([])
 export const dataMenuStore = writable([])
-export const dataSuplier = writable([
-	{
-		id: "S01",
-		nama: "Umum",
-		telp: "08122221111",
-		alamat: "ditoko"
-
-	}
-])
-
-export const dataPelanggan = writable([
-	{
-		id: "P01",
-		nama: "Umum",
-		telp: "0820000000",
-		alamat: "Jl.rumah",
-		map: " "
-	}
-])
+export const dataKategoriMenu = writable([])
+export const dataKategoriBahan = writable([])
+export const dataKategoriUser = writable([])
+export const dataSuplier = writable([])
+export const dataPelanggan = writable([])
+export const dataSatuan = writable([])
 export const headerContent = writable({
 	show: true,
 	mode: "Dashboard",
@@ -47,7 +34,9 @@ export const totalItemBelanja = writable(0)
 export const totalTagihanBelanja = writable(0)
 export const transaksiJualCount = writable(0);
 export const transaksiBeliCount = writable(0);
-export const showPembayaran = writable(false);
+export const newBahanGlobal = writable(false);
+export const newBahanContent = writable()
+export const newPelangganGlobal = writable(false);
 export const displayMode = writable("Kasir")
 export const n_order = writable({
 	id: ' ',
@@ -86,6 +75,7 @@ export const dataTransaksiJual = writable()
 export const idTransaksiJual = writable()
 export const transaksiBeli = writable()
 export const idTransaksiBeli = writable()
+export const firstLoad = writable(true)
 
 /*	
 	[

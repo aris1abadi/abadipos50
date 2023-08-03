@@ -5,9 +5,11 @@
 	import {
 		dataBahanStore,
 		dataSuplier,
-		n_beli,
-		headerContent,
-		displayMode
+		n_beli,		
+		displayMode,
+		newBahanGlobal,
+		dataMenuStore
+
 	} from '$lib/stores/store.js';
 	import { io } from '$lib/realtime';
 
@@ -36,69 +38,41 @@
 
 	let suplierOpen = false;
 
-	let transaksiBeliCountNow = 1;
+	//let transaksiBeliCountNow = 1;
 	let totalBayar = 0;
 
 	const nFormat = new Intl.NumberFormat();
 
 	onMount(() => {
-		sendToServer('getBahan');
-		//sendToServer('getTransaksiBeli');
+		
 		sendToServer('getTransaksiBeliCount');
-		sendToServer('getSuplier');
+		
 
 		hapusSemua();
 		$displayMode = "Belanja"
 
-		//io.on('myTransaksiBeli', (msg) => {
-		//	$transaksiBeli = msg;
-		//});
+		
 
-		io.on('myBahan', (msg) => {
-			//$dataBahanStore = msg;
-			$dataBahanStore = [];
-			let padSts = false;
-			let padMd = false;//false = satuan true = harga
-			//console.log("update bahan");
-			msg.forEach(
-				(
-					/** @type {{ id: any; nama: any; harga: any; satuan: any; isi: any; }} */ bahan,
-					/** @type {any} */ index
-				) => {
-					let bh = {
-						id: bahan.id,
-						nama: bahan.nama,
-						stokId: bahan.stokId,
-						harga: bahan.harga,
-						satuan: bahan.satuan,
-						isi: bahan.isi,
-						belanjaCount: 0
-					};
-
-					$dataBahanStore.push(bh);
-					padShow.push(padSts);
-					padMode.push(padMd)
-				}
-			);
-			newItemNama = $dataBahanStore[0].nama;
-			newItemHarga = $dataBahanStore[0].harga;
-			$headerContent.bahanSrc = $dataBahanStore;
-			//console.log('update bahan: ', $dataBahanStore);
-		});
+		if($dataBahanStore.length > 0){
+			padShow = []
+			padMode = []
+			let padSts = false
+			let padMd = false
+			$dataBahanStore.forEach(bahan =>{
+				padShow.push(padSts);
+				padMode.push(padMd)
+			})
+		}
+		//newItemNama = $dataBahanStore[0].nama;
+		//newItemHarga = $dataBahanStore[0].harga;
+		//$headerContent.bahanSrc = $dataBahanStore;
 
 		io.on('myTransaksiBeliCount', (msg) => {
 			$n_beli.id = bikinIdTransaksi('B', msg);
-			$headerContent.idTransaksi = $n_beli.id;
-			transaksiBeliCountNow = msg;
-			//console.log('count: ' + $transaksiJualCount)
+			
 		});
 
-		io.on('mySuplier', (msg) => {
-			$dataSuplier = msg;
-			$n_beli.suplier = $dataSuplier[11];
-		});
-
-		//hide padShow
+	
 	});
 
 	
@@ -144,6 +118,10 @@
 	}
 
 	function tambahClick() {
+		$newBahanGlobal = true
+		goto("/Setup")
+
+		/*
 		if (newNama.length > 0 && newHarga > 0) {
 			bahanOpen = false;
 			console.log('New Bahan: ', newNama);
@@ -169,6 +147,7 @@
 			bahanItem = [...bahanItem, dataBaru];
 			bahanItem = bahanItem;
 		}
+		*/
 	}
 
 	function suplierClick(suplier) {
@@ -244,15 +223,8 @@
 	}
 </script>
 
-<!--
-<Header
-	on:eventItemClick={belanjaItemClick}
-	on:eventHapusOrder={() => hapusBelanja()}
-	on:eventHeaderSimpan={() => btnSimpanClick()}
-	on:eventNewBahanClick={newBahanClick}
-	bind:headerContent={$headerContent}
-/>
--->
+{#if (($dataMenuStore.length > 0) && ($dataBahanStore.length > 0) && ($dataSuplier.length > 0))}
+
 <div class="w-full h-20 py-4 px-2 mb-8">
 	<div class=" border-2 rounded-lg border-orange-500">
 		<div
@@ -281,25 +253,9 @@
 					{rupiah(bahan.belanjaCount * bahan.harga)}
 				</div>
 				<div />
-				<button on:click={() =>{padShow[index] = true ;padMode[index] = false;padVal=0}} class={(padShow[index] && !padMode[index])?"bg-orange-100 text-sm":"bg-white text-sm"} >{bahan.belanjaCount} {bahan.satuan}</button>
+				<button on:click={() =>{padShow[index] = true ;padMode[index] = false;padVal=0}} class={(padShow[index] && !padMode[index])?"bg-orange-100 text-sm":"bg-white text-sm"} >{bahan.belanjaCount} {bahan.satuanBeli}</button>
 				<button on:click={() =>{padShow[index] = true ;padMode[index] = true;padVal=0}} class={(padShow[index] && padMode[index])?"bg-orange-100 text-sm col-span-2":"col-span-2 bg-white text-sm"}>{rupiah(bahan.harga)}</button>
-<!--
-				<input
-					class=" text-left border-none text-xs text-left mr-2"
-					type="number"
-					bind:value={bahanItem[index].belanjaCount}
-					placeholder={bahan.belanjaCount}
-					on:change={() => jmlClick(index)}
-				/>
-				<input
-					class="col-span-2 border-none text-xs text-right gbp"
-					type="number"
-					value={rupiah(bahan.harga)}
-					required="required"
-					placeholder={rupiah(bahan.harga)}
-					on:change={() => hargaClick(index)}
-				/>
--->
+
 				<div />
 			
 			{#if padShow[index]}
@@ -431,39 +387,11 @@
 		</Dropdown>
 	</div>
 {/if}
+<div id="btnPelanggan" />
+<div id="btnMenu" />
+<div id="btnCount" />
 
-<!--
-	<div class="grid grid-cols-12 w-full h-15 pr-5 my-2 mt-4 border bg-gray-500 text-white">
-		<input
-			class="col-span-7 pl-4 font-mono text-sm bg-gray-500 text-white"
-			bind:value={newItemNama}
-			placeholder={newItemNama}
-			on:click={() => bahanBaru()}
-		/>
 
-		<button class="col-span-1">
-			<Chevron />
-		</button>
-		<Dropdown bind:open={dropdownOpen}>
-			{#each $dataBahanStore as bahan, index}
-				<DropdownItem on:click={() => dropdownClick(index)}>{bahan.nama}</DropdownItem>
-			{/each}
-		</Dropdown>
-		<input
-			class="col-span-2 border-none text-sm bg-gray-500 text-white"
-			type="number"
-			bind:value={newItemHarga}
-			placeholder={String(newItemHarga)}
-			on:click={() => (newItemHarga = 0)}
-		/>
-		<button
-			on:click={() => tambahItem()}
-			class="col-span-2 pt-2 border-none text-sm font-mono font-bold"
-		>
-			Tambah
-		</button>
-	</div>
--->
 
 <Dropdown
 	{placement}
@@ -492,32 +420,13 @@
 				on:click={() => pilihBahanClick(bahan)}
 				class="flex bahanItem-center text-base font-semibold gap-2"
 			>
-				<Avatar src="/bahan1.jpeg" size="xs" rounded />{bahan.nama}
+				<Avatar src={bahan.gambar} size="xs" rounded />{bahan.nama}
 			</DropdownItem>
 		{/each}
 	{/if}
-	<div slot="footer" class="grid grid-cols-6 gap-2 p-2 w-80 h-3/4">
-		<div class="col-span-3">
-		<FloatingLabelInput 
-			style="outlined"
-			bind:value={newNama}
-			name="nama"
-			type="text"
-			label="Nama"
-			size="small"
-		/>
-		</div>
-		<div class="col-span-2">
-		<FloatingLabelInput
-			style="outlined"
-			name="harga"
-			type="number"
-			label="Harga"
-			size="small"
-			bind:value={newHarga}
-		/>
-		</div>
-		<button on:click={() => tambahClick()}><Avatar src="plus-circle.svg"></Avatar></button>
+	<div slot="footer" class=" p-2 w-80 h-full mb-10">
+		
+		<button class="w-full h-full border rounded-lg border-orange-500 " on:click={() => tambahClick()}>Tambah Bahan</button>
 	</div>
 </Dropdown>
 
@@ -587,3 +496,22 @@
 		>
 	</div>
 </Dropdown>
+
+{:else}
+<div class="border border-orange-500 shadow rounded-md p-4 max-w-sm w-full mx-auto my-10">
+	<div class="animate-pulse flex space-x-4">
+		<div class="rounded-full bg-slate-200 h-10 w-10" />
+		<div class="flex-1 space-y-6 py-1">
+			<div class="h-2 bg-slate-200 rounded" />
+			<div class="space-y-3">
+				<div class="grid grid-cols-3 gap-4">
+					<div class="h-2 bg-slate-200 rounded col-span-2" />
+					<div class="h-2 bg-slate-200 rounded col-span-1" />
+				</div>
+				<div class="h-2 bg-slate-200 rounded" />
+			</div>
+		</div>
+	</div>
+</div>
+
+{/if}

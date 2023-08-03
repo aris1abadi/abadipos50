@@ -46,6 +46,7 @@
 		"qrcode-terminal": "^0.12.0",
 		"socket.io": "^4.7.1",
 		"socket.io-client": "^4.7.1",
+		"socketio-file-upload": "^0.7.3",
 		"svelte-fullscreen": "^2.0.0",
 		"tailwind-merge": "^1.13.2",
 		"whatsapp-web.js": "^1.18.4"

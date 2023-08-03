@@ -33,72 +33,32 @@
 	let totalPembelian = 0;
 
 	onMount(() => {
-		sendToServer('getMenu');
-		sendToServer('getBahan');
+		//sendToServer('getMenu');
+		//sendToServer('getBahan');
 
-		sendToServer('getTransaksiJual');
+		//sendToServer('getTransaksiJual');
 		sendToServer('getCloseTransaksiNow');
 		sendToServer('getTransaksiBeliNow');
-		sendToServer('getTransaksiJualCount');
-		sendToServer('getPelanggan');
+		//sendToServer('getTransaksiJualCount');
+		//sendToServer('getPelanggan');
 
-		io.on('myMenu', (msg) => {
-			//$dataMenuStore = msg;
-			$dataMenuStore = [];
-			msg.forEach((menu) => {
-				let dt = {
-					id: menu.id,
-					nama: menu.nama,
-					harga: menu.harga,
-					stok: menu.stok,
-					resepId: menu.resepId,
-					orderCount: 0,
-					stokUse: 0
-				};
-				$dataMenuStore.push(dt);
+		
+			$dataMenuStore.forEach((menu) => {				
 				jmlTransaksi.push(0);
 				hargaTransaksi.push(0);
 			});
-			//console.log('jmlTansaksi ', jmlTransaksi);
-		});
+		
 
-		io.on('myBahan', (msg) => {
-			//$dataBahanStore = msg;
-			$dataBahanStore = [];
-
-			msg.forEach(
-				(
-					/** @type {{ id: any; nama: any; harga: any; satuan: any; isi: any; }} */ bahan,
-					/** @type {any} */ index
-				) => {
-					let bh = {
-						id: bahan.id,
-						nama: bahan.nama,
-						stokId: bahan.stokId,
-						harga: bahan.harga,
-						satuan: bahan.satuan,
-						isi: bahan.isi,
-						belanjaCount: 0
-					};
-
-					$dataBahanStore.push(bh);
+		$dataBahanStore.forEach(menu =>{
+				
 					jmlTransaksiBeli.push(0);
 					hargaTransaksiBeli.push(0);
-				}
-			);
+				
 		});
 
-		io.on('myTransaksiJual', (msg) => {
-			$dataTransaksiJual = msg;
-		});
-
-		io.on('myTransaksiJualCount', (msg) => {
-			$transaksiJualCount = msg;
-		});
-
-		io.on('myPelanggan', (msg) => {
-			$dataPelanggan = msg;
-		});
+			
+		
+	
 
 		io.on('myCloseTransaksiNow', (msg) => {
 			closeTransaksiNow = msg;
@@ -159,7 +119,7 @@
 		</div>
 		<div class="pl-4 font-mono pb-4">
 			<ul>
-				{#if $dataMenuStore.length > 0}
+				{#if jmlTransaksi.length > 0}
 					{#each $dataMenuStore as menu, idx}
 						{#if jmlTransaksi[idx]}
 							<li>
@@ -210,7 +170,7 @@
 		</div>
 		<div class="pl-4 font-mono pb-4">
 			<ul>
-				{#if $dataBahanStore}
+				{#if jmlTransaksiBeli.length > 0}
 					{#each $dataBahanStore as bahan, idx}
 						{#if jmlTransaksiBeli[idx]}
 							<li>

@@ -623,4 +623,88 @@
   "status": "open",
   "user": {},
   "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64c3624dd5e6eaeed762aebb"
+  },
+  "idTransaksi": "B20230728001",
+  "suplier": {
+    "_id": "64bc00d764cbac76b035f74a",
+    "id": "S12",
+    "nama": "Umum",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1690526181934"
+  },
+  "totalTagihan": 280000,
+  "status": "open",
+  "user": {},
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64c648806973430f13653a7f"
+  },
+  "idTransaksi": "B20230730001",
+  "suplier": {
+    "_id": "64bc00d764cbac76b035f74a",
+    "id": "S12",
+    "nama": "Umum",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1690716139229"
+  },
+  "totalTagihan": 168000,
+  "status": "open",
+  "user": {},
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64c9fba9c09c4d31af8ed158"
+  },
+  "idTransaksi": "B20230802001",
+  "suplier": {
+    "_id": "64bc00d764cbac76b035f74a",
+    "id": "S12",
+    "nama": "Umum",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1690940780757"
+  },
+  "totalTagihan": 316000,
+  "status": "open",
+  "user": {},
+  "Pembayaran": []
+},
+{
+  "_id": {
+    "$oid": "64cb4d58fe2dc215b6c9330a"
+  },
+  "idTransaksi": "B20230803001",
+  "suplier": {
+    "_id": "64bc00d764cbac76b035f74a",
+    "id": "S12",
+    "nama": "Umum",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "waktu": {
+    "$numberLong": "1691044979748"
+  },
+  "totalTagihan": 45000,
+  "status": "open",
+  "user": {},
+  "Pembayaran": []
 }]

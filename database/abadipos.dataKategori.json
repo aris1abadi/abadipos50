@@ -1,0 +1,39 @@
+[{
+  "_id": {
+    "$oid": "64c7034f3b1c01f37d1059d5"
+  },
+  "menu": [
+    "Makanan",
+    "Minuman",
+    "Nasi Boks",
+    "Jasa"
+  ],
+  "satuan": [
+    "Kg",
+    "Ons",
+    "Gram",
+    "Porsi",
+    "Ekor",
+    "Pack",
+    "Buah",
+    "Lembar",
+    "Bungkus",
+    "Liter",
+    "Biji"
+  ],
+  "bahan": [
+    "Bahan Baku",
+    "Bahan Sambel",
+    "Bahan Bumbu",
+    "Perlengkapan"
+  ],
+  "user": [
+    "Admin",
+    "Kasir",
+    "Dapur1",
+    "Dapur2",
+    "Dapur3",
+    "CS",
+    "Manager"
+  ]
+}]

@@ -1508,4 +1508,164 @@
       "isi": 1
     }
   ]
+},
+{
+  "_id": {
+    "$oid": "64c3624dd5e6eaeed762aeba"
+  },
+  "id": "B20230728001",
+  "suplier": {
+    "_id": "64bc00d764cbac76b035f74a",
+    "id": "S12",
+    "nama": "Umum",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "user": {},
+  "waktuBeli": {
+    "$numberLong": "1690526181934"
+  },
+  "waktuTerima": {
+    "$numberLong": "1690526181934"
+  },
+  "status": "Pesan",
+  "totalTagihan": 280000,
+  "totalItem": 8,
+  "totalBayar": 0,
+  "item": [
+    {
+      "id": "B-8",
+      "nama": "Bawang",
+      "harga": 35000,
+      "jml": 8,
+      "satuan": "-",
+      "stokId": "-",
+      "isi": 1
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "64c648806973430f13653a7e"
+  },
+  "id": "B20230730001",
+  "suplier": {
+    "_id": "64bc00d764cbac76b035f74a",
+    "id": "S12",
+    "nama": "Umum",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "user": {},
+  "waktuBeli": {
+    "$numberLong": "1690716139229"
+  },
+  "waktuTerima": {
+    "$numberLong": "1690716139229"
+  },
+  "status": "Pesan",
+  "totalTagihan": 168000,
+  "totalItem": 8,
+  "totalBayar": 0,
+  "item": [
+    {
+      "id": "B-2",
+      "nama": "Lele Segarr 5 ",
+      "harga": 21000,
+      "jml": 8,
+      "satuan": "kg",
+      "stokId": "L01",
+      "isi": 5
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "64c9fba9c09c4d31af8ed157"
+  },
+  "id": "B20230802001",
+  "suplier": {
+    "_id": "64bc00d764cbac76b035f74a",
+    "id": "S12",
+    "nama": "Umum",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "user": {},
+  "waktuBeli": {
+    "$numberLong": "1690940780757"
+  },
+  "waktuTerima": {
+    "$numberLong": "1690940780757"
+  },
+  "status": "Pesan",
+  "totalTagihan": 316000,
+  "totalItem": 8,
+  "totalBayar": 0,
+  "item": [
+    {
+      "id": "B-16",
+      "nama": "tes 1",
+      "harga": 50000,
+      "jml": 5,
+      "satuan": "-",
+      "stokId": "-",
+      "isi": 1
+    },
+    {
+      "id": "B-16",
+      "nama": "tes 1",
+      "harga": 50000,
+      "jml": 5,
+      "satuan": "-",
+      "stokId": "-",
+      "isi": 1
+    },
+    {
+      "id": "B-16",
+      "nama": "tes 1",
+      "harga": 50000,
+      "jml": 5,
+      "satuan": "-",
+      "stokId": "-",
+      "isi": 1
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "64cb4d58fe2dc215b6c93309"
+  },
+  "id": "B20230803001",
+  "suplier": {
+    "_id": "64bc00d764cbac76b035f74a",
+    "id": "S12",
+    "nama": "Umum",
+    "alamat": "-",
+    "map": " ",
+    "telp": "0800000000"
+  },
+  "user": {},
+  "waktuBeli": {
+    "$numberLong": "1691044979748"
+  },
+  "waktuTerima": {
+    "$numberLong": "1691044979748"
+  },
+  "status": "Pesan",
+  "totalTagihan": 45000,
+  "totalItem": 1,
+  "totalBayar": 0,
+  "item": [
+    {
+      "id": "B20",
+      "nama": "tes bahan 4",
+      "harga": 45000,
+      "jml": 1,
+      "stokId": "-"
+    }
+  ]
 }]

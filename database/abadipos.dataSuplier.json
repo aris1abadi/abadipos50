@@ -1,0 +1,120 @@
+[{
+  "_id": {
+    "$oid": "64884745e0d035036bd5b954"
+  },
+  "id": "S01",
+  "nama": "Sudirwan",
+  "alamat": "-",
+  "map": " ",
+  "telp": "0800000000"
+},
+{
+  "_id": {
+    "$oid": "64aced658abc06c6af059815"
+  },
+  "id": "S02",
+  "nama": "Jayanti",
+  "alamat": "Ngupit",
+  "map": " ",
+  "telp": "0800000000"
+},
+{
+  "_id": {
+    "$oid": "64aced798abc06c6af059816"
+  },
+  "id": "S03",
+  "nama": "Pasar",
+  "alamat": "-",
+  "map": " ",
+  "telp": "0800000000"
+},
+{
+  "_id": {
+    "$oid": "64aced8d8abc06c6af059817"
+  },
+  "id": "S04",
+  "nama": "Toko unik",
+  "alamat": "-",
+  "map": " ",
+  "telp": "0800000000"
+},
+{
+  "_id": {
+    "$oid": "64aceda38abc06c6af059818"
+  },
+  "id": "S05",
+  "nama": "Toko nurul",
+  "alamat": "-",
+  "map": " ",
+  "telp": "0800000000"
+},
+{
+  "_id": {
+    "$oid": "64acedbb8abc06c6af059819"
+  },
+  "id": "S06",
+  "nama": "Toko fitri",
+  "alamat": "-",
+  "map": " ",
+  "telp": "0800000000"
+},
+{
+  "_id": {
+    "$oid": "64aceddc8abc06c6af05981a"
+  },
+  "id": "S07",
+  "nama": "Warung Mbak tri",
+  "alamat": "-",
+  "map": " ",
+  "telp": "0800000000"
+},
+{
+  "_id": {
+    "$oid": "64acedf18abc06c6af05981b"
+  },
+  "id": "S08",
+  "nama": "Warung Carik",
+  "alamat": "-",
+  "map": " ",
+  "telp": "0800000000"
+},
+{
+  "_id": {
+    "$oid": "64acee068abc06c6af05981c"
+  },
+  "id": "S09",
+  "nama": "Warung Wawan",
+  "alamat": "-",
+  "map": " ",
+  "telp": "0800000000"
+},
+{
+  "_id": {
+    "$oid": "64acee4b8abc06c6af05981d"
+  },
+  "id": "S10",
+  "nama": "Toko Bambang",
+  "alamat": "-",
+  "map": " ",
+  "telp": "0800000000"
+},
+{
+  "_id": {
+    "$oid": "64acee608abc06c6af05981e"
+  },
+  "id": "S11",
+  "nama": "Toko Sri Rahayu",
+  "alamat": "-",
+  "map": " ",
+  "telp": "0800000000"
+},
+{
+  "_id": {
+    "$oid": "64bc00d764cbac76b035f74a"
+  },
+  "id": "S12",
+  "nama": "Umum",
+  "alamat": "-",
+  "map": " ",
+  "telp": "0800000000"
+}]

@@ -1090,14 +1090,14 @@
   "waktuKirim": "2023-07-27T16:00",
   "alamatKirim": "",
   "map": "",
-  "status": "open",
+  "status": "close",
   "totalTagihan": 110000,
-  "totalBayar": 50000,
+  "totalBayar": 110000,
   "totalItem": 10,
   "pembayaran": [],
   "item": {
     "time": {
-      "$numberLong": "1690366109829"
+      "$numberLong": "1690933847850"
     },
     "itemDetil": [
       {
@@ -1303,6 +1303,897 @@
         "nama": "Lele Bakar",
         "harga": 11000,
         "jml": 1
+      }
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "64c35f55d5e6eaeed762aeb6"
+  },
+  "id": "J20230728001",
+  "pelanggan": {
+    "id": "P01",
+    "nama": "Umum",
+    "telp": "0820000000",
+    "alamat": "Jl.rumah",
+    "map": " "
+  },
+  "jenisOrder": "Bungkus",
+  "meja": 1,
+  "waktuOrder": {
+    "$numberLong": "1690525491304"
+  },
+  "waktuKirim": {
+    "$numberLong": "1690525491304"
+  },
+  "alamatKirim": "",
+  "map": "",
+  "status": "open",
+  "totalTagihan": 44000,
+  "totalBayar": 0,
+  "totalItem": 4,
+  "pembayaran": [],
+  "item": {
+    "time": {
+      "$numberLong": "1690525525190"
+    },
+    "itemDetil": [
+      {
+        "id": "M01",
+        "nama": "Lele Bakar",
+        "harga": 11000,
+        "jml": 4
+      }
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "64c360b2d5e6eaeed762aeb7"
+  },
+  "id": "J20230728002",
+  "pelanggan": {
+    "_id": "649f1996747eb4653c7cfd4d",
+    "id": "P6281390364076",
+    "nama": "Umum",
+    "telp": "6281390364076",
+    "map": "0,0",
+    "alamat": "-"
+  },
+  "jenisOrder": "Bungkus",
+  "meja": 1,
+  "waktuOrder": {
+    "$numberLong": "1690525525191"
+  },
+  "waktuKirim": {
+    "$numberLong": "1690525525191"
+  },
+  "alamatKirim": "",
+  "map": "",
+  "status": "open",
+  "totalTagihan": 60000,
+  "totalBayar": 0,
+  "totalItem": 4,
+  "pembayaran": [],
+  "item": {
+    "time": {
+      "$numberLong": "1690525874715"
+    },
+    "itemDetil": [
+      {
+        "id": "M03",
+        "nama": "Ayam Bakar",
+        "harga": 15000,
+        "jml": 4
+      }
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "64c360ced5e6eaeed762aeb8"
+  },
+  "id": "J20230728003",
+  "pelanggan": {
+    "_id": "649f1996747eb4653c7cfd4d",
+    "id": "P6281390364076",
+    "nama": "Umum",
+    "telp": "6281390364076",
+    "map": "0,0",
+    "alamat": "-"
+  },
+  "jenisOrder": "Bungkus",
+  "meja": 1,
+  "waktuOrder": {
+    "$numberLong": "1690525874715"
+  },
+  "waktuKirim": {
+    "$numberLong": "1690525874715"
+  },
+  "alamatKirim": "",
+  "map": "",
+  "status": "open",
+  "totalTagihan": 110000,
+  "totalBayar": 0,
+  "totalItem": 10,
+  "pembayaran": [],
+  "item": {
+    "time": {
+      "$numberLong": "1690525902593"
+    },
+    "itemDetil": [
+      {
+        "id": "M02",
+        "nama": "Lele Goreng",
+        "harga": 11000,
+        "jml": 10
+      }
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "64c36210d5e6eaeed762aeb9"
+  },
+  "id": "J20230728004",
+  "pelanggan": {
+    "_id": "649f1996747eb4653c7cfd4d",
+    "id": "P6281390364076",
+    "nama": "Umum",
+    "telp": "6281390364076",
+    "map": "0,0",
+    "alamat": "-"
+  },
+  "jenisOrder": "Bungkus",
+  "meja": 1,
+  "waktuOrder": {
+    "$numberLong": "1690526196752"
+  },
+  "waktuKirim": {
+    "$numberLong": "1690526196752"
+  },
+  "alamatKirim": "",
+  "map": "",
+  "status": "open",
+  "totalTagihan": 26000,
+  "totalBayar": 0,
+  "totalItem": 2,
+  "pembayaran": [],
+  "item": {
+    "time": {
+      "$numberLong": "1690526224170"
+    },
+    "itemDetil": [
+      {
+        "id": "M01",
+        "nama": "Lele Bakar",
+        "harga": 11000,
+        "jml": 1
+      },
+      {
+        "id": "M03",
+        "nama": "Ayam Bakar",
+        "harga": 15000,
+        "jml": 1
+      }
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "64c64688f6ff0ee152fdda3b"
+  },
+  "newOrder": true,
+  "data": {
+    "id": " ",
+    "pelanggan": {},
+    "jenisOrder": "Bungkus",
+    "meja": 1,
+    "waktuOrder": {
+      "$numberLong": "1690715741744"
+    },
+    "waktuKirim": {
+      "$numberLong": "1690715741744"
+    },
+    "alamatKirim": "",
+    "map": "-,-",
+    "status": "open",
+    "totalTagihan": 44000,
+    "totalBayar": 0,
+    "totalItem": 4,
+    "pembayaran": [],
+    "item": {
+      "time": {
+        "$numberLong": "1690715784384"
+      },
+      "itemDetil": [
+        {
+          "id": "M01",
+          "nama": "Lele Bakar",
+          "harga": 11000,
+          "jml": 4
+        }
+      ]
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "64c648236973430f13653a7d"
+  },
+  "id": "J20230730001",
+  "pelanggan": {
+    "_id": "649f1996747eb4653c7cfd4d",
+    "id": "P6281390364076",
+    "nama": "Umum",
+    "telp": "6281390364076",
+    "map": "0,0",
+    "alamat": "-"
+  },
+  "jenisOrder": "Bungkus",
+  "meja": 1,
+  "waktuOrder": {
+    "$numberLong": "1690716165527"
+  },
+  "waktuKirim": {
+    "$numberLong": "1690716165527"
+  },
+  "alamatKirim": "",
+  "map": "",
+  "status": "close",
+  "totalTagihan": 26000,
+  "totalBayar": 26000,
+  "totalItem": 2,
+  "pembayaran": [],
+  "item": {
+    "time": {
+      "$numberLong": "1690716385312"
+    },
+    "itemDetil": [
+      {
+        "id": "M01",
+        "nama": "Lele Bakar",
+        "harga": 11000,
+        "jml": 1
+      },
+      {
+        "id": "M03",
+        "nama": "Ayam Bakar",
+        "harga": 15000,
+        "jml": 1
+      }
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "64c648d26973430f13653a80"
+  },
+  "id": "J20230730002",
+  "pelanggan": {
+    "_id": "649f1996747eb4653c7cfd4d",
+    "id": "P6281390364076",
+    "nama": "Umum",
+    "telp": "6281390364076",
+    "map": "0,0",
+    "alamat": "-"
+  },
+  "jenisOrder": "Bungkus",
+  "meja": 1,
+  "waktuOrder": {
+    "$numberLong": "1690716364809"
+  },
+  "waktuKirim": {
+    "$numberLong": "1690716364809"
+  },
+  "alamatKirim": "",
+  "map": "",
+  "status": "close",
+  "totalTagihan": 11000,
+  "totalBayar": 11000,
+  "totalItem": 1,
+  "pembayaran": [],
+  "item": {
+    "time": {
+      "$numberLong": "1690716393230"
+    },
+    "itemDetil": [
+      {
+        "id": "M02",
+        "nama": "Lele Goreng",
+        "harga": 11000,
+        "jml": 1
+      }
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "64c648d96973430f13653a81"
+  },
+  "id": "J20230730003",
+  "pelanggan": {
+    "_id": "649f1996747eb4653c7cfd4d",
+    "id": "P6281390364076",
+    "nama": "Umum",
+    "telp": "6281390364076",
+    "map": "0,0",
+    "alamat": "-"
+  },
+  "jenisOrder": "Bungkus",
+  "meja": 1,
+  "waktuOrder": {
+    "$numberLong": "1690716370455"
+  },
+  "waktuKirim": {
+    "$numberLong": "1690716370455"
+  },
+  "alamatKirim": "",
+  "map": "",
+  "status": "open",
+  "totalTagihan": 104000,
+  "totalBayar": 0,
+  "totalItem": 8,
+  "pembayaran": [],
+  "item": {
+    "time": {
+      "$numberLong": "1690716377745"
+    },
+    "itemDetil": [
+      {
+        "id": "M06",
+        "nama": "Nila Goreng",
+        "harga": 15000,
+        "jml": 4
+      },
+      {
+        "id": "M02",
+        "nama": "Lele Goreng",
+        "harga": 11000,
+        "jml": 4
+      }
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "64c75ce580184a8ae17ca38e"
+  },
+  "id": "J20230731001",
+  "pelanggan": {
+    "_id": "649f1996747eb4653c7cfd4d",
+    "id": "P6281390364076",
+    "nama": "Umum",
+    "telp": "6281390364076",
+    "map": "0,0",
+    "alamat": "-"
+  },
+  "jenisOrder": "Bungkus",
+  "meja": 1,
+  "waktuOrder": {
+    "$numberLong": "1690787021868"
+  },
+  "waktuKirim": {
+    "$numberLong": "1690787021868"
+  },
+  "alamatKirim": "",
+  "map": "",
+  "status": "open",
+  "totalTagihan": 44000,
+  "totalBayar": 0,
+  "totalItem": 4,
+  "pembayaran": [],
+  "item": {
+    "time": {
+      "$numberLong": "1690787045947"
+    },
+    "itemDetil": [
+      {
+        "id": "M01",
+        "nama": "Lele Bakar",
+        "harga": 11000,
+        "jml": 4
+      }
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "64c9fb1dc09c4d31af8ed155"
+  },
+  "id": "J20230802001",
+  "pelanggan": {
+    "_id": "64a0313002558e222b1ea0d4",
+    "id": "P6281225121441",
+    "nama": "Pelanggan 3",
+    "telp": "6281225121441",
+    "map": "0,0",
+    "alamat": "-"
+  },
+  "jenisOrder": "Bungkus",
+  "meja": 1,
+  "waktuOrder": {
+    "$numberLong": "1690940805187"
+  },
+  "waktuKirim": {
+    "$numberLong": "1690940805187"
+  },
+  "alamatKirim": "",
+  "map": "",
+  "status": "close",
+  "totalTagihan": 37000,
+  "totalBayar": 37000,
+  "totalItem": 3,
+  "pembayaran": [],
+  "item": {
+    "time": {
+      "$numberLong": "1690969474137"
+    },
+    "itemDetil": [
+      {
+        "id": "M01",
+        "nama": "Lele Bakar",
+        "harga": 11000,
+        "jml": 1
+      },
+      {
+        "id": "M02",
+        "nama": "Lele Goreng",
+        "harga": 11000,
+        "jml": 1
+      },
+      {
+        "id": "M03",
+        "nama": "Ayam Bakar",
+        "harga": 15000,
+        "jml": 1
+      }
+    ]
+  }
+},
+{
+  "_id": "64c9fb1dc09c4d31af8ed155",
+  "id": "J20230802000",
+  "pelanggan": {
+    "_id": "649f1996747eb4653c7cfd4d",
+    "id": "P6281390364076",
+    "nama": "Umum",
+    "telp": "6281390364076",
+    "map": "0,0",
+    "alamat": "-"
+  },
+  "jenisOrder": "Bungkus",
+  "meja": 1,
+  "waktuOrder": {
+    "$numberLong": "1690964577418"
+  },
+  "waktuKirim": {
+    "$numberLong": "1690964577418"
+  },
+  "alamatKirim": "",
+  "map": "",
+  "status": "close",
+  "totalTagihan": 11000,
+  "totalBayar": 11000,
+  "totalItem": 1,
+  "pembayaran": [],
+  "item": {
+    "time": {
+      "$numberLong": "1690969527731"
+    },
+    "itemDetil": [
+      {
+        "id": "M01",
+        "nama": "Lele Bakar",
+        "harga": 11000,
+        "jml": 1
+      }
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "64ca2531c09c4d31af8ed159"
+  },
+  "id": "J20230802003",
+  "pelanggan": {
+    "_id": "649f1996747eb4653c7cfd4d",
+    "id": "P6281390364076",
+    "nama": "Umum",
+    "telp": "6281390364076",
+    "map": "0,0",
+    "alamat": "-"
+  },
+  "jenisOrder": "Bungkus",
+  "meja": 1,
+  "waktuOrder": {
+    "$numberLong": "1690969211275"
+  },
+  "waktuKirim": {
+    "$numberLong": "1690969211275"
+  },
+  "alamatKirim": "",
+  "map": "",
+  "status": "close",
+  "totalTagihan": 60000,
+  "totalBayar": 60000,
+  "totalItem": 8,
+  "pembayaran": [],
+  "item": {
+    "time": {
+      "$numberLong": "1690969536013"
+    },
+    "itemDetil": [
+      {
+        "id": "M01",
+        "nama": "Lele Bakar",
+        "harga": 11000,
+        "jml": 4
+      },
+      {
+        "id": "M11",
+        "nama": "Nasi Putih",
+        "harga": 4000,
+        "jml": 4
+      }
+    ]
+  }
+},
+{
+  "_id": "64ca2531c09c4d31af8ed159",
+  "id": "J20230802004",
+  "pelanggan": {
+    "_id": "649f1996747eb4653c7cfd4d",
+    "id": "P6281390364076",
+    "nama": "Umum",
+    "telp": "6281390364076",
+    "map": "0,0",
+    "alamat": "-"
+  },
+  "jenisOrder": "Bungkus",
+  "meja": 1,
+  "waktuOrder": {
+    "$numberLong": "1690969569135"
+  },
+  "waktuKirim": {
+    "$numberLong": "1690969569135"
+  },
+  "alamatKirim": "",
+  "map": "",
+  "status": "open",
+  "totalTagihan": 60000,
+  "totalBayar": 0,
+  "totalItem": 4,
+  "pembayaran": [],
+  "item": {
+    "time": {
+      "$numberLong": "1690969591487"
+    },
+    "itemDetil": [
+      {
+        "id": "M06",
+        "nama": "Nila Goreng",
+        "harga": 15000,
+        "jml": 4
+      }
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "64ca4db3c09c4d31af8ed15a"
+  },
+  "id": "J20230802005",
+  "pelanggan": {
+    "_id": "649f1996747eb4653c7cfd4d",
+    "id": "P6281390364076",
+    "nama": "Umum",
+    "telp": "6281390364076",
+    "map": "0,0",
+    "alamat": "-"
+  },
+  "jenisOrder": "Bungkus",
+  "meja": 1,
+  "waktuOrder": {
+    "$numberLong": "1690979753412"
+  },
+  "waktuKirim": {
+    "$numberLong": "1690979753412"
+  },
+  "alamatKirim": "",
+  "map": "",
+  "status": "open",
+  "totalTagihan": 66000,
+  "totalBayar": 0,
+  "totalItem": 6,
+  "pembayaran": [],
+  "item": {
+    "time": {
+      "$numberLong": "1690979762342"
+    },
+    "itemDetil": [
+      {
+        "id": "M01",
+        "nama": "Lele Bakar",
+        "harga": 11000,
+        "jml": 2
+      },
+      {
+        "id": "M02",
+        "nama": "Lele Goreng",
+        "harga": 11000,
+        "jml": 4
+      }
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "64cb50a9fe2dc215b6c9330b"
+  },
+  "id": "J20230803001",
+  "pelanggan": {
+    "_id": "649f1996747eb4653c7cfd4d",
+    "id": "P6281390364076",
+    "nama": "Umum",
+    "telp": "6281390364076",
+    "map": "0,0",
+    "alamat": "-"
+  },
+  "jenisOrder": "Bungkus",
+  "meja": 1,
+  "waktuOrder": {
+    "$numberLong": "1691046039576"
+  },
+  "waktuKirim": {
+    "$numberLong": "1691046039576"
+  },
+  "alamatKirim": "",
+  "map": "",
+  "status": "close",
+  "totalTagihan": 93000,
+  "totalBayar": 93000,
+  "totalItem": 7,
+  "pembayaran": [],
+  "item": {
+    "time": {
+      "$numberLong": "1691052688229"
+    },
+    "itemDetil": [
+      {
+        "id": "M02",
+        "nama": "Lele Goreng",
+        "harga": 11000,
+        "jml": 3
+      },
+      {
+        "id": "M03",
+        "nama": "Ayam Bakar",
+        "harga": 15000,
+        "jml": 4
+      }
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "64cb7c84bfdfa180fc25b847"
+  },
+  "id": "J20230803002",
+  "pelanggan": {
+    "_id": "649f1996747eb4653c7cfd4d",
+    "id": "P6281390364076",
+    "nama": "Umum",
+    "telp": "6281390364076",
+    "map": "0,0",
+    "alamat": "-"
+  },
+  "jenisOrder": "Bungkus",
+  "meja": 1,
+  "waktuOrder": {
+    "$numberLong": "1691057274079"
+  },
+  "waktuKirim": {
+    "$numberLong": "1691057274079"
+  },
+  "alamatKirim": "",
+  "map": "",
+  "status": "close",
+  "totalTagihan": 55000,
+  "totalBayar": 55000,
+  "totalItem": 5,
+  "pembayaran": [],
+  "item": {
+    "time": {
+      "$numberLong": "1691057284565"
+    },
+    "itemDetil": [
+      {
+        "id": "M01",
+        "nama": "Lele Bakar",
+        "harga": 11000,
+        "jml": 5
+      }
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "64cb7cacbfdfa180fc25b848"
+  },
+  "id": "J20230803003",
+  "pelanggan": {
+    "_id": "649f1996747eb4653c7cfd4d",
+    "id": "P6281390364076",
+    "nama": "Umum",
+    "telp": "6281390364076",
+    "map": "0,0",
+    "alamat": "-"
+  },
+  "jenisOrder": "Bungkus",
+  "meja": 1,
+  "waktuOrder": {
+    "$numberLong": "1691057308199"
+  },
+  "waktuKirim": {
+    "$numberLong": "1691057308199"
+  },
+  "alamatKirim": "",
+  "map": "",
+  "status": "close",
+  "totalTagihan": 100000,
+  "totalBayar": 100000,
+  "totalItem": 8,
+  "pembayaran": [],
+  "item": {
+    "time": {
+      "$numberLong": "1691057324177"
+    },
+    "itemDetil": [
+      {
+        "id": "M01",
+        "nama": "Lele Bakar",
+        "harga": 11000,
+        "jml": 5
+      },
+      {
+        "id": "M06",
+        "nama": "Nila Goreng",
+        "harga": 15000,
+        "jml": 3
+      }
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "64cb7cc8bfdfa180fc25b849"
+  },
+  "id": "J20230803004",
+  "pelanggan": {
+    "_id": "649f1996747eb4653c7cfd4d",
+    "id": "P6281390364076",
+    "nama": "Umum",
+    "telp": "6281390364076",
+    "map": "0,0",
+    "alamat": "-"
+  },
+  "jenisOrder": "Bungkus",
+  "meja": 1,
+  "waktuOrder": {
+    "$numberLong": "1691057344000"
+  },
+  "waktuKirim": {
+    "$numberLong": "1691057344000"
+  },
+  "alamatKirim": "",
+  "map": "",
+  "status": "close",
+  "totalTagihan": 22000,
+  "totalBayar": 22000,
+  "totalItem": 2,
+  "pembayaran": [],
+  "item": {
+    "time": {
+      "$numberLong": "1691057352872"
+    },
+    "itemDetil": [
+      {
+        "id": "M01",
+        "nama": "Lele Bakar",
+        "harga": 11000,
+        "jml": 2
+      }
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "64cb7ff8816ea48ca223b908"
+  },
+  "id": "J20230803005",
+  "pelanggan": {
+    "_id": "649f1996747eb4653c7cfd4d",
+    "id": "P6281390364076",
+    "nama": "Umum",
+    "telp": "6281390364076",
+    "map": "0,0",
+    "alamat": "-"
+  },
+  "jenisOrder": "Bungkus",
+  "meja": 1,
+  "waktuOrder": {
+    "$numberLong": "1691058162422"
+  },
+  "waktuKirim": {
+    "$numberLong": "1691058162422"
+  },
+  "alamatKirim": "",
+  "map": "",
+  "status": "close",
+  "totalTagihan": 66000,
+  "totalBayar": 66000,
+  "totalItem": 6,
+  "pembayaran": [],
+  "item": {
+    "time": {
+      "$numberLong": "1691058195675"
+    },
+    "itemDetil": [
+      {
+        "id": "M01",
+        "nama": "Lele Bakar",
+        "harga": 11000,
+        "jml": 6
+      }
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "64cb8007816ea48ca223b909"
+  },
+  "id": "J20230803006",
+  "pelanggan": {
+    "_id": "649f1996747eb4653c7cfd4d",
+    "id": "P6281390364076",
+    "nama": "Umum",
+    "telp": "6281390364076",
+    "map": "0,0",
+    "alamat": "-"
+  },
+  "jenisOrder": "Bungkus",
+  "meja": 1,
+  "waktuOrder": {
+    "$numberLong": "1691058168914"
+  },
+  "waktuKirim": {
+    "$numberLong": "1691058168914"
+  },
+  "alamatKirim": "",
+  "map": "",
+  "status": "close",
+  "totalTagihan": 60000,
+  "totalBayar": 60000,
+  "totalItem": 8,
+  "pembayaran": [],
+  "item": {
+    "time": {
+      "$numberLong": "1691058183943"
+    },
+    "itemDetil": [
+      {
+        "id": "M02",
+        "nama": "Lele Goreng",
+        "harga": 11000,
+        "jml": 4
+      },
+      {
+        "id": "M11",
+        "nama": "Nasi Putih",
+        "harga": 4000,
+        "jml": 4
       }
     ]
   }

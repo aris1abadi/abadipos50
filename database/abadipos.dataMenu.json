@@ -1,0 +1,251 @@
+[{
+  "_id": {
+    "$oid": "64882247e0d035036bd5b93f"
+  },
+  "waId": "4928047887258831",
+  "nama": "Lele Bakar",
+  "harga": 11000,
+  "hargaGojeg": 0,
+  "stok": 229,
+  "stokId": "L01",
+  "id": "M01",
+  "kategori": "Makanan",
+  "gambar": "menu1.jpeg"
+},
+{
+  "_id": {
+    "$oid": "6488267be0d035036bd5b942"
+  },
+  "waId": "5729432500495426",
+  "nama": "Lele Goreng",
+  "harga": 11000,
+  "hargaGojeg": 0,
+  "stok": 229,
+  "stokId": "L01",
+  "id": "M02",
+  "kategori": "Makanan",
+  "gambar": "kopi1.jpeg"
+},
+{
+  "_id": {
+    "$oid": "648826a4e0d035036bd5b943"
+  },
+  "waId": "5857826717603932",
+  "nama": "Ayam Bakar",
+  "harga": 15000,
+  "hargaGojeg": 0,
+  "stok": 150,
+  "stokId": "A01",
+  "id": "M03",
+  "kategori": "Makanan",
+  "gambar": "kopi1.jpeg"
+},
+{
+  "_id": {
+    "$oid": "648826b5e0d035036bd5b944"
+  },
+  "waId": "6866981723318129",
+  "nama": "Ayam Goreng",
+  "harga": 15000,
+  "hargaGojeg": 0,
+  "stok": 150,
+  "stokId": "A01",
+  "id": "M04",
+  "kategori": "Makanan",
+  "gambar": "kopi1.jpeg"
+},
+{
+  "_id": {
+    "$oid": "648826d6e0d035036bd5b945"
+  },
+  "waId": "5037666569618448",
+  "nama": "Nila Bakar",
+  "harga": 15000,
+  "hargaGojeg": 0,
+  "stok": 66,
+  "stokId": "N01",
+  "id": "M05",
+  "kategori": "Makanan",
+  "gambar": "kopi1.jpeg"
+},
+{
+  "_id": {
+    "$oid": "648826e8e0d035036bd5b946"
+  },
+  "waId": "4691163697599831",
+  "nama": "Nila Goreng",
+  "harga": 15000,
+  "hargaGojeg": 0,
+  "stok": 66,
+  "stokId": "N01",
+  "id": "M06",
+  "kategori": "Makanan",
+  "gambar": "kopi1.jpeg"
+},
+{
+  "_id": {
+    "$oid": "648999e7c2761e45863cc6d7"
+  },
+  "nama": "Es Teh",
+  "harga": 3000,
+  "hargaGojeg": 0,
+  "stok": {
+    "$numberDouble": "NaN"
+  },
+  "stokId": "-",
+  "id": "M07",
+  "kategori": "Minuman",
+  "gambar": "kopi1.jpeg"
+},
+{
+  "_id": {
+    "$oid": "64c069e7c4d78978d5fd6cc7"
+  },
+  "nama": "Es Jeruk",
+  "harga": 3000,
+  "hargaGojeg": 0,
+  "stok": {
+    "$numberDouble": "NaN"
+  },
+  "stokId": "-",
+  "id": "M08",
+  "kategori": "Minuman",
+  "gambar": "kopi1.jpeg"
+},
+{
+  "_id": {
+    "$oid": "64c06a06c4d78978d5fd6cc8"
+  },
+  "nama": "Teh Panas",
+  "harga": 3000,
+  "hargaGojeg": 0,
+  "stok": {
+    "$numberDouble": "NaN"
+  },
+  "stokId": "-",
+  "id": "M09",
+  "kategori": "Minuman",
+  "gambar": "kopi1.jpeg"
+},
+{
+  "_id": {
+    "$oid": "64c06a20c4d78978d5fd6cc9"
+  },
+  "nama": "Jeruk Panas",
+  "harga": 3000,
+  "hargaGojeg": 0,
+  "stok": {
+    "$numberDouble": "NaN"
+  },
+  "stokId": "-",
+  "id": "M10",
+  "kategori": "Minuman",
+  "gambar": "kopi1.jpeg"
+},
+{
+  "_id": {
+    "$oid": "64c06a5ec4d78978d5fd6cca"
+  },
+  "nama": "Nasi Putih",
+  "harga": 4000,
+  "hargaGojeg": 0,
+  "stok": {
+    "$numberDouble": "NaN"
+  },
+  "stokId": "-",
+  "id": "M11",
+  "kategori": "Makanan",
+  "gambar": "kopi1.jpeg"
+},
+{
+  "_id": {
+    "$oid": "64c06a87c4d78978d5fd6ccb"
+  },
+  "nama": "Sambel",
+  "harga": 2000,
+  "hargaGojeg": 0,
+  "stok": {
+    "$numberDouble": "NaN"
+  },
+  "stokId": "-",
+  "id": "M12",
+  "kategori": "Makanan",
+  "gambar": "kopi1.jpeg"
+},
+{
+  "_id": {
+    "$oid": "64c1045fc4d78978d5fd6cce"
+  },
+  "nama": "Nasi bok ayam 1",
+  "harga": 12000,
+  "hargaGojeg": 0,
+  "stok": {
+    "$numberDouble": "NaN"
+  },
+  "stokId": "-",
+  "id": "M13",
+  "kategori": "Nasi Boks",
+  "gambar": "kopi1.jpeg"
+},
+{
+  "_id": {
+    "$oid": "64c10474c4d78978d5fd6ccf"
+  },
+  "nama": "Nasi bok ayam 2",
+  "harga": 15000,
+  "hargaGojeg": 0,
+  "stok": {
+    "$numberDouble": "NaN"
+  },
+  "stokId": "-",
+  "id": "M14",
+  "kategori": "Nasi Boks",
+  "gambar": "kopi1.jpeg"
+},
+{
+  "_id": {
+    "$oid": "64c1048fc4d78978d5fd6cd0"
+  },
+  "nama": "Nasi bok ayam 3",
+  "harga": 16000,
+  "hargaGojeg": 0,
+  "stok": {
+    "$numberDouble": "NaN"
+  },
+  "stokId": "-",
+  "id": "M15",
+  "kategori": "Nasi Boks",
+  "gambar": "kopi1.jpeg"
+},
+{
+  "_id": {
+    "$oid": "64c8c4fcc09c4d31af8ed154"
+  },
+  "waId": "-",
+  "nama": "Kopi susu",
+  "harga": 0,
+  "hargaGojeg": 0,
+  "stok": {
+    "$numberDouble": "NaN"
+  },
+  "stokId": "-",
+  "id": "M16",
+  "kategori": "",
+  "gambar": "kopisusu.jpeg"
+},
+{
+  "_id": {
+    "$oid": "64ca5a9ec09c4d31af8ed15b"
+  },
+  "waId": "-",
+  "nama": "Tes3",
+  "harga": "5000",
+  "hargaGojeg": 0,
+  "stok": {
+    "$numberDouble": "NaN"
+  },
+  "stokId": "-",
+  "id": "M17",
+  "kategori": "Jasa",
+  "gambar": "logo2023.png"
+}]

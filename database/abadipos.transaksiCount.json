@@ -1,0 +1,9 @@
+[{
+  "_id": {
+    "$oid": "6488277ce0d035036bd5b94d"
+  },
+  "transaksiJualCount": 6,
+  "transaksiBeliCount": 1,
+  "timeCode": "03/08/2023",
+  "dayCount": "base"
+}]

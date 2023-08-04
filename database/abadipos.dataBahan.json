@@ -1,0 +1,299 @@
+[{
+  "_id": {
+    "$oid": "648827eee0d035036bd5b952"
+  },
+  "id": "B01",
+  "nama": "Lele Segar omah lele",
+  "harga": 20500,
+  "satuanBeli": "Kg",
+  "satuanPakai": "Gram",
+  "suplier": "",
+  "konversi": 5,
+  "stok": 0,
+  "stokId": "L01",
+  "kategori": "Bahan baku",
+  "gambar": "logo2023.png"
+},
+{
+  "_id": {
+    "$oid": "6489a7f0c2761e45863cc6d9"
+  },
+  "id": "B02",
+  "nama": "Lele Segarr 5 ",
+  "harga": 21000,
+  "satuanBeli": "Kg",
+  "satuanPakai": "Gram",
+  "suplier": "",
+  "konversi": 5,
+  "stok": 0,
+  "stokId": "L01",
+  "kategori": "Bahan baku",
+  "gambar": "logo2023.png"
+},
+{
+  "_id": {
+    "$oid": "6489a858c2761e45863cc6da"
+  },
+  "id": "B03",
+  "nama": "Ayam Segar",
+  "harga": 36000,
+  "satuanBeli": "Kg",
+  "satuanPakai": "Gram",
+  "suplier": "",
+  "konversi": 5,
+  "stok": 0,
+  "stokId": "A01",
+  "kategori": "Bahan baku",
+  "gambar": "logo2023.png"
+},
+{
+  "_id": {
+    "$oid": "64a6c64a34e77477961d317c"
+  },
+  "id": "B04",
+  "nama": "Kemangi",
+  "harga": 14000,
+  "satuanBeli": "Kg",
+  "satuanPakai": "Gram",
+  "suplier": "",
+  "konversi": 5,
+  "stok": 0,
+  "stokId": "-",
+  "kategori": "Bahan baku",
+  "gambar": "logo2023.png"
+},
+{
+  "_id": {
+    "$oid": "64a6df4b47fa676f3c504615"
+  },
+  "id": "B05",
+  "nama": "Timun",
+  "harga": 8000,
+  "satuanBeli": "Kg",
+  "satuanPakai": "Gram",
+  "suplier": "",
+  "konversi": 5,
+  "stok": 0,
+  "stokId": "-",
+  "kategori": "Bahan baku",
+  "gambar": "logo2023.png"
+},
+{
+  "_id": {
+    "$oid": "64a74bab47fa676f3c504616"
+  },
+  "id": "B06",
+  "nama": "Cabe Rawit",
+  "harga": 20000,
+  "satuanBeli": "Kg",
+  "satuanPakai": "Gram",
+  "suplier": "",
+  "konversi": 5,
+  "stok": 0,
+  "stokId": "-",
+  "kategori": "Bahan baku",
+  "gambar": "logo2023.png"
+},
+{
+  "_id": {
+    "$oid": "64a7b96547fa676f3c504618"
+  },
+  "id": "B07",
+  "nama": "Cabe Keriting",
+  "harga": 20000,
+  "satuanBeli": "Kg",
+  "satuanPakai": "Gram",
+  "suplier": "",
+  "konversi": 5,
+  "stok": 0,
+  "stokId": "-",
+  "kategori": "Bahan baku",
+  "gambar": "logo2023.png"
+},
+{
+  "_id": {
+    "$oid": "64a7b97147fa676f3c504619"
+  },
+  "id": "B08",
+  "nama": "Bawang",
+  "harga": 35000,
+  "satuanBeli": "Kg",
+  "satuanPakai": "Gram",
+  "suplier": "",
+  "konversi": 5,
+  "stok": 0,
+  "stokId": "-",
+  "kategori": "Bahan baku",
+  "gambar": "logo2023.png"
+},
+{
+  "_id": {
+    "$oid": "64a7b97e47fa676f3c50461a"
+  },
+  "id": "B09",
+  "nama": "Brambang",
+  "harga": 40000,
+  "satuanBeli": "Kg",
+  "satuanPakai": "Gram",
+  "suplier": "",
+  "konversi": 5,
+  "stok": 0,
+  "stokId": "-",
+  "kategori": "Bahan baku",
+  "gambar": "logo2023.png"
+},
+{
+  "_id": {
+    "$oid": "64ab83c356ffc1a9c45c9bea"
+  },
+  "id": "B10",
+  "nama": "Kertas Minyak",
+  "harga": 35000,
+  "satuanBeli": "Kg",
+  "satuanPakai": "Gram",
+  "suplier": "",
+  "konversi": 5,
+  "stok": 0,
+  "stokId": "-",
+  "kategori": "Bahan baku",
+  "gambar": "logo2023.png"
+},
+{
+  "_id": {
+    "$oid": "64ab849f56ffc1a9c45c9beb"
+  },
+  "id": "B11",
+  "nama": "Plastik 1/4kg",
+  "harga": 2000,
+  "satuanBeli": "Kg",
+  "satuanPakai": "Gram",
+  "suplier": "",
+  "konversi": 5,
+  "stok": 0,
+  "stokId": "-",
+  "kategori": "Bahan baku",
+  "gambar": "logo2023.png"
+},
+{
+  "_id": {
+    "$oid": "64ad395456ffc1a9c45c9c01"
+  },
+  "id": "B13",
+  "nama": "Kertas Minyak",
+  "harga": 35000,
+  "satuanBeli": "Kg",
+  "satuanPakai": "Gram",
+  "suplier": "",
+  "konversi": 5,
+  "stok": 0,
+  "stokId": "-",
+  "kategori": "Bahan baku",
+  "gambar": "logo2023.png"
+},
+{
+  "_id": {
+    "$oid": "64bcd9287d12d5f113218687"
+  },
+  "id": "B14",
+  "nama": "Tumbar",
+  "harga": 30000,
+  "satuanBeli": "Kg",
+  "satuanPakai": "Gram",
+  "suplier": "",
+  "konversi": 5,
+  "stok": 0,
+  "stokId": "-",
+  "kategori": "Bahan baku",
+  "gambar": "logo2023.png"
+},
+{
+  "_id": {
+    "$oid": "64bfa161be3c0b25672e6951"
+  },
+  "id": "B15",
+  "nama": "Tomat",
+  "harga": 6000,
+  "satuanBeli": "Kg",
+  "satuanPakai": "Gram",
+  "suplier": "",
+  "konversi": 5,
+  "stok": 0,
+  "stokId": "-",
+  "kategori": "Bahan baku",
+  "gambar": "logo2023.png"
+},
+{
+  "_id": {
+    "$oid": "64cb3af1fe2dc215b6c93304"
+  },
+  "nama": "",
+  "harga": 0,
+  "satuanBeli": "Kg",
+  "satuanPakai": "Kg",
+  "suplier": {},
+  "konversi": 1,
+  "stokId": "-",
+  "kategori": "Bahan Baku",
+  "gambar": "kebawah.svg",
+  "id": "B16"
+},
+{
+  "_id": {
+    "$oid": "64cb3c54fe2dc215b6c93305"
+  },
+  "nama": "",
+  "harga": 0,
+  "satuanBeli": "Kg",
+  "satuanPakai": "Kg",
+  "suplier": {},
+  "konversi": 1,
+  "stokId": "-",
+  "kategori": "Bahan Baku",
+  "gambar": "trash-svgrepo-com.svg",
+  "id": "B17"
+},
+{
+  "_id": {
+    "$oid": "64cb3d4dfe2dc215b6c93306"
+  },
+  "nama": "",
+  "harga": 0,
+  "satuanBeli": "Kg",
+  "satuanPakai": "Kg",
+  "suplier": {},
+  "konversi": 1,
+  "stokId": "-",
+  "kategori": "Bahan Baku",
+  "gambar": "kebawah.svg",
+  "id": "B18"
+},
+{
+  "_id": {
+    "$oid": "64cb4c9efe2dc215b6c93307"
+  },
+  "nama": "tes bahan 4",
+  "harga": "7500",
+  "satuanBeli": "Liter",
+  "satuanPakai": "Liter",
+  "suplier": {},
+  "konversi": 1,
+  "stokId": "-",
+  "kategori": "Bahan Baku",
+  "gambar": "plus-circle.svg",
+  "id": "B19"
+},
+{
+  "_id": {
+    "$oid": "64cb4ccefe2dc215b6c93308"
+  },
+  "nama": "tes bahan 4",
+  "harga": "10000",
+  "satuanBeli": "Kg",
+  "satuanPakai": "Kg",
+  "suplier": {},
+  "konversi": 1,
+  "stokId": "-",
+  "kategori": "Perlengkapan",
+  "gambar": "kopisusu.jpeg",
+  "id": "B20"
+}]

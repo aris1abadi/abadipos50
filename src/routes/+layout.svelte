@@ -171,6 +171,7 @@
 			<slot><!-- optional fallback --></slot>
 
 			<!--on:click={()=>{onRequest();homeOpen = false}}-->
+			<!--
 			<Dropdown
 				{placement}
 				bind:open={homeOpen}
@@ -318,6 +319,7 @@
 					{/if}
 				</BottomNavItem>
 			</BottomNav>
+		-->
 		</div>
 	</div>
 </Fullscreen>

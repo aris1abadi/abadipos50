@@ -175,8 +175,7 @@
 				</div>
 			{/each}
 		{/if}
-	{:else if antrianSelect === 2}
-		
+	{:else if antrianSelect === 2}		
 			{#if antrianLama.length >0}
 				{#each antrianLama as antrian, index}
 					<div

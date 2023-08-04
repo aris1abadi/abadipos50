@@ -14,6 +14,7 @@
 
 	//import { faUser, faSave, faTrashCan } from '@fortawesome/free-regular-svg-icons';
 	import { bikinIdTransaksi, sendToServer } from '$lib/myFunction.js';
+	import { Avatar } from 'flowbite-svelte';
 
 	//import { Datepicker, Input, initTE } from "tw-elements";
 
@@ -124,7 +125,9 @@
 	
 </div>
 <div class="text-2xl font-bold text-center">0822 6528 5223</div>
-<div class="flex justify-center">
-	<button on:click={() =>mulaiClick()} class="w-1/2 h-12 border border-orange-500 text-xl text-orange-500">Mulai Jualan</button>
-</div>
+<div class="overflow-visibler w-80 h-10">
+	<img src="logo2023.png" alt="menu" class="w-24 h-24"/>
+	<button on:click={() =>mulaiClick()} class="w-full h-full col-span-4 border border-orange-500  text-orange-500">Mulai Jualan</button>
+
+	</div>
 

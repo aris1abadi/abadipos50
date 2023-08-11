@@ -11,17 +11,21 @@ export const dataPelanggan = writable([])
 export const dataSatuan = writable([])
 export const headerContent = writable({
 	show: true,
-	mode: "Dashboard",
-	pelanggan: "Umum",
-	idTransaksi: "-",
-	suplier: "S00",
-	totalItem: 0,
-	totalTagihan: 0,
-	jenisOrder: "Bungkus",
-	jmlAntrian: 0,
-	suplierSrc: [],
-	bahanSrc: []
-})
+	mode: 'Dashboard',
+	jenisOrderOpen: false,
+	menuOpen: false,
+	menuSelectOpen:false,
+	mejaOpen: false,
+	waktuOpen: false,
+	bahanOpen:false,
+	suplierOpen:false,
+	pelangganOpen:false,
+	antrianSelect:1,
+	setupSelect:"menu",
+	click:false,
+	isNewData:false,
+	data:{}
+}) 
 export const hapusOrderVal = writable(false)
 export const prosesClickVal = writable(false)
 export const simpanOrderVal = writable(false)

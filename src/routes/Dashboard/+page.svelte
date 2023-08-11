@@ -110,7 +110,7 @@
 	});
 </script>
 
-<div class=" w-full h-full mt-8 pl-4 pr-4">
+<div class=" w-full h-full mt-8 pl-4 pr-4 overflow-y-auto">
 	<div class="w-full border border-orange-600 rounded-lg">
 		<div
 			class="w-full h-10 border-b border-orange-500 rounded-lg rounded-bl-none rounded-br-none bg-orange-500 text-center font-mono font-bold text-xl text-white pt-2"

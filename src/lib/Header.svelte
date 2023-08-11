@@ -1,453 +1,418 @@
 <script>
-// @ts-nocheck
+	// @ts-nocheck
 
 	import {
-		Drawer,
-		CloseButton,
-		Sidebar,
-		SidebarGroup,
-		SidebarItem,
-		SidebarWrapper,
-		SidebarDropdownWrapper,
-		SidebarDropdownItem,
-		Select,
 		Dropdown,
-		DropdownItem,		
+		DropdownItem,
 		Avatar,
-		FloatingLabelInput
+		FloatingLabelInput,
+		DropdownDivider,
+		Chevron,
+		Input,
+		ButtonGroup,
+		Button,
+		Label
 	} from 'flowbite-svelte';
 	import { sineIn } from 'svelte/easing';
 	import { createEventDispatcher, onMount } from 'svelte';
-	import { rupiah } from '$lib/myFunction.js';
-	
+	import { getTanggal, getJam, rupiah } from '$lib/myFunction.js';
+	import { goto } from '$app/navigation';
+	import {
+		dataPelanggan,
+		n_order,
+		headerContent,
+		dataSuplier,
+		dataBahanStore,
+		dataMenuStore,
+		n_beli,
+		firstLoad
+	} from '$lib/stores/store';
 
 	const dispatch = createEventDispatcher();
-	let hidden2 = true;
-	let spanClass = 'flex-1 ml-3 whitespace-nowrap';
-	let transitionParams = {
-		x: 320,
-		duration: 200,
-		easing: sineIn
-	};
 
-	export let headerContent = {
-		show: true,
-		mode: 'Dashboard',
-		pelanggan: 'Umum',
-		idTransaksi: '-',
-		suplier: 'S00',
-		totalItem: 0,
-		totalTagihan: 0,
-		jenisOrder: 'Bungkus',
-		jmlAntrian: 0,
-		suplierSrc: [],
-		bahanSrc: []
-	};
-	let bahanOpen = false;
-	let newNama = '';
-	let newHarga = 0;
+
+	let jenisOrderSrc = ['Bungkus', 'DiWarung', 'Pesan', 'Gojeg', 'Wa Order'];
+	let mejaSrc = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	// @ts-ignore
 	/**
 	 * @type {string}
 	 */
 
-	function prosesClick() {
-		dispatch('eventProsesClick');
-	}
-
-	function hapusOrder() {
-		dispatch('eventHapusOrder');
-	}
-
-	function simpanClick() {
-		dispatch('eventHeaderSimpan');
-	}
 
 	function dashboardClick() {
-		hidden2 = true;
-		headerContent.show = true;
-		headerContent.mode = 'Dashboard';
+		$headerContent.menuOpen = false;
+		$headerContent.mode = 'Dashboard';
+		goto('/Dashboard');
 	}
 
 	function antrianClick() {
-		hidden2 = true;
-		headerContent.show = true;
-		headerContent.mode = 'Antrian';
+		$headerContent.menuOpen = false;
+		$headerContent.mode = 'Antrian';
+		goto('/Antrian');
 	}
 	function kasirClick() {
-		hidden2 = true;
-		headerContent.show = true;
-		headerContent.mode = 'Kasir';
+		$headerContent.menuOpen = false;
+		$headerContent.mode = 'Kasir';
+		goto('/Kasir');
 	}
 	function belanjaClick() {
-		hidden2 = true;
-		headerContent.show = true;
-		headerContent.mode = 'Belanja';
+		$headerContent.menuOpen = false;
+		$headerContent.mode = 'Belanja';
+		goto('/Belanja');
+	}
+
+	
+
+	function mejaClick(meja) {
+		$headerContent.mejaOpen = false;
+		$headerContent.jenisOrderOpen = false;
+		$n_order.jenisOrder = 'Meja ' + meja;
+	}
+	let timeSelect = Date.now();
+	function waktuKirimChange() {
+		$n_order.waktuKirim = timeSelect;
+		$headerContent.jenisOrderOpen = false;
+		//$headerContent.waktuOpen = false;
+		$n_order.jenisOrder = 'Pesan';
 	}
 
 	function setupClick() {
-		hidden2 = true;
-		headerContent.show = true;
-		headerContent.mode = 'Setup';
+		$headerContent.mode = 'Setup';
+		goto('/Setup');
 	}
 
-	function suplierChange() {
-		console.log('suplieIdx: ', headerContent.suplier);
+	function editMenuClick(menu) {
+		$headerContent.menuSelectOpen = false
+		$headerContent.click = true
+		$headerContent.data = menu
+		$headerContent.isNewData = false
 	}
 
-	/**
-	 * @param {string | number} idx
-	 */
-	function bahanClick(idx) {
-		bahanOpen = false;
-		dispatch('eventItemClick', idx);
-		console.log('Clicked on: ' + idx);
+	function newMenuClick() {
+		$headerContent.menuSelectOpen = false
+		$headerContent.click = true		
+		$headerContent.isNewData = true
 	}
 
-	function tambahClick() {
-		if (newNama.length > 0 && newHarga > 0) {
-			bahanOpen = false;
-			dispatch('eventNewBahanClick', {
-				nama: newNama,
-				harga: newHarga
-			});
-		}
+	function editBahanClick(bahan){
+		$headerContent.bahanOpen = false
+		$headerContent.click = true
+		$headerContent.data = bahan
+		$headerContent.isNewData = false
 	}
+
+	function newBahanClick(){
+		$headerContent.bahanOpen = false
+		$headerContent.click = true
+		//$headerContent.data = menu
+		$headerContent.isNewData = true
+	}
+
+	function editPelangganClick(pelanggan){
+		$headerContent.pelangganOpen = false
+		$headerContent.click = true
+		$headerContent.data = pelanggan
+		$headerContent.isNewData = false
+	}
+
+	function newPelangganClick(){
+		$headerContent.pelangganOpen = false
+		$headerContent.click = true
+		//$headerContent.data = menu
+		$headerContent.isNewData = true
+	}
+
+	function editSuplierClick(suplier){
+		$headerContent.suplierOpen = false
+		$headerContent.click = true
+		$headerContent.data = suplier
+		$headerContent.isNewData = false
+	}
+
+	function newSuplierClick(){
+		$headerContent.suplierOpen = false
+		$headerContent.click = true
+		//$headerContent.data = menu
+		$headerContent.isNewData = true
+	}
+
+	function pelangganBaruClick(){
+		$headerContent.mode = "Setup"
+		$headerContent.setupSelect = 'pelanggan'
+		$headerContent.click = true
+		//$headerContent.data = menu
+		$headerContent.isNewData = true
+		goto("/Setup")
+
+	}
+	
 </script>
-
-<div class="grid grid-cols-10 mt-4 font-mono text-xs justify-items-center w-full h-16">
-	<div class=" bg-white w-full h-full p-2">
-		<button on:click={() => (hidden2 = false)} class="items-center mt-2">
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				width="34"
-				height="34"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="#000000"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line
-					x1="3"
-					y1="18"
-					x2="21"
-					y2="18"
-				/></svg
-			>
+<div class="w-full h-24 px-2 py-4">
+<div class="grid grid-cols-12 flex justify-center w-full h-24 border border-orange-500 rounded-xl rounded-b-none">
+	<div class="col-span-2 h-12 bg-orange-500 rounded-xl rounded-b-none rounded-tr-none">
+		<button class="w-full h-full pt-1 pl-4">
+			<Avatar src="logo2023.png" class="w-8 h-8 mb-4" />
 		</button>
-	</div>
-
-	<div class="col-span-8 p-2 w-full h-full bg-white">
-		{#if headerContent.mode === 'Dashboard'}
-			<div class="font-bold text-xl m-4">DashBoard</div>
-		{:else if headerContent.mode === 'Kasir'}
-			<div class="grid grid-cols-5 gap-2 p-2 w-full h-full">
-				<button
-					on:click={() => prosesClick()}
-					class="col-span-4 w-full h-full border border-orange-700 rounded-xl"
-				>
-					<div class="text-xs" whitespace="nowrap">
-						{headerContent.pelanggan} | {headerContent.jenisOrder} | Id:{headerContent.idTransaksi}
-					</div>
-					<div class="space-x-4" whitespace="nowrap">
-						<span class="text-sm">{headerContent.totalItem} item </span>
-						<span class="font-bold text-xl">{rupiah(headerContent.totalTagihan)}</span>
-					</div>
-				</button>
-				
-				<button on:click={() => simpanClick()}>
-					<svg
-						class="w-6 h-6 ml-4 text-gray-800 dark:text-white"
-						aria-hidden="true"
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 16 18"
-					>
-						<path
-							stroke="currentColor"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3"
-						/>
-					</svg>
-				</button>
-			</div>
-		{:else if headerContent.mode === 'Belanja'}
-			<div class="grid grid-cols-5 gap-2 p-2 w-full h-full">
-				<!--
-			<button
-				on:click={() => prosesClick()}
-				class="col-span-4 w-full h-full border border-orange-700 rounded-xl"
+		<Dropdown padding="none" bind:open={$headerContent.menuOpen} class="bg-orange-500 text-white ">
+			<DropdownItem
+				on:click={() => {
+					goto('/');
+					$firstLoad = true;
+				}}>Home</DropdownItem
 			>
-				<div class="text-xs">
-					Id:{headerContent.idTransaksi} | {headerContent.suplier} 
-				</div>
-				
-			</button>
-		-->
-				{#if headerContent.suplierSrc}
-					<Select
-						items={headerContent.suplierSrc}
-						bind:value={headerContent.suplier}
-						on:change={() => suplierChange()}
-						placeholder="Pilih Suplier"
-						class="rounded w-full h-full col-span-3"
-					/>
-				{/if}
-
-				<button class="px-4"
-					><svg
-						class="w-6 h-6 text-gray-800 dark:text-white"
-						aria-hidden="true"
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 18 20"
-					>
-						<path
-							stroke="currentColor"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M8 5h4m-2 2V3M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.938-11H17l-2 7H5m0 0L3 4m0 0h2M3 4l-.792-3H1"
-						/>
-					</svg></button
-				>
-				<Dropdown bind:open={bahanOpen} class="w-80 overflow-y-auto py-1 h-60">
-					{#if headerContent.bahanSrc}
-						{#each headerContent.bahanSrc as bahan, index}
-							<DropdownItem
-								on:click={() => bahanClick(index)}
-								class="flex items-center text-base font-semibold gap-2"
-							>
-								<Avatar src="/bahan1.jpeg" size="xs" />{bahan.nama}
-							</DropdownItem>
-						{/each}
-					{/if}
-
-					<div slot="footer" class="grid grid-cols-3 gap-2 p-2 w-80 h-3/4">
-						<FloatingLabelInput
-							style="outlined"
-							bind:value={newNama}
-							name="nama"
-							type="text"
-							label="Nama"
-						/>
-						<FloatingLabelInput
-							style="outlined"
-							name="harga"
-							type="number"
-							label="Harga"
-							bind:value={newHarga}
-						/>
-						<button on:click={() => tambahClick()}>Tambah</button>
-					</div>
-				</Dropdown>
-
-				<button on:click={() => simpanClick()}>
-					<svg
-						class="w-6 h-6 ml-4 text-gray-800 dark:text-white"
-						aria-hidden="true"
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 16 18"
-					>
-						<path
-							stroke="currentColor"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3"
-						/>
-					</svg>
-				</button>
-			</div>
-		{:else if headerContent.mode === 'Antrian'}
-			<div class="font-bold text-xl m-4">Antrian</div>
-		{:else if headerContent.mode === 'Setup'}
-			<div class="font-bold text-xl m-4">Setup</div>
+			<DropdownDivider />
+			<DropdownItem on:click={() => kasirClick()}>Kasir</DropdownItem>
+			<DropdownDivider />
+			<DropdownItem on:click={() => belanjaClick()}>Belanja</DropdownItem>
+			<DropdownDivider />
+			<DropdownItem on:click={() => antrianClick()}>Antrian</DropdownItem>
+			<DropdownDivider />
+			<DropdownItem on:click={() => dashboardClick()}>Laporan</DropdownItem>
+			<DropdownDivider />
+			<DropdownItem on:click={() => setupClick()}>Setup</DropdownItem>
+		</Dropdown>
+	</div>
+	<div class="col-span-10 h-12 p-1 text-white  bg-orange-500 rounded-xl rounded-b-none rounded-tl-none">
+		{#if $headerContent.mode === 'Dashboard'}
+			<div class="font-bold text-xl ml-4">DashBoard</div>
+		{:else if $headerContent.mode === 'Kasir'}
+			<div class="text-xl  ml-4 font-bold">Penjualan</div>
+			<div class="text-xs  ml-4 font-bold">{getTanggal(Date.now())} OrderID: {$n_order.id}</div>
+		{:else if $headerContent.mode === 'Belanja'}
+			<div class="text-xl  ml-4 font-bold">Belanja</div>
+		{:else if $headerContent.mode === 'Antrian'}
+			<div class="font-bold  text-xl ml-4">Antrian</div>
+		{:else if $headerContent.mode === 'Setup'}
+			<div class="font-bold  text-xl ml-4">Setup</div>
 		{:else}
 			Home
 		{/if}
 	</div>
 
-	{#if headerContent.mode === 'Kasir' || headerContent.mode === 'Belanja'}
-		<div class=" w-full h-full bg-white">
-			<button on:click={hapusOrder} class="w-full h-full">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="32"
-					height="32"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="#000000"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					><polyline points="3 6 5 6 21 6" /><path
-						d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-					/><line x1="10" y1="11" x2="10" y2="17" /><line x1="14" y1="11" x2="14" y2="17" /></svg
-				>
-			</button>
-		</div>
-	{/if}
-</div>
+	
 
-<Drawer
-	placement="right"
-	transitionType="fly"
-	{transitionParams}
-	bind:hidden={hidden2}
-	id="sidebar2"
->
-	<div class="flex items-center">
-		<h5
-			id="drawer-navigation-label-3"
-			class="text-base font-semibold text-gray-500 uppercase dark:text-gray-400"
-		>
-			Menu
-		</h5>
-		<CloseButton on:click={() => (hidden2 = true)} class="mb-4 dark:text-white" />
+	<div class="col-span-12 h-12 pb-1">
+		{#if $headerContent.mode === 'Dashboard'}
+			<div class="font-bold text-xl m-4" />
+		{:else if $headerContent.mode === 'Kasir'}
+			<div class="grid grid-cols-2 w-full h-11">
+				<button class="h-full border-r border-orange-500  p-0">
+					<div class="ml-1 text-left font-semibold" style="font-size:10px">Pelanggan</div>
+					<div class="font-bold text-xs">{$n_order.pelanggan.nama}</div>
+				</button>
+				<Dropdown
+					padding="none"
+					bind:open={$headerContent.pelangganOpen}
+					class="bg-orange-500 text-white max-h-64 overflow-y-auto "
+				>
+					{#each $dataPelanggan as pelanggan}
+						<DropdownItem
+							on:click={() => {
+								$n_order.pelanggan = pelanggan;
+								$headerContent.pelangganOpen = false;
+							}}>{pelanggan.nama}</DropdownItem
+						>
+						<DropdownDivider />
+					{/each}
+					<button on:click={() =>pelangganBaruClick()} slot="footer" class="w-full text-center">Pelanggan Baru</button>
+				</Dropdown>
+				<button class="h-full border-l border-orange-500 p-0">
+					{#if $n_order.jenisOrder === 'Pesan'}
+						<div class="ml-1 text-left font-semibold" style="font-size:10px">Pesanan untuk</div>
+						<div class="font-bold text-xs">
+							{getTanggal($n_order.waktuKirim)}
+							{getJam($n_order.waktuKirim)}
+						</div>
+					{:else}
+						<div class="ml-1 text-left font-semibold" style="font-size:10px">Jenis Order</div>
+						<div class="font-bold text-xs">{$n_order.jenisOrder}</div>
+					{/if}
+				</button>
+				<Dropdown
+					padding="none"
+					bind:open={$headerContent.jenisOrderOpen}
+					class="bg-orange-500 text-white"
+				>
+					{#each jenisOrderSrc as order}
+						{#if order === 'DiWarung'}
+							<DropdownItem class="flex justify-left">
+								<Chevron placement="left">{order}</Chevron>
+							</DropdownItem>
+
+							<Dropdown
+								placement="left"
+								bind:open={$headerContent.mejaOpen}
+								class="grid grid-cols-2 w-48 h-96 p-4 overflow-y-auto "
+							>
+								{#each mejaSrc as meja}
+									<DropdownItem on:click={() => mejaClick(meja)}>
+										<Avatar size="sm" src="meja.png" rounded />
+										<div class="text-xs">Meja {meja}</div>
+									</DropdownItem>
+								{/each}
+							</Dropdown>
+							<DropdownDivider />
+						{:else if order === 'Pesan'}
+							<DropdownItem
+								class="flex items-center justify-left hover:bg-orange-500 hover:text-black"
+							>
+								<div>
+									<Label for="Pesan" class="mb-1 text-white">Pesan Untuk</Label>
+									<Input
+										id="Pesan"
+										type="datetime-local"
+										bind:value={timeSelect}
+										min={Date.now()}
+										max="2025-06-14T00:00"
+										on:change={() => waktuKirimChange()}
+									/>
+								</div>
+							</DropdownItem>
+							<DropdownDivider />
+						{:else}
+							<DropdownItem
+								on:click={() => {
+									$n_order.jenisOrder = order;
+									$headerContent.jenisOrderOpen = false;
+								}}>{order}</DropdownItem
+							>
+							<DropdownDivider />
+						{/if}
+					{/each}
+				</Dropdown>
+			</div>
+		{:else if $headerContent.mode === 'Belanja'}
+			<div class="grid grid-cols-2 w-full h-11">
+				<button class="h-full w-full  p-0">
+					<div class="ml-1 text-left font-semibold" style="font-size:10px">Suplier</div>
+					<div class="font-bold text-xs">{$n_beli.suplier.nama}</div>
+				</button>
+				<Dropdown
+					padding="none"
+					bind:open={$headerContent.suplierOpen}
+					class="bg-orange-500 text-white max-h-64 overflow-y-auto "
+				>
+					{#each $dataSuplier as suplier}
+						<DropdownItem
+							on:click={() => {
+								$n_beli.suplier = suplier;
+								$headerContent.suplierOpen = false;
+							}}>{suplier.nama}</DropdownItem
+						>
+						<DropdownDivider />
+					{/each}
+				</Dropdown>
+				<div />
+			</div>
+		{:else if $headerContent.mode === 'Antrian'}
+			<div class="w-full h-11 grid grid-cols-3">
+				<button
+					on:click={() => ($headerContent.antrianSelect = 1)}
+					class="w-full border-t border-r border-white  {$headerContent.antrianSelect === 1
+						? 'bg-white text-black'
+						: 'bg-orange-500 text-white'}"
+					>Hari Ini
+					</button>
+				<button
+					on:click={() => ($headerContent.antrianSelect = 2)}
+					class="w-full border-t border-r border-white {$headerContent.antrianSelect === 2
+						? 'bg-white text-black'
+						: 'bg-orange-500 text-white'}">Tersimpan</button
+				>
+				<button
+					on:click={() => ($headerContent.antrianSelect = 3)}
+					class="w-full border-t border-white {$headerContent.antrianSelect === 3
+						? 'bg-white text-black'
+						: 'bg-orange-500 text-white'}">Pesan</button
+				>
+					</div>
+		{:else if $headerContent.mode === 'Setup'}
+			<div class="w-full h-11 pb-1 grid grid-cols-4">
+				<button
+					on:click={() => ($headerContent.setupSelect = 'menu')}
+					class="w-full border-t border-r border-white  {$headerContent.setupSelect === 'menu'
+						? 'bg-white text-black'
+						: 'bg-orange-500 text-white'}"
+					>Menu
+				</button>
+				<Dropdown
+					bind:open={$headerContent.menuSelectOpen}
+					class="h-96 ml-4 w-64 overflow-y-auto border border-orange-500"
+				>
+					{#if $dataMenuStore.length > 0}
+						{#each $dataMenuStore as menu, index}
+							<DropdownItem on:click={() => editMenuClick(menu)} class="grid grid-cols-3 px-4">
+								<Avatar src={menu.gambar} rounded />
+								<div class="col-span-2">{menu.nama}</div>
+							</DropdownItem>
+							<DropdownDivider />
+						{/each}
+					{/if}
+					<DropdownItem on:click={() => newMenuClick()} slot="footer" class="text-orange-500"
+						>Tambah Menu</DropdownItem
+					>
+				</Dropdown>
+				<button
+					on:click={() => ($headerContent.setupSelect = 'bahan')}
+					class="w-full border-t border-r border-white {$headerContent.setupSelect === 'bahan'
+						? 'bg-white text-black'
+						: 'bg-orange-500 text-white'}">Bahan</button
+				>
+				<Dropdown bind:open={$headerContent.bahanOpen} class="h-96 ml-4 w-64 overflow-y-auto">
+					{#if $dataBahanStore.length > 0}
+						{#each $dataBahanStore as bahan, index}
+							<DropdownItem on:click={() => editBahanClick(bahan)} class="grid grid-cols-3 px-4">
+								<Avatar src={bahan.gambar} rounded />
+								<div class="col-span-2">{bahan.nama}</div>
+							</DropdownItem>
+						{/each}
+					{/if}
+					<DropdownItem on:click={() => newBahanClick()} slot="footer" class="text-orange-500"
+						>Tambah Bahan</DropdownItem
+					>
+				</Dropdown>
+				<button
+					on:click={() => ($headerContent.setupSelect = 'pelanggan')}
+					class="w-full border-t border-r border-white  {$headerContent.setupSelect === 'pelanggan'
+						? 'bg-white text-black'
+						: 'bg-orange-500 text-white'}">Pelanggan</button
+				>
+				<Dropdown bind:open={$headerContent.pelangganOpen} class="h-96 ml-4 w-64 overflow-y-auto">
+					{#if $dataPelanggan.length > 0}
+						{#each $dataPelanggan as pelanggan, index}
+							<DropdownItem on:click={() => editPelangganClick(pelanggan)} class="grid grid-cols-3 px-4">
+								<Avatar src={pelanggan.gambar} rounded />
+								<div class="col-span-2">{pelanggan.nama}</div>
+							</DropdownItem>
+						{/each}
+					{/if}
+					<DropdownItem on:click={() => newPelangganClick()} slot="footer" class="text-orange-500"
+						>Tambah Pelanggan</DropdownItem
+					>
+				</Dropdown>
+				<button
+					on:click={() => ($headerContent.setupSelect = 'suplier')}
+					class="w-full border-t border-r border-white  {$headerContent.setupSelect === 'suplier'
+						? 'bg-white text-black'
+						: 'bg-orange-500 text-white'}">Suplier</button
+				>
+				<Dropdown bind:open={$headerContent.suplierOpen} class="h-96 ml-4 w-64 overflow-y-auto">
+					{#if $dataSuplier.length > 0}
+						{#each $dataSuplier as suplier, index}
+							<DropdownItem on:click={() => editSuplierClick(suplier)} class="grid grid-cols-3 px-4">
+								<Avatar src={suplier.gambar} rounded />
+								<div class="col-span-2">{suplier.nama}</div>
+							</DropdownItem>
+						{/each}
+					{/if}
+					<DropdownItem on:click={() => newSuplierClick()} slot="footer" class="text-orange-500"
+						>Tambah Suplier</DropdownItem
+					>
+				</Dropdown>
+			</div>
+		{:else}
+			Home
+		{/if}
 	</div>
-	<Sidebar>
-		<SidebarWrapper divClass="overflow-y-auto py-4 px-3 rounded dark:bg-gray-800">
-			<SidebarGroup>
-				<SidebarItem on:click={() => dashboardClick()} label="Dashboard" href="/Dashboard">
-					<svelte:fragment slot="icon">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="1.5"
-							stroke="currentColor"
-							class="w-6 h-6"
-							><path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z"
-							/><path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z"
-							/></svg
-						>
-					</svelte:fragment>
-				</SidebarItem>
-				<SidebarItem on:click={() => kasirClick()} label="Kasir" href="/Kasir">
-					<svelte:fragment slot="icon">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="1.5"
-							stroke="currentColor"
-							class="w-6 h-6"
-							><path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-							/></svg
-						>
-					</svelte:fragment>
-				</SidebarItem>
-				<SidebarItem on:click={() => antrianClick()} label="Antrian" href="/Antrian" {spanClass}>
-					<svelte:fragment slot="icon">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="24"
-							height="24"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="#000000"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle
-								cx="9"
-								cy="7"
-								r="4"
-							/><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg
-						>
-					</svelte:fragment>
-					<svelte:fragment slot="subtext">
-						<span
-							class="inline-flex justify-center items-center px-2 ml-3 text-sm font-medium text-gray-800 bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-300"
-							>{headerContent.jmlAntrian}</span
-						>
-					</svelte:fragment>
-				</SidebarItem>
-				<SidebarDropdownWrapper label="Pengeluaran">
-					<svelte:fragment slot="icon">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="1.5"
-							stroke="currentColor"
-							class="w-6 h-6"
-							><path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M9 3.75H6.912a2.25 2.25 0 00-2.15 1.588L2.35 13.177a2.25 2.25 0 00-.1.661V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 00-2.15-1.588H15M2.25 13.5h3.86a2.25 2.25 0 012.012 1.244l.256.512a2.25 2.25 0 002.013 1.244h3.218a2.25 2.25 0 002.013-1.244l.256-.512a2.25 2.25 0 012.013-1.244h3.859M12 3v8.25m0 0l-3-3m3 3l3-3"
-							/></svg
-						>
-					</svelte:fragment>
-					<SidebarDropdownItem on:click={() => belanjaClick()} href="/Belanja" label="Belanja" />
-					<SidebarDropdownItem label="Tagihan" />
-					<SidebarDropdownItem label="Nota" />
-				</SidebarDropdownWrapper>
-				<SidebarItem on:click={() => (hidden2 = true)} label="Users" href="/Users">
-					<svelte:fragment slot="icon">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="1.5"
-							stroke="currentColor"
-							class="w-6 h-6"
-							><path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-							/></svg
-						>
-					</svelte:fragment>
-				</SidebarItem>
-				<SidebarItem on:click={() => setupClick()} label="Setup" href="/Setup">
-					<svelte:fragment slot="icon">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="24"
-							height="24"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="#000000"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							><circle cx="12" cy="12" r="3" /><path
-								d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
-							/></svg
-						>
-					</svelte:fragment>
-				</SidebarItem>
-				<SidebarItem on:click={() => (hidden2 = true)} label="Keluar">
-					<svelte:fragment slot="icon">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="24"
-							height="24"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="#000000"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"><path d="M16 17l5-5-5-5M19.8 12H9M10 3H4v18h6" /></svg
-						>
-					</svelte:fragment>
-				</SidebarItem>
-			</SidebarGroup>
-		</SidebarWrapper>
-	</Sidebar>
-</Drawer>
+</div>
+</div>

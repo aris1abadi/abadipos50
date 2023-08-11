@@ -1,7 +1,7 @@
 <script>
 	import { rupiah } from '$lib/myFunction';
 	import { io } from '$lib/realtime';
-	import {onMount} from "svelte";
+	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 
 	//import Header from '$lib/Header.svelte';
@@ -14,45 +14,43 @@
 		dataSatuan,
 		newBahanGlobal,
 		dataPelanggan,
-		newPelangganGlobal
+		newPelangganGlobal,
+		headerContent,
+		firstLoad
 	} from '$lib/stores/store';
-	import {
-		ButtonGroup,
-		Button,
-		Avatar,
-		Dropdown,
-		DropdownItem,
+	import {		
 		FloatingLabelInput,
 		Toggle,
 		Label,
 		Select,
-		DropdownDivider
+		
 	} from 'flowbite-svelte';
 
-	let setupSelect = 'menu';
+	
 	let newMenu = true;
-	let newBahan = true;
-	let menuOpen = false;
-	let bahanOpen = false;
-	let pelangganOpen= false;
+	let newBahan = true;	
 	let stokUse = false;
 	//menu var
 	let namaSelect = '';
-	let stokIdSelect = '';	
+	let stokIdSelect = '';
 	let hargaSelect = 0;
 	let hargaGojegSelect = 0;
 	let waIdSelect = '';
 	let stokSelect = '';
 	//bahan var
-	let bahanSelect = ""
+	let bahanSelect = '';
 	let satuanBeliSelect = '';
 	let satuanPakaiSelect = '';
 	let konversiSelect = 1;
 	//pelanggan
-	let newPelanggan = true
-	let pelangganSelect = ""
-	let telpSelect = ""
-	let alamatSelect = ""
+	let newPelanggan = true;
+	let pelangganSelect = '';
+	let telpSelect = '';
+	let alamatSelect = '';
+	//suplier
+	let suplierSelect = '';
+	let newSuplier = true
+
 	let gambarSelect = 'logo2023.png';
 	let kategoriSelect = $dataKategoriMenu[0];
 	let editMenu = {
@@ -79,27 +77,34 @@
 		gambar: 'logo2023.png'
 	};
 
-	let editPelanggan={
-		nama:"",
-		telp:"--",
-		alamat:"-",
-		map:"0,0",
+	let editPelanggan = {
+		nama: '',
+		telp: '--',
+		alamat: '-',
+		map: '0,0',
 		gambar: 'logo2023.png'
-	}
+	};
 
-	onMount(() =>{
-		if($newBahanGlobal){
-			setupSelect = 'bahan'
-			newBahan = true
-			newBahanClick()
+	onMount(() => {
+		if ($newBahanGlobal) {
+			setupSelect = 'bahan';
+			newBahan = true;
+			newBahanClick();
 		}
 
-		if($newPelangganGlobal){
-			setupSelect = 'pelanggan'
-			newPelanggan = true
-			newPelangganClick()
+		if ($newPelangganGlobal) {
+			setupSelect = 'pelanggan';
+			newPelanggan = true;
+			newPelangganClick();
 		}
-	})
+
+		if ($firstLoad) {
+			goto('/');
+			$headerContent.mode = 'Home';
+		} else {
+			$headerContent.mode = 'Setup';
+		}
+	});
 
 	/**
 	 * @param {{ nama: string;gambar:string; waId: string;stokId: string;kategori:string;harga:number;hargaGojeg:number }} menu
@@ -108,7 +113,7 @@
 		// @ts-ignore
 		editMenu = menu;
 		newMenu = false; //edit menu
-		menuOpen = false;
+		$headerContent.menuSelectOpen = false;
 		namaSelect = menu.nama;
 		waIdSelect = menu.waId;
 		hargaSelect = menu.harga;
@@ -216,7 +221,7 @@
 
 	function newMenuClick() {
 		newMenu = true;
-		menuOpen = false;
+		$headerContent.menuSelectOpen = false;
 
 		stokUse = false;
 		namaSelect = '';
@@ -230,7 +235,7 @@
 
 	//bahan handle
 	function newBahanClick() {
-		bahanOpen = false;
+		$headerContent.bahanOpen = false;
 		newBahan = true;
 
 		bahanSelect = '';
@@ -244,7 +249,7 @@
 		gambarSelect = 'logo2023.png';
 	}
 	function editBahanClick(bahan) {
-		bahanOpen = false;
+		$headerContent.bahanOpen = false;
 		newBahan = false;
 
 		bahanSelect = bahan.nama;
@@ -271,8 +276,6 @@
 			editBahan.gambar = 'logo2023.png';
 		}
 
-		
-
 		editBahan.nama = bahanSelect;
 		editBahan.harga = hargaSelect;
 		editBahan.kategori = kategoriSelect;
@@ -290,46 +293,61 @@
 				newBahan: newBahan,
 				data0: file
 			};
-			
+
 			io.emit('bahan_upload', fileData, (status) => {
 				console.log(status);
 			});
-			console.log(fileData)
+			console.log(fileData);
 		};
-		
 
 		reader.readAsDataURL(file);
 		newBahanClick();
-		if($newBahanGlobal){
-			$newBahanGlobal = false			
-			goto("/Belanja")
+		if ($newBahanGlobal) {
+			$newBahanGlobal = false;
+			goto('/Belanja');
 		}
 	}
 	//------------------------------------
-	function newPelangganClick(){
-		pelangganOpen = false
-		newPelanggan = true
-		pelangganSelect = ""
-		telpSelect= ""
-		alamatSelect = ""
+	function newPelangganClick() {
+		$headerContent.pelangganOpen = false;
+		newPelanggan = true;
+		pelangganSelect = '';
+		telpSelect = '';
+		alamatSelect = '';
 		gambarSelect = 'logo2023.png';
 	}
 
-	function editPelangganClick(pelanggan){
-		pelangganOpen = false
-		newPelanggan = false
+	function editPelangganClick(pelanggan) {
+		$headerContent.pelangganOpen = false;
+		newPelanggan = false;
 
-		pelangganSelect = pelanggan.nama
-		telpSelect= pelanggan.telp
-		alamatSelect = pelanggan.alamat
-		gambarSelect = pelanggan.gambar
-
+		pelangganSelect = pelanggan.nama;
+		telpSelect = pelanggan.telp;
+		alamatSelect = pelanggan.alamat;
+		gambarSelect = pelanggan.gambar;
 	}
 
-	function simpanPelanggan(){
-		editPelanggan.nama = pelangganSelect
-		editPelanggan.telp = telpSelect
-		editPelanggan.alamat = alamatSelect
+	function editSuplierClick(suplier){
+		$headerContent.suplierOpen = false;
+		newSuplier = false;
+
+		suplierSelect = suplier.nama;
+		telpSelect = suplier.telp;
+		alamatSelect = suplier.alamat;
+		gambarSelect = suplier.gambar;
+	}
+
+	function newSuplierClick(){
+		suplierSelect = ""
+		telpSelect =""
+		alamatSelect =""
+		gambarSelect = 'logo2023.png';
+	}
+
+	function simpanPelanggan() {
+		editPelanggan.nama = pelangganSelect;
+		editPelanggan.telp = telpSelect;
+		editPelanggan.alamat = alamatSelect;
 
 		const fileInput = document.getElementById('fileInput');
 		// @ts-ignore
@@ -351,80 +369,57 @@
 				newPelanggan: newPelanggan,
 				data0: file
 			};
-			
+
 			io.emit('pelanggan_upload', fileData, (status) => {
 				console.log(status);
 			});
-			console.log(fileData)
+			console.log(fileData);
 		};
-		
 
 		reader.readAsDataURL(file);
 
-		if($newPelangganGlobal){
-			$newPelangganGlobal = false			
-			goto("/Kasir")
+		if ($newPelangganGlobal) {
+			$newPelangganGlobal = false;
+			goto('/Kasir');
 		}
+	}
 
+	function simpanSuplier() {}
+
+	$:if($headerContent.click){
+		$headerContent.click = false
+		if($headerContent.setupSelect === 'menu'){
+			if($headerContent.isNewData){
+				newMenuClick();
+			}else{
+				// @ts-ignore
+				editMenuClick($headerContent.data)
+			}
+		}else if($headerContent.setupSelect === 'bahan'){
+			if($headerContent.isNewData){
+				newBahanClick();
+			}else{
+				editBahanClick($headerContent.data)
+			}
+		}else if($headerContent.setupSelect === 'pelanggan'){
+			if($headerContent.isNewData){
+				newPelangganClick();
+			}else{
+				editPelangganClick($headerContent.data)
+			}
+		}else if($headerContent.setupSelect === 'suplier'){
+			if($headerContent.isNewData){
+				newSuplierClick();
+			}else{
+				editSuplierClick($headerContent.data)
+			}
+		}
 	}
 </script>
 
-<div class="w-full h-10">
-	<ButtonGroup class="grid grid-cols-4 px-4 my-4 w-full h-full">
-		<Button on:click={() => (setupSelect = 'menu')} pill class={(setupSelect === 'menu')?"bg-white text-black":"bg-orange-500 text-white"}
-			>Setup Menu</Button
-		>
-		<Dropdown bind:open={menuOpen} class="h-96 ml-4 w-64 overflow-y-auto border border-orange-500">
-			{#if $dataMenuStore.length > 0}
-				{#each $dataMenuStore as menu, index}
-					<DropdownItem on:click={() => editMenuClick(menu)} class="grid grid-cols-3 px-4">
-						<Avatar src={menu.gambar} rounded />
-						<div class="col-span-2">{menu.nama}</div>
-					</DropdownItem>
-					<DropdownDivider />
-				{/each}
-			{/if}
-			<DropdownItem on:click={() => newMenuClick()} slot="footer" class="text-orange-500"
-				>Tambah Menu</DropdownItem
-			>
-		</Dropdown>
-		<Button on:click={() => (setupSelect = 'bahan')} pill class={(setupSelect === 'bahan')?"bg-white text-black":"bg-orange-500 text-white"}>Setup Bahan</Button>
-		<Dropdown bind:open={bahanOpen} class="h-96 ml-4 w-64 overflow-y-auto">
-			{#if $dataBahanStore.length > 0}
-				{#each $dataBahanStore as bahan, index}
-					<DropdownItem on:click={() => editBahanClick(bahan)} class="grid grid-cols-3 px-4">
-						<Avatar src={bahan.gambar} rounded />
-						<div class="col-span-2">{bahan.nama}</div>
-					</DropdownItem>
-				{/each}
-			{/if}
-			<DropdownItem on:click={() => newBahanClick()} slot="footer" class="text-orange-500"
-				>Tambah Bahan</DropdownItem
-			>
-		</Dropdown>
-		<Button on:click={() => (setupSelect = 'pelanggan')} pill class={(setupSelect === 'pelanggan')?"bg-white text-black":"bg-orange-500 text-white"}>Setup Pelanggan</Button>
-		<Dropdown bind:open={pelangganOpen} class="h-96 ml-4 w-64 overflow-y-auto">
-			{#if $dataPelanggan.length > 0}
-				{#each $dataPelanggan as pelanggan, index}
-					<DropdownItem on:click={() => editPelangganClick(pelanggan)} class="grid grid-cols-3 px-4">
-						<Avatar src={pelanggan.gambar} rounded />
-						<div class="col-span-2">{pelanggan.nama}</div>
-					</DropdownItem>
-				{/each}
-			{/if}
-			<DropdownItem on:click={() => newPelangganClick()} slot="footer" class="text-orange-500"
-				>Tambah Pelanggan</DropdownItem
-			>
-		</Dropdown>
-		
-		<Button on:click={() => (setupSelect = 'system')} pill class={(setupSelect === 'system')?"bg-white text-black":"bg-orange-500 text-white"}
-			>Setup System</Button
-		>
-	</ButtonGroup>
-</div>
 <div class="w-full h-5/6 mt-4 overflow-y-auto">
-	{#if setupSelect === 'menu'}
-		{#if !menuOpen}
+	{#if $headerContent.setupSelect === 'menu'}
+		{#if !$headerContent.menuSelectOpen && !$headerContent.menuOpen}
 			<div class="grid grid-cols-2">
 				<div class="pt-8 pl-4">
 					<FloatingLabelInput
@@ -528,14 +523,14 @@
 				{/if}
 			</div>
 		{/if}
-	{:else if setupSelect === 'bahan'}
-		{#if !bahanOpen}
+	{:else if $headerContent.setupSelect === 'bahan'}
+		{#if !$headerContent.bahanOpen && !$headerContent.menuOpen && !$headerContent.menuSelectOpen}
 			<div class="grid grid-cols-2">
 				<div class="pt-8 pl-4">
 					<FloatingLabelInput
 						classDiv="mb-4"
 						color="green"
-						style="outlined"						
+						style="outlined"
 						type="text"
 						label="Nama Bahan"
 						size="small"
@@ -632,72 +627,133 @@
 				{/if}
 			</div>
 		{/if}
-	{:else if setupSelect === 'pelanggan'}
-	{#if !pelangganOpen}
-	<div class="grid grid-cols-2">
-		<div class="pt-8 pl-4">
-			<FloatingLabelInput
-				classDiv="mb-4"
-				color="green"
-				style="outlined"						
-				type="text"
-				label="Nama Bahan"
-				size="small"
-				bind:value={pelangganSelect}
-			/>
-			<FloatingLabelInput
-				classDiv="my-4"
-				color="green"
-				style="outlined"				
-				type="tel"
-				label="Nomer Hp"
-				size="small"
-				bind:value={telpSelect}
-			/>
+	{:else if $headerContent.setupSelect === 'pelanggan'}
+		{#if !$headerContent.pelangganOpen && !$headerContent.menuOpen && !$headerContent.menuSelectOpen}
+			<div class="grid grid-cols-2">
+				<div class="pt-8 pl-4">
+					<FloatingLabelInput
+						classDiv="mb-4"
+						color="green"
+						style="outlined"
+						type="text"
+						label="Nama Pelanggan"
+						size="small"
+						bind:value={pelangganSelect}
+					/>
+					<FloatingLabelInput
+						classDiv="my-4"
+						color="green"
+						style="outlined"
+						type="tel"
+						label="Nomer Hp"
+						size="small"
+						bind:value={telpSelect}
+					/>
 
-			<FloatingLabelInput
-				classDiv="my-4"
-				color="green"
-				style="outlined"				
-				type="text"
-				label="Alamat"
-				size="small"
-				bind:value={alamatSelect}
-			/>
-
-			
-		</div>
-
-		<div>
-			<div class="w-full h-48 flex justify-center items-center">
-				<div class="w-32 h-32 border">
-					<img class="h-full w-full" id="imgNow" src={gambarSelect} alt="gambar" />
+					<FloatingLabelInput
+						classDiv="my-4"
+						color="green"
+						style="outlined"
+						type="text"
+						label="Alamat"
+						size="small"
+						bind:value={alamatSelect}
+					/>
 				</div>
-			</div>
-			<div class="w-full h-12 flex justify-center items-center">
-				<input
-					class="flex items-center border border-orange-500 rounded rounded-lg w-3/4 h-8 text-xs"
-					type="file"
-					id="fileInput"
-					on:input={() => tampilkanGambar()}
-				/>
-			</div>
-		</div>
-		{#if pelangganSelect && telpSelect && alamatSelect}
-			<div class="col-span-2 mt-8 flex justify-center">
-				<button
-					on:click={() => simpanPelanggan()}
-					class="w-1/2 h-10 rounded-lg bg-orange-500 text-white">Simpan Pelanggan</button
-				>
-			</div>
-		{:else}
-			<div class="col-span-2 mt-8 flex justify-center">
-				<button class="w-1/2 h-10 rounded-lg bg-gray-100">Simpan Pelanggan</button>
+
+				<div>
+					<div class="w-full h-48 flex justify-center items-center">
+						<div class="w-32 h-32 border">
+							<img class="h-full w-full" id="imgNow" src={gambarSelect} alt="gambar" />
+						</div>
+					</div>
+					<div class="w-full h-12 flex justify-center items-center">
+						<input
+							class="flex items-center border border-orange-500 rounded rounded-lg w-3/4 h-8 text-xs"
+							type="file"
+							id="fileInput"
+							on:input={() => tampilkanGambar()}
+						/>
+					</div>
+				</div>
+				{#if pelangganSelect && telpSelect && alamatSelect}
+					<div class="col-span-2 mt-8 flex justify-center">
+						<button
+							on:click={() => simpanPelanggan()}
+							class="w-1/2 h-10 rounded-lg bg-orange-500 text-white">Simpan Pelanggan</button
+						>
+					</div>
+				{:else}
+					<div class="col-span-2 mt-8 flex justify-center">
+						<button class="w-1/2 h-10 rounded-lg bg-gray-100">Simpan Pelanggan</button>
+					</div>
+				{/if}
 			</div>
 		{/if}
-	</div>
-{/if}
-	{:else if setupSelect === 'system'}
+	{:else if $headerContent.setupSelect === 'suplier'}
+		{#if !$headerContent.suplierOpen && !$headerContent.menuSelectOpen && !$headerContent.menuOpen}
+			<div class="grid grid-cols-2">
+				<div class="pt-8 pl-4">
+					<FloatingLabelInput
+						classDiv="mb-4"
+						color="green"
+						style="outlined"
+						type="text"
+						label="Nama Suplier"
+						size="small"
+						bind:value={suplierSelect}
+					/>
+					<FloatingLabelInput
+						classDiv="my-4"
+						color="green"
+						style="outlined"
+						type="tel"
+						label="Nomer Hp"
+						size="small"
+						bind:value={telpSelect}
+					/>
+
+					<FloatingLabelInput
+						classDiv="my-4"
+						color="green"
+						style="outlined"
+						type="text"
+						label="Alamat"
+						size="small"
+						bind:value={alamatSelect}
+					/>
+				</div>
+
+				<div>
+					<div class="w-full h-48 flex justify-center items-center">
+						<div class="w-32 h-32 border">
+							<img class="h-full w-full" id="imgNow" src={gambarSelect} alt="gambar" />
+						</div>
+					</div>
+					<div class="w-full h-12 flex justify-center items-center">
+						<input
+							class="flex items-center border border-orange-500 rounded rounded-lg w-3/4 h-8 text-xs"
+							type="file"
+							id="fileInput"
+							on:input={() => tampilkanGambar()}
+						/>
+					</div>
+				</div>
+				{#if pelangganSelect && telpSelect && alamatSelect}
+					<div class="col-span-2 mt-8 flex justify-center">
+						<button
+							on:click={() => simpanSuplier()}
+							class="w-1/2 h-10 rounded-lg bg-orange-500 text-white">Simpan Suplier</button
+						>
+					</div>
+				{:else}
+					<div class="col-span-2 mt-8 flex justify-center">
+						<button class="w-1/2 h-10 rounded-lg bg-gray-100">Simpan Suplier</button>
+					</div>
+				{/if}
+			</div>
+		{/if}
+	{:else if $headerContent.setupSelect === 'system'}
 		<div />
 	{/if}
 </div>

@@ -124,39 +124,7 @@
 		bahanItem = bahanItem;
 	}
 
-	function tambahClick() {
-		$newBahanGlobal = true
-		goto("/Setup")
-
-		/*
-		if (newNama.length > 0 && newHarga > 0) {
-			bahanOpen = false;
-			console.log('New Bahan: ', newNama);
-			let lastId = $dataBahanStore[$dataBahanStore.length - 1].id;
-			let textId = lastId.split('-');
-			let numId = parseInt(textId[1]);
-			let newId = 'B-' + (numId + 1);
-			console.log('newId ', newId);
-			let dataBaru = {
-				id: newId,
-				nama: newNama,
-				harga: newHarga,
-				satuan: '-',
-				suplier: $dataSuplier[0],
-				isi: 1,
-				stok: 0,
-				stokId: '-'
-			};
-			//simpan bahan
-			io.emit('simpanBahan', dataBaru);
-			// @ts-ignore
-			dataBaru.belanjaCount = 1;
-			bahanItem = [...bahanItem, dataBaru];
-			bahanItem = bahanItem;
-		}
-		*/
-	}
-
+	
 	
 
 	let bayarBelanjaOpen = false;
@@ -171,7 +139,7 @@
 				jml: 0,
 				satuan: '',
 				stokId: '',
-				isi: 1,
+				konversi: 1,
 				user: {}
 			};
 			bahanItem.forEach((bahan, index) => {
@@ -181,7 +149,7 @@
 				newItem.jml = bahan.belanjaCount;
 				newItem.satuan = bahan.satuan;
 				newItem.stokId = bahan.stokId;
-				newItem.isi = bahan.isi;
+				newItem.konversi = bahan.konversi;
 				newItem.user = bahan.user;
 
 				newBahan.push(newItem);
@@ -230,7 +198,7 @@
 {#if (($dataMenuStore.length > 0) && ($dataBahanStore.length > 0) && ($dataSuplier.length > 0))}
 
 
-<div class="max-h-80 w-full p-4 overflow-y-auto bg-white">
+<div class="max-h-80 w-full p-4 mt-4  overflow-y-auto bg-white">
 	{#if bahanItem.length}
 		{#each bahanItem as bahan, index}
 			<div class="grid grid-cols-5 w-full h-15 pr-5 mt-2 border-b-2">
@@ -260,7 +228,7 @@
 	{/if}
 </div>
 {#if $n_beli.totalTagihan > 0}
-<div class="grid grid-cols-8 px-4 h-8 mb-2">
+<div class="grid grid-cols-8 px-4 h-8 mb-2 mt-4">
 	<div class="col-span-1" />
 	<div class="col-span-5 text-left border-b-2">
 		Tagihan(-DP{$n_beli.totalBayar})

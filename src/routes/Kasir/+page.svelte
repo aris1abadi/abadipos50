@@ -89,6 +89,17 @@
 				});
 			});
 		}
+		io.on('myMenu', (msg) => {
+			if (menuItem.length > 0) {
+				msg.forEach((menu) => {
+					menuItem.forEach((item, index) => {
+						if (item.stokId === menu.stokId) {
+							menuItem[index].stok = menu.stok;
+						}
+					});
+				});
+			}
+		});
 
 		io.on('paymentStatus', (msg) => {
 			console.log(msg);
@@ -136,24 +147,24 @@
 
 		$newOrder = true;
 	}
-	function updateLocalStok(stokId,stok){
-		$dataMenuStore.forEach((menu,index) =>{
-			if(menu.stokId === stokId){
-				$dataMenuStore[index].stok = stok
+	function updateLocalStok(stokId, stok) {
+		$dataMenuStore.forEach((menu, index) => {
+			if (menu.stokId === stokId) {
+				$dataMenuStore[index].stok = stok;
 			}
-		})
-		menuItem.forEach((item,index) =>{
-			if(item.stokId === stokId){
-				menuItem[index].stok = stok
+		});
+		menuItem.forEach((item, index) => {
+			if (item.stokId === stokId) {
+				menuItem[index].stok = stok;
 			}
-		})
+		});
 	}
 
 	function pilihMenuClick(menu) {
 		//tesTxt = JSON.stringify(menu)
 		let newItem = {
 			id: '',
-			stokId:'',
+			stokId: '',
 			nama: '',
 			harga: 0,
 			jml: 0,
@@ -168,7 +179,7 @@
 					menuItem[index].jml += 1;
 					if (menuItem[index].stokId !== '-') {
 						menuItem[index].stok -= 1;
-						updateLocalStok(menuItem[index].stokId,menuItem[index].stok)
+						updateLocalStok(menuItem[index].stokId, menuItem[index].stok);
 					}
 				}
 			});
@@ -176,14 +187,14 @@
 				newItem.id = menu.id;
 				newItem.nama = menu.nama;
 				newItem.harga = menu.harga;
-				newItem.stokId = menu.stokId
+				newItem.stokId = menu.stokId;
 				newItem.jml = 1;
 				if (menu.stokId !== '-') {
 					newItem.stok = menu.stok - 1;
-					updateLocalStok(menu.stokId,newItem.stok)
+					updateLocalStok(menu.stokId, newItem.stok);
 				} else {
 					newItem.stok = menu.stok;
-				}			
+				}
 
 				menuItem.push(newItem);
 				menuItem = menuItem;
@@ -192,13 +203,12 @@
 			newItem.id = menu.id;
 			newItem.nama = menu.nama;
 			newItem.harga = menu.harga;
-			newItem.stokId = menu.stokId
+			newItem.stokId = menu.stokId;
 			newItem.jml = 1;
 
 			if (menu.stokId !== '-') {
 				newItem.stok = menu.stok - 1;
-				updateLocalStok(menu.stokId,newItem.stok)
-
+				updateLocalStok(menu.stokId, newItem.stok);
 			} else {
 				newItem.stok = menu.stok;
 			}
@@ -211,7 +221,7 @@
 	function hapusItemOrder(idx) {
 		if (menuItem[idx].stokId !== '-') {
 			menuItem[idx].stok += 1;
-			updateLocalStok(menuItem[idx].stokId,menuItem[idx].stok)
+			updateLocalStok(menuItem[idx].stokId, menuItem[idx].stok);
 		}
 		if (--menuItem[idx].jml === 0) {
 			let newMenu = [];
@@ -230,7 +240,7 @@
 	function tambahItemClick(idx) {
 		if (menuItem[idx].stokId !== '-') {
 			menuItem[idx].stok -= 1;
-			updateLocalStok(menuItem[idx].stokId,menuItem[idx].stok)
+			updateLocalStok(menuItem[idx].stokId, menuItem[idx].stok);
 		}
 		menuItem[idx].jml += 1;
 		updateTotal();
@@ -246,7 +256,7 @@
 		$n_order.totalItem = t_item;
 		$n_order.totalTagihan = t_tagihan;
 	}
-	
+
 	let totalBayar = 0;
 
 	function simpanTransaksi() {
@@ -254,7 +264,7 @@
 		menuItem.forEach((menu) => {
 			let dt = {
 				id: menu.id,
-				stokId : menu.stokId,
+				stokId: menu.stokId,
 				nama: menu.nama,
 				harga: menu.harga,
 				jml: menu.jml
@@ -267,7 +277,7 @@
 			itemDetil: simpanItem
 		};
 		$n_order.item = itemNow;
-		console.log("simpan ",$n_order)
+		console.log('simpan ', $n_order);
 		if ($newOrder) {
 			io.emit('simpanTransaksiJual', $n_order);
 		} else {
@@ -301,7 +311,6 @@
 
 	let timeSelect = Date.now();
 
-
 	function ambilClick() {
 		if (totalBayar + $n_order.totalBayar >= $n_order.totalTagihan) {
 			$n_order.totalBayar = $n_order.totalTagihan;
@@ -312,7 +321,6 @@
 			hapusSemua();
 		}
 	}
-
 </script>
 
 {#if $dataMenuStore.length > 0 && $dataPelanggan.length > 0}
@@ -370,7 +378,7 @@
 				</div>
 			{/each}
 		</div>
-		
+
 		{#if $n_order.totalTagihan !== 0}
 			<div class="grid grid-cols-8 px-4 h-8 mb-2">
 				<div class="col-span-1" />
@@ -501,7 +509,7 @@
 		{/if}
 		{#if !$headerContent.jenisOrderOpen && !$headerContent.mejaOpen && !$headerContent.pelangganOpen && !bayarOpen}
 			<div class="w-full h-8 grid grid-cols-3">
-				<div  />
+				<div />
 				<button
 					on:click={() => (menuHide = !menuHide)}
 					class="flex justify-right w-full h-8 ml-4 animate-bounce"
@@ -523,7 +531,7 @@
 					</div>
 					<div class="text-center ml-2">Tambah</div>
 				</button>
-				<div  />
+				<div />
 			</div>
 		{:else}
 			<div class="w-full h-8" />

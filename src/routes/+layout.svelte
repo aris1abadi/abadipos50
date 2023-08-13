@@ -60,32 +60,12 @@
 			modalOpen = false;
 		});
 
-		if ($dataMenuStore.length === 0) {
-			sendToServer('getMenu');
-		}
-
-		if ($dataBahanStore.length === 0) {
-			sendToServer('getBahan');
-		}
-
-		if ($dataPelanggan.length === 0) {
-			sendToServer('getPelanggan');
-		}
-
-		if ($dataSuplier.length === 0) {
-			sendToServer('getSuplier');
-		}
-
-		if ($dataKategoriMenu.length === 0) {
-			sendToServer('getKategori');
-		}
-
 		io.on('myMenu', (msg) => {
-			if (typeof $dataMenuStore !== 'undefined' && $dataMenuStore.length > 0) {
-				$dataMenuStore.forEach((menu, index) => {
-					$dataMenuStore[index].stok = msg[index].stok;
-				});
-			} else {
+			//if (typeof $dataMenuStore !== 'undefined' && $dataMenuStore.length > 0) {
+			//	$dataMenuStore.forEach((menu, index) => {
+			//		$dataMenuStore[index].stok = msg[index].stok;
+			//	});
+			//} else {
 				$dataMenuStore = [];
 				msg.forEach(
 					(
@@ -106,26 +86,25 @@
 						$dataMenuStore.push(dt);
 					}
 				);
-				//console.log('Menu', $dataMenuStore);
-			}
+				console.log('Menu', $dataMenuStore);
+			//}
 		});
 
 		io.on('myBahan', (msg) => {
 			$dataBahanStore = msg;
-
-			//console.log('update bahan: ', $dataBahanStore);
+			console.log('Bahan: ', $dataBahanStore);
 		});
 
 		io.on('myPelanggan', (msg) => {
 			$dataPelanggan = msg;
-			//console.log('pelanggan: ', $dataPelanggan);
+			console.log('pelanggan: ', $dataPelanggan);
 			$n_order.pelanggan = $dataPelanggan[0];			
 			
 		});
 
 		io.on('mySuplier', (msg) => {
 			$dataSuplier = msg;
-			//console.log('suplier: ', $dataSuplier);
+			console.log('suplier: ', $dataSuplier);
 			$n_beli.suplier = $dataSuplier[11];
 		});
 
@@ -134,24 +113,22 @@
 			$dataKategoriBahan = msg[0].bahan;
 			$dataKategoriUser = msg[0].user;
 			$dataSatuan = msg[0].satuan;
-			//console.log("kategori ",msg)
+			console.log("kategori ",msg)
 			//console.log("kategori menu ",$dataKategoriMenu)
 		});
 
 		io.on('myTransaksiJualCount', (msg) => {
 			$transaksiJualCount = msg;
 			$n_order.id = bikinIdTransaksi('J', msg);
-			//bikinIdTransaksiJual();
-			//$n_order._id = $idTransaksiJual;
-			//console.log('transaksiJualcount: ' + $transaksiJualCount);
+			console.log("ID transaksiJual ",$n_order.id)
+			
 		});
 
 		io.on('myTransaksiBeliCount', (msg) => {
 			$transaksiBeliCount = msg;
 			$n_beli.id = bikinIdTransaksi('B', msg);
-			//bikinIdTransaksiJual();
-			//$n_order._id = $idTransaksiJual;
-			//console.log('transaksiJualcount: ' + $transaksiJualCount);
+			console.log("ID transaksiBeli ",$n_beli.id)
+			
 		});
 	});
 

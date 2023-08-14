@@ -164,7 +164,7 @@
 				<div
 					class="bg-white w-full border border-orange-400 rounded-xl rounded-tl-none rounded-br-none my-2 p-2"
 				>
-					<div class="grid grid-cols-5 gap-2 w-full h-12 mt-1 mb-2">
+					<div class="grid grid-cols-5 bg-gray-200 gap-2 pl-4 w-full h-12 mt-1 mb-2">
 						<div class="col-span-3">
 							<div><b> {antrian.pelanggan.nama}</b><i class="text-xs"> ({antrian.id}) </i></div>
 							<div>
@@ -184,7 +184,20 @@
 						</div>
 						<div>
 							<button on:click={() => antrian_click(antrian)}
-								><Avatar class="h-7 h-7" src="edit1.svg" /></button
+								><svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="w-8 h-8"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+								/>
+							</svg></button
 							>
 						</div>
 					</div>
@@ -216,7 +229,7 @@
 				<div
 					class="bg-white w-full border border-orange-400 rounded-xl rounded-tl-none rounded-br-none my-2 p-2"
 				>
-					<div class="grid grid-cols-5 gap-2 w-full h-12 mt-1 mb-2">
+					<div class="grid grid-cols-5 gap-2 bg-gray-200 pl-4 w-full h-12 mt-1 mb-2">
 						<div class="col-span-3">
 							<div><b> {antrian.pelanggan.nama}</b><i class="text-xs"> ({antrian.id}) </i></div>
 							<div>
@@ -237,7 +250,20 @@
 						</div>
 						<div>
 							<button on:click={() => antrian_click(antrian)}
-								><Avatar class="h-7 h-7" src="edit1.svg" /></button
+								><svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="w-8 h-8"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+								/>
+							</svg></button
 							>
 						</div>
 					</div>

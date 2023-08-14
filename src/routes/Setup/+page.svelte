@@ -18,24 +18,17 @@
 		headerContent,
 		firstLoad
 	} from '$lib/stores/store';
-	import {		
-		FloatingLabelInput,
-		Toggle,
-		Label,
-		Select,
-		
-	} from 'flowbite-svelte';
+	import { FloatingLabelInput, Toggle, Label, Select } from 'flowbite-svelte';
 
-	
 	let newMenu = true;
-	let newBahan = true;	
+	let newBahan = true;
 	let stokUse = false;
 	//menu var
 	let namaSelect = '';
 	let stokIdSelect = '';
 	let hargaSelect = 0;
 	let hargaGojegSelect = 0;
-	let waIdSelect = '';
+	let waIdSelect = '-';
 	let stokSelect = '';
 	//bahan var
 	let bahanSelect = '';
@@ -49,7 +42,7 @@
 	let alamatSelect = '';
 	//suplier
 	let suplierSelect = '';
-	let newSuplier = true
+	let newSuplier = true;
 
 	let gambarSelect = 'logo2023.png';
 	let kategoriSelect = $dataKategoriMenu[0];
@@ -327,7 +320,7 @@
 		gambarSelect = pelanggan.gambar;
 	}
 
-	function editSuplierClick(suplier){
+	function editSuplierClick(suplier) {
 		$headerContent.suplierOpen = false;
 		newSuplier = false;
 
@@ -337,10 +330,10 @@
 		gambarSelect = suplier.gambar;
 	}
 
-	function newSuplierClick(){
-		suplierSelect = ""
-		telpSelect =""
-		alamatSelect =""
+	function newSuplierClick() {
+		suplierSelect = '';
+		telpSelect = '';
+		alamatSelect = '';
 		gambarSelect = 'logo2023.png';
 	}
 
@@ -386,32 +379,32 @@
 
 	function simpanSuplier() {}
 
-	$:if($headerContent.click){
-		$headerContent.click = false
-		if($headerContent.setupSelect === 'menu'){
-			if($headerContent.isNewData){
+	$: if ($headerContent.click) {
+		$headerContent.click = false;
+		if ($headerContent.setupSelect === 'menu') {
+			if ($headerContent.isNewData) {
 				newMenuClick();
-			}else{
+			} else {
 				// @ts-ignore
-				editMenuClick($headerContent.data)
+				editMenuClick($headerContent.data);
 			}
-		}else if($headerContent.setupSelect === 'bahan'){
-			if($headerContent.isNewData){
+		} else if ($headerContent.setupSelect === 'bahan') {
+			if ($headerContent.isNewData) {
 				newBahanClick();
-			}else{
-				editBahanClick($headerContent.data)
+			} else {
+				editBahanClick($headerContent.data);
 			}
-		}else if($headerContent.setupSelect === 'pelanggan'){
-			if($headerContent.isNewData){
+		} else if ($headerContent.setupSelect === 'pelanggan') {
+			if ($headerContent.isNewData) {
 				newPelangganClick();
-			}else{
-				editPelangganClick($headerContent.data)
+			} else {
+				editPelangganClick($headerContent.data);
 			}
-		}else if($headerContent.setupSelect === 'suplier'){
-			if($headerContent.isNewData){
+		} else if ($headerContent.setupSelect === 'suplier') {
+			if ($headerContent.isNewData) {
 				newSuplierClick();
-			}else{
-				editSuplierClick($headerContent.data)
+			} else {
+				editSuplierClick($headerContent.data);
 			}
 		}
 	}
@@ -421,51 +414,45 @@
 	{#if $headerContent.setupSelect === 'menu'}
 		{#if !$headerContent.menuSelectOpen && !$headerContent.menuOpen}
 			<div class="grid grid-cols-2">
-				<div class="pt-8 pl-4">
-					<FloatingLabelInput
-						classDiv="mb-4"
-						color="green"
-						style="outlined"
-						id="nama_menu"
-						type="text"
-						label="Nama menu"
-						size="small"
-						bind:value={namaSelect}
-					/>
-					<FloatingLabelInput
-						classDiv="my-4"
-						color="green"
-						style="outlined"
-						id="wa_id"
-						type="text"
-						label="Whatsapp ID"
-						size="small"
-						bind:value={waIdSelect}
-					/>
-					<div class="grid grid-cols-2 gap-2">
-						<FloatingLabelInput
-							classDiv="my-4"
-							color="green"
-							style="outlined"
-							id="harga"
-							type="number"
-							label="Harga"
-							size="small"
-							bind:value={hargaSelect}
-						/>
-						<FloatingLabelInput
-							classDiv="my-4"
-							color="green"
-							style="outlined"
-							id="harga_gojeg"
-							type="number"
-							label="Gojeg"
-							size="small"
-							bind:value={hargaGojegSelect}
+				<div class="pt-4 pl-4">
+					<div class="w-full h-10 mt-2">
+						<div class="text-xs text-left ml-2">Nama Menu</div>
+						<input
+							class="w-full h-10 text-right rounded rounded-lg"
+							type="text"
+							bind:value={namaSelect}
 						/>
 					</div>
 
-					<div class="p-2 border rounded">
+					<div class="w-full h-10 my-6">
+						<div class="text-xs text-left ml-2">Whatsapp ID</div>
+						<input
+							class="w-full h-10 text-right rounded rounded-lg"
+							type="text"
+							bind:value={waIdSelect}
+						/>
+					</div>
+
+					<div class="grid grid-cols-2 gap-2">
+						<div class="w-full h-10">
+							<div class="text-xs text-left ml-2">Harga</div>
+							<input
+								class="w-full h-10 text-right rounded rounded-lg"
+								type="number"
+								bind:value={hargaSelect}
+							/>
+						</div>
+						<div>
+							<div class="text-xs text-left ml-2">Gojeg</div>
+							<input
+								class="w-full h-10 text-right rounded rounded-lg"
+								type="number"
+								bind:value={hargaGojegSelect}
+							/>
+						</div>
+					</div>
+
+					<div class="p-2 border rounded mt-4">
 						<div>
 							<Label class="text-xs font-mono">Pakai Stok</Label>
 							<Toggle bind:checked={stokUse} color="orange" />
@@ -526,29 +513,26 @@
 	{:else if $headerContent.setupSelect === 'bahan'}
 		{#if !$headerContent.bahanOpen && !$headerContent.menuOpen && !$headerContent.menuSelectOpen}
 			<div class="grid grid-cols-2">
-				<div class="pt-8 pl-4">
-					<FloatingLabelInput
-						classDiv="mb-4"
-						color="green"
-						style="outlined"
-						type="text"
-						label="Nama Bahan"
-						size="small"
-						bind:value={bahanSelect}
-					/>
-					<FloatingLabelInput
-						classDiv="my-4"
-						color="green"
-						style="outlined"
-						id="harga"
-						type="number"
-						label="Harga Beli"
-						size="small"
-						bind:value={hargaSelect}
-					/>
-
-					<div>
-						<div class="mt-2">
+				<div class="pt-4 pl-4">
+					<div class="w-full h-10 mt-2">
+						<div class="text-xs text-left ml-2">Nama Bahan</div>
+						<input
+							class="w-full h-10 text-right rounded rounded-lg"
+							type="text"
+							bind:value={bahanSelect}
+						/>
+					</div>
+					<div class="w-full h-10 mt-6">
+						<div class="text-xs text-left ml-2">Harga Beli</div>
+						<input
+							class="w-full h-10 text-right rounded rounded-lg"
+							type="number"
+							bind:value={hargaSelect}
+						/>
+					</div>
+					
+					
+						<div class="mt-6">
 							<div class="text-xs font-mono">Kategori</div>
 							<Select bind:value={kategoriSelect}>
 								{#each $dataKategoriBahan as kategori}
@@ -556,31 +540,32 @@
 								{/each}
 							</Select>
 						</div>
-					</div>
+					
 
-					<div class="grid grid-cols-2 gap-2">
-						<FloatingLabelInput
-							classDiv="my-4"
-							color="green"
-							style="outlined"
-							type="text"
-							label="Stok ID"
-							size="small"
-							bind:value={stokIdSelect}
-						/>
-						<FloatingLabelInput
-							classDiv="my-4"
-							style="outlined"
-							color="green"
-							type="number"
-							label="Konversi"
-							size="small"
-							bind:value={konversiSelect}
-						/>
+					<div class="grid grid-cols-2 gap-2 mt-4">
+						<div class="w-full h-10">
+							<div class="text-xs text-left ml-2">StokId</div>
+							<input
+								class="w-full h-10 text-right rounded rounded-lg"
+								type="text"
+								bind:value={stokIdSelect}
+							/>
+						</div>
+
+						<div class="w-full h-10">
+							<div class="text-xs text-left ml-2">Konversi</div>
+							<input
+								class="w-full h-10 text-right rounded rounded-lg"
+								type="number"
+								bind:value={konversiSelect}
+							/>
+						</div>
+						
+						
 					</div>
-					<div class="grid grid-cols-2 gap-2">
+					<div class="grid grid-cols-2 gap-2 mt-4">
 						<div class="mt-4">
-							<div class="text-xs font-mono">Satuan Beli</div>
+							<div class="text-xs font-mono">Sat.Beli</div>
 							<Select bind:value={satuanBeliSelect}>
 								{#each $dataSatuan as satuan}
 									<option value={satuan}>{satuan}</option>
@@ -588,7 +573,7 @@
 							</Select>
 						</div>
 						<div class="mt-4">
-							<div class="text-xs font-mono">Satuan Pakai</div>
+							<div class="text-xs font-mono">Sat.Pakai</div>
 							<Select bind:value={satuanPakaiSelect}>
 								{#each $dataSatuan as satuan}
 									<option value={satuan}>{satuan}</option>

@@ -6,7 +6,8 @@
   "nama": "Sudirwan",
   "alamat": "-",
   "map": " ",
-  "telp": "0800000000"
+  "telp": "0800000000",
+  "gambar": "logo2023.png"
 },
 {
   "_id": {
@@ -16,7 +17,8 @@
   "nama": "Jayanti",
   "alamat": "Ngupit",
   "map": " ",
-  "telp": "0800000000"
+  "telp": "0800000000",
+  "gambar": "logo2023.png"
 },
 {
   "_id": {
@@ -26,7 +28,8 @@
   "nama": "Pasar",
   "alamat": "-",
   "map": " ",
-  "telp": "0800000000"
+  "telp": "0800000000",
+  "gambar": "logo2023.png"
 },
 {
   "_id": {
@@ -36,7 +39,8 @@
   "nama": "Toko unik",
   "alamat": "-",
   "map": " ",
-  "telp": "0800000000"
+  "telp": "0800000000",
+  "gambar": "logo2023.png"
 },
 {
   "_id": {
@@ -46,7 +50,8 @@
   "nama": "Toko nurul",
   "alamat": "-",
   "map": " ",
-  "telp": "0800000000"
+  "telp": "0800000000",
+  "gambar": "logo2023.png"
 },
 {
   "_id": {
@@ -56,7 +61,8 @@
   "nama": "Toko fitri",
   "alamat": "-",
   "map": " ",
-  "telp": "0800000000"
+  "telp": "0800000000",
+  "gambar": "logo2023.png"
 },
 {
   "_id": {
@@ -66,7 +72,8 @@
   "nama": "Warung Mbak tri",
   "alamat": "-",
   "map": " ",
-  "telp": "0800000000"
+  "telp": "0800000000",
+  "gambar": "logo2023.png"
 },
 {
   "_id": {
@@ -76,7 +83,8 @@
   "nama": "Warung Carik",
   "alamat": "-",
   "map": " ",
-  "telp": "0800000000"
+  "telp": "0800000000",
+  "gambar": "logo2023.png"
 },
 {
   "_id": {
@@ -86,7 +94,8 @@
   "nama": "Warung Wawan",
   "alamat": "-",
   "map": " ",
-  "telp": "0800000000"
+  "telp": "0800000000",
+  "gambar": "logo2023.png"
 },
 {
   "_id": {
@@ -96,7 +105,8 @@
   "nama": "Toko Bambang",
   "alamat": "-",
   "map": " ",
-  "telp": "0800000000"
+  "telp": "0800000000",
+  "gambar": "logo2023.png"
 },
 {
   "_id": {
@@ -106,7 +116,8 @@
   "nama": "Toko Sri Rahayu",
   "alamat": "-",
   "map": " ",
-  "telp": "0800000000"
+  "telp": "0800000000",
+  "gambar": "logo2023.png"
 },
 {
   "_id": {
@@ -116,5 +127,6 @@
   "nama": "Umum",
   "alamat": "-",
   "map": " ",
-  "telp": "0800000000"
+  "telp": "0800000000",
+  "gambar": "logo2023.png"
 }]

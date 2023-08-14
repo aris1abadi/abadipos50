@@ -29,6 +29,7 @@ export const headerContent = writable({
 export const hapusOrderVal = writable(false)
 export const prosesClickVal = writable(false)
 export const simpanOrderVal = writable(false)
+export const prosesCount = writable(0)
 
 export const totalTagihan = writable(0);
 export const totalBayar = writable(0);

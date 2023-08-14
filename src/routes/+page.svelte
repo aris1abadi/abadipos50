@@ -3,13 +3,11 @@
 	import {
 		dataMenuStore,
 		dataBahanStore,
-		dataTransaksiJual,		
+		dataTransaksiJual,
 		firstLoad,
 		n_order,
-
-		headerContent
-
-
+		headerContent,
+		prosesCount
 	} from '$lib/stores/store.js';
 	import { io } from '$lib/realtime';
 	import { onMount } from 'svelte';
@@ -17,7 +15,7 @@
 
 	//import { faUser, faSave, faTrashCan } from '@fortawesome/free-regular-svg-icons';
 	import { bikinIdTransaksi, sendToServer } from '$lib/myFunction.js';
-	import { Avatar } from 'flowbite-svelte';
+	import { Spinner } from 'flowbite-svelte';
 
 	//import { Datepicker, Input, initTE } from "tw-elements";
 
@@ -35,6 +33,7 @@
 	let hargaTransaksi = [];
 	let transaksiNumber = 0;
 	let totalPenjualan = 0;
+	$: proses = String($prosesCount);
 
 	onMount(() => {
 		transaksiNumber = 0;
@@ -47,7 +46,7 @@
 		//sendToServer('getPelanggan');
 		//sendToServer('getSuplier');
 		//sendToServer('getKategori');
-/*
+		/*
 		io.on('myMenu', (msg) => {
 			//$dataMenuStore = msg;
 			$dataMenuStore = [];
@@ -75,22 +74,17 @@
 		});
 		*/
 
-		jmlTransaksi=[]
-		hargaTransaksi=[]
-		$dataMenuStore.forEach(menu =>{
+		jmlTransaksi = [];
+		hargaTransaksi = [];
+		$dataMenuStore.forEach((menu) => {
 			jmlTransaksi.push(0);
 			hargaTransaksi.push(0);
-		})
-
-		
+		});
 
 		io.on('myTransaksiJual', (msg) => {
 			$dataTransaksiJual = msg;
 		});
 
-		
-
-		
 		io.on('myCloseTransaksiNow', (msg) => {
 			closeTransaksiNow = msg;
 			//console.log(msg)
@@ -110,10 +104,10 @@
 		});
 	});
 
-	function mulaiClick(){
-		$firstLoad = false
-		$headerContent.mode = "Kasir"
-		goto("/Kasir")
+	function mulaiClick() {
+		$firstLoad = false;
+		$headerContent.mode = 'Kasir';
+		goto('/Kasir');
 	}
 </script>
 
@@ -123,14 +117,23 @@
 </svelte:head>
 
 <div class=" w-full h-1/2 flex justify-center">
-	
 	<img src="logo2023.png" alt="Logo lesehanpundong" class="w-48 h-48 mt-20" />
+</div>
+<div class="text-2xl font-bold text-center">0822 6528 5223</div>
+<div class="w-full h-10 flex justify-center">
+	{#if $prosesCount < 100}
+	<button class="w-1/2 h-full border border-orange-500 text-orange-500">
+		<Spinner class="mr-3" size="4" />
+    Loading ...
+	</button>
+	{:else}
+	<button
+		on:click={() => mulaiClick()}
+		class="w-1/2 h-full border border-orange-500 text-orange-500">Mulai Jualan</button
+	>
+	
+{/if}
 	
 	
 </div>
-<div class="text-2xl font-bold text-center">0822 6528 5223</div>
-<div class="w-full h-10 flex justify-center">	
-	<button on:click={() =>mulaiClick()} class="w-1/2 h-full  border border-orange-500  text-orange-500">Mulai Jualan</button>
-
-	</div>
 

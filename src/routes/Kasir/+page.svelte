@@ -571,14 +571,14 @@
 			>
 		{/each}
 	</div>
-	<div class="overflow-y-auto w-full">
+	<div class="overflow-y-auto w-full h-3/4">
 		<div class="grid grid-cols-4 gap-2">
 			{#if $dataMenuStore}
 				{#each $dataMenuStore as menu, index}
 					{#if kategoriNow === menu.kategori}
 						<button class="bg-white rounded ronded-sm" on:click={() => pilihMenuClick(menu)}>
-							<div class="flex flex-col items-center pb-2">
-								<Avatar size="sm" src={menu.gambar} />
+							<div class="flex flex-col items-center p-2">
+								<img class="w-full h-1/2" src={menu.gambar} alt="gambar" />
 								<div class="mb-1 text-xs font-medium text-gray-900 dark:text-white">
 									{menu.nama}
 								</div>

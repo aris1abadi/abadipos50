@@ -6,7 +6,8 @@
   "nama": "Umum",
   "telp": "6281390364076",
   "map": "0,0",
-  "alamat": "-"
+  "alamat": "-",
+  "gambar": "logo2023.png"
 },
 {
   "_id": {
@@ -16,7 +17,8 @@
   "nama": "Pelanggan 1",
   "telp": "6281390364076",
   "map": "0,0",
-  "alamat": "-"
+  "alamat": "-",
+  "gambar": "logo2023.png"
 },
 {
   "_id": {
@@ -26,7 +28,8 @@
   "nama": "Pelanggan 2",
   "telp": "6281390364076",
   "map": "0,0",
-  "alamat": "-"
+  "alamat": "-",
+  "gambar": "logo2023.png"
 },
 {
   "_id": {
@@ -36,7 +39,8 @@
   "nama": "Pelanggan 3",
   "telp": "6281225121441",
   "map": "0,0",
-  "alamat": "-"
+  "alamat": "-",
+  "gambar": "logo2023.png"
 },
 {
   "_id": {
@@ -46,7 +50,8 @@
   "nama": "Pelanggan 4",
   "telp": "6281225121441",
   "map": "0,0",
-  "alamat": "-"
+  "alamat": "-",
+  "gambar": "logo2023.png"
 },
 {
   "_id": {
@@ -56,7 +61,8 @@
   "nama": "Pelanggan Wa",
   "telp": "62895710670504",
   "map": "0,0",
-  "alamat": "-"
+  "alamat": "-",
+  "gambar": "logo2023.png"
 },
 {
   "_id": {
@@ -66,7 +72,8 @@
   "nama": "Lastri",
   "telp": "6281390364076",
   "map": "0,0",
-  "alamat": "-"
+  "alamat": "-",
+  "gambar": "logo2023.png"
 },
 {
   "_id": {
@@ -76,7 +83,8 @@
   "nama": "Roy Margono",
   "telp": "6281548555000",
   "map": "0,0",
-  "alamat": "-"
+  "alamat": "-",
+  "gambar": "logo2023.png"
 },
 {
   "_id": {

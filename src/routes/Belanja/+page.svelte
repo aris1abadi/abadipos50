@@ -158,7 +158,7 @@
 			$n_beli.item = newBahan;
 
 			io.emit('simpanTransaksiBeli', $n_beli);
-			console.log('simpan transaksi beli ', $n_beli);
+			//console.log('simpan transaksi beli ', $n_beli);
 			belanjaOpen = false
 			hapusSemua();
 		}

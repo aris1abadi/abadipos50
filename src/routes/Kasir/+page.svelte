@@ -277,7 +277,7 @@
 			itemDetil: simpanItem
 		};
 		$n_order.item = itemNow;
-		console.log('simpan ', $n_order);
+		//console.log('simpan ', $n_order);
 		if ($newOrder) {
 			io.emit('simpanTransaksiJual', $n_order);
 		} else {

@@ -40,6 +40,7 @@
 	let pelangganSelect = '';
 	let telpSelect = '';
 	let alamatSelect = '';
+	let mapSelect ='-'
 	//suplier
 	let suplierSelect = '';
 	let newSuplier = true;
@@ -79,17 +80,7 @@
 	};
 
 	onMount(() => {
-		if ($newBahanGlobal) {
-			setupSelect = 'bahan';
-			newBahan = true;
-			newBahanClick();
-		}
-
-		if ($newPelangganGlobal) {
-			setupSelect = 'pelanggan';
-			newPelanggan = true;
-			newPelangganClick();
-		}
+		
 
 		if ($firstLoad) {
 			goto('/');
@@ -307,6 +298,7 @@
 		pelangganSelect = '';
 		telpSelect = '';
 		alamatSelect = '';
+		mapSelect='-'
 		gambarSelect = 'logo2023.png';
 	}
 
@@ -318,6 +310,7 @@
 		telpSelect = pelanggan.telp;
 		alamatSelect = pelanggan.alamat;
 		gambarSelect = pelanggan.gambar;
+		mapSelect = pelanggan.map
 	}
 
 	function editSuplierClick(suplier) {
@@ -328,12 +321,14 @@
 		telpSelect = suplier.telp;
 		alamatSelect = suplier.alamat;
 		gambarSelect = suplier.gambar;
+		mapSelect = suplier.map
 	}
 
 	function newSuplierClick() {
 		suplierSelect = '';
 		telpSelect = '';
 		alamatSelect = '';
+		mapSelect = '-'
 		gambarSelect = 'logo2023.png';
 	}
 
@@ -341,6 +336,7 @@
 		editPelanggan.nama = pelangganSelect;
 		editPelanggan.telp = telpSelect;
 		editPelanggan.alamat = alamatSelect;
+		editPelanggan.map = mapSelect
 
 		const fileInput = document.getElementById('fileInput');
 		// @ts-ignore
@@ -616,34 +612,41 @@
 		{#if !$headerContent.pelangganOpen && !$headerContent.menuOpen && !$headerContent.menuSelectOpen}
 			<div class="grid grid-cols-2">
 				<div class="pt-8 pl-4">
-					<FloatingLabelInput
-						classDiv="mb-4"
-						color="green"
-						style="outlined"
-						type="text"
-						label="Nama Pelanggan"
-						size="small"
-						bind:value={pelangganSelect}
-					/>
-					<FloatingLabelInput
-						classDiv="my-4"
-						color="green"
-						style="outlined"
-						type="tel"
-						label="Nomer Hp"
-						size="small"
-						bind:value={telpSelect}
-					/>
+					<div class="w-full h-10 mt-2">
+						<div class="text-xs text-left ml-2">Nama Pelanggan</div>
+						<input
+							class="w-full h-10 text-right rounded rounded-lg"
+							type="text"
+							bind:value={pelangganSelect}
+						/>
+					</div>
 
-					<FloatingLabelInput
-						classDiv="my-4"
-						color="green"
-						style="outlined"
-						type="text"
-						label="Alamat"
-						size="small"
-						bind:value={alamatSelect}
-					/>
+					<div class="w-full h-10 mt-6">
+						<div class="text-xs text-left ml-2">Nomer Hp</div>
+						<input
+							class="w-full h-10 text-right rounded rounded-lg"
+							type="tel"
+							bind:value={telpSelect}
+						/>
+					</div>
+					
+					<div class="w-full h-10 mt-6">
+						<div class="text-xs text-left ml-2">Alamat</div>
+						<input
+							class="w-full h-10 text-right rounded rounded-lg"
+							type="tel"
+							bind:value={alamatSelect}
+						/>
+					</div>
+
+					<div class="w-full h-10 mt-6">
+						<div class="text-xs text-left ml-2">Map</div>
+						<input
+							class="w-full h-10 text-right rounded rounded-lg"
+							type="text"
+							bind:value={mapSelect}
+						/>
+					</div>
 				</div>
 
 				<div>
@@ -706,6 +709,15 @@
 						label="Alamat"
 						size="small"
 						bind:value={alamatSelect}
+					/>
+					<FloatingLabelInput
+						classDiv="my-4"
+						color="green"
+						style="outlined"
+						type="text"
+						label="Map"
+						size="small"
+						bind:value={mapSelect}
 					/>
 				</div>
 

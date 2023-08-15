@@ -70,12 +70,12 @@ export function bikinIdTransaksi(kode = 'J',count = 0) {
 
 export function getTanggal(tm){    
 	const today = new Date(tm);
-	return today.toLocaleDateString('en-GB'); // "14/6/2020"
+	return today.toLocaleDateString('id-ID'); // "14/6/2020"
 }
 
 export function getJam(tm){    
 	const today = new Date(tm);
-	return today.toLocaleTimeString('en-GB'); // "15:57:36"
+	return today.toLocaleTimeString('id-ID'); // "15:57:36"
 }
 
 export function rupiah(number = 0) {

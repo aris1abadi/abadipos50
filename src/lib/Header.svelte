@@ -146,7 +146,7 @@
 	<div
 		class="grid grid-cols-12 flex justify-center w-full h-24 border border-orange-500 rounded-xl rounded-b-none"
 	>
-		<div class=" h-12 bg-orange-500 rounded-xl rounded-b-none rounded-tr-none">
+		<div class="col-span-2 h-12 bg-orange-500 rounded-xl rounded-b-none rounded-tr-none">
 			<button class="w-full h-full flex justify-center items-center">
 				<Avatar src="logo2023.png" class="w-8 h-8 " />
 			</button>
@@ -173,7 +173,7 @@
 				<DropdownItem on:click={() => setupClick()}>Setup</DropdownItem>
 			</Dropdown>
 		</div>
-		<div class="col-span-9 h-12 p-1 text-white bg-orange-500">
+		<div class="col-span-8 h-12 p-1 text-white bg-orange-500">
 			{#if $headerContent.mode === 'Dashboard'}
 				<div class="font-bold text-xl ml-4">DashBoard</div>
 				<div class="text-xs ml-4 font-bold">{getTanggal(Date.now())}</div>

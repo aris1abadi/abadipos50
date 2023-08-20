@@ -1,5 +1,8 @@
 import { io } from '$lib/realtime';	
 
+
+
+
 export function getFormatTanggal(){
     let tm = new Date();
        
@@ -70,12 +73,12 @@ export function bikinIdTransaksi(kode = 'J',count = 0) {
 
 export function getTanggal(tm){    
 	const today = new Date(tm);
-	return today.toLocaleDateString('id-ID'); // "14/6/2020"
+	return today.toLocaleDateString('id-ID',{"timeZone":"Asia/jakarta"})
 }
 
 export function getJam(tm){    
 	const today = new Date(tm);
-	return today.toLocaleTimeString('id-ID'); // "15:57:36"
+	return today.toLocaleTimeString('id-ID',{"timeZone":"Asia/jakarta"})
 }
 
 export function rupiah(number = 0) {

@@ -1,20 +1,13 @@
 <script>
- 
+	
 	import '../app.css';
+	
 	import { Modal } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
 	import { io } from '$lib/realtime';
 	import Header from '$lib/Header.svelte';
-
-	import {
-		BottomNav,
-		Dropdown,
-		DropdownItem,
-		Chevron,
-		BottomNavItem,
-		DropdownDivider
-	} from 'flowbite-svelte';
-
+	import Toast from '$lib/Toast.svelte'
+	
 	import {
 		displayMode,
 		n_order,
@@ -34,9 +27,8 @@
 
 
 	} from '$lib/stores/store';
-
 	
-	import { goto } from '$app/navigation';
+	//import { goto } from '$app/navigation';
 	import { sendToServer, bikinIdTransaksi } from '$lib/myFunction';
 
 	let modalOpen = false;
@@ -47,6 +39,21 @@
 	let homeOpen = false;
 
 	onMount(() => {
+		if($dataMenuStore.length === 0){
+			sendToServer("getMenu")
+		}
+
+		if($dataBahanStore.length === 0){
+			sendToServer("getBahan")
+		}
+
+		if($dataSuplier.length === 0){
+			sendToServer("getSuplier")
+		}
+
+		if($dataPelanggan.length === 0){
+			sendToServer("getPelanggan")
+		}
 		
 		$prosesCount =0
 		io.on('qr', (msg) => {
@@ -176,6 +183,7 @@
 		<Header />
 		{/if}
 		<slot><!-- optional fallback --></slot>
-		
+		<Toast/>
 	</div>
 </div>
+

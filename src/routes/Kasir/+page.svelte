@@ -15,20 +15,15 @@
 		newPelangganGlobal
 	} from '$lib/stores/store.js';
 	import { goto } from '$app/navigation';
-
 	import { tick } from 'svelte';
 	import { io } from '$lib/realtime';
-
-	//import SveltyPicker from 'svelty-picker';
-	//import { id } from 'svelty-picker/i18n';
-
-	import { bikinIdTransaksi, rupiah, getJam, getTanggal } from '$lib/myFunction';
+	import { bikinIdTransaksi, rupiah } from '$lib/myFunction';
 	import { headerContent } from '$lib/stores/store';
 	// @ts-ignore
-
 	import { Dropdown, Avatar, DropdownItem, Drawer } from 'flowbite-svelte';
-	import { sineIn } from 'svelte/easing';
-
+	import { sineIn } from 'svelte/easing';	
+	import {notifications} from '$lib/notifications.js'
+	
 	let loginProgress, loginSwipeable, introProgress, zoomOut;
 	tick().then(() => (zoomOut = true));
 
@@ -283,6 +278,11 @@
 		} else {
 			io.emit('updateTransaksiJual', $n_order);
 		}
+		let msg = "Transaksi "
+			msg += $n_order.id
+			msg += " Disimpan"
+		notifications.success("Penjualan",msg,5000)
+		
 	}
 
 	function btnSimpanPenjualan() {

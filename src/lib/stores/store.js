@@ -42,6 +42,7 @@ export const transaksiBeliCount = writable(0);
 export const newBahanGlobal = writable(false);
 export const newBahanContent = writable()
 export const newPelangganGlobal = writable(false);
+export const newSuplierGlobal = writable(false);
 export const displayMode = writable("Kasir")
 export const n_order = writable({
 	id: ' ',

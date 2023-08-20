@@ -14,9 +14,11 @@
 		dataSatuan,
 		newBahanGlobal,
 		dataPelanggan,
+		dataSuplier,
 		newPelangganGlobal,
 		headerContent,
-		firstLoad
+		firstLoad,
+		newSuplierGlobal
 	} from '$lib/stores/store';
 	import { FloatingLabelInput, Toggle, Label, Select } from 'flowbite-svelte';
 
@@ -40,7 +42,7 @@
 	let pelangganSelect = '';
 	let telpSelect = '';
 	let alamatSelect = '';
-	let mapSelect ='-'
+	let mapSelect = '-';
 	//suplier
 	let suplierSelect = '';
 	let newSuplier = true;
@@ -60,6 +62,7 @@
 	};
 
 	let editBahan = {
+		id:'-',
 		nama: '-',
 		harga: 0,
 		satuanBeli: '-',
@@ -72,6 +75,16 @@
 	};
 
 	let editPelanggan = {
+		id:'-',
+		nama: '',
+		telp: '--',
+		alamat: '-',
+		map: '0,0',
+		gambar: 'logo2023.png'
+	};
+
+	let editSuplier = {
+		id:'-',
 		nama: '',
 		telp: '--',
 		alamat: '-',
@@ -80,8 +93,6 @@
 	};
 
 	onMount(() => {
-		
-
 		if ($firstLoad) {
 			goto('/');
 			$headerContent.mode = 'Home';
@@ -131,10 +142,10 @@
 
 				reader.readAsDataURL(file);
 			} else {
-				console.log('Please select an image file.');
+				console.log('Silahan pilih file gambar');
 			}
 		} else {
-			console.log('Please select a file.');
+			console.log('Silahkan Pilih file');
 		}
 	}
 	/*
@@ -193,6 +204,7 @@
 				newMenu: newMenu,
 				data0: file
 			};
+			fileData.newMenu = newMenu;
 			//io.emit('file-upload', fileData);
 			io.emit('menu_upload', fileData, (status) => {
 				console.log(status);
@@ -200,7 +212,7 @@
 		};
 
 		reader.readAsDataURL(file);
-		newMenuClick();
+		//newMenuClick();
 	}
 
 	function newMenuClick() {
@@ -235,7 +247,7 @@
 	function editBahanClick(bahan) {
 		$headerContent.bahanOpen = false;
 		newBahan = false;
-
+		editBahan = bahan;
 		bahanSelect = bahan.nama;
 		hargaSelect = bahan.harga;
 		kategoriSelect = bahan.kategori;
@@ -267,6 +279,7 @@
 		editBahan.konversi = konversiSelect;
 		editBahan.satuanBeli = satuanBeliSelect;
 		editBahan.satuanPakai = satuanPakaiSelect;
+		editBahan.suplier = suplierSelect;
 
 		const reader = new FileReader();
 		reader.onload = function (event) {
@@ -281,11 +294,11 @@
 			io.emit('bahan_upload', fileData, (status) => {
 				console.log(status);
 			});
-			console.log(fileData);
+			//console.log(fileData);
 		};
 
 		reader.readAsDataURL(file);
-		newBahanClick();
+		//newBahanClick();
 		if ($newBahanGlobal) {
 			$newBahanGlobal = false;
 			goto('/Belanja');
@@ -298,37 +311,38 @@
 		pelangganSelect = '';
 		telpSelect = '';
 		alamatSelect = '';
-		mapSelect='-'
+		mapSelect = '-';
 		gambarSelect = 'logo2023.png';
 	}
 
 	function editPelangganClick(pelanggan) {
 		$headerContent.pelangganOpen = false;
 		newPelanggan = false;
-
+		editPelanggan = pelanggan
 		pelangganSelect = pelanggan.nama;
 		telpSelect = pelanggan.telp;
 		alamatSelect = pelanggan.alamat;
 		gambarSelect = pelanggan.gambar;
-		mapSelect = pelanggan.map
+		mapSelect = pelanggan.map;
 	}
 
 	function editSuplierClick(suplier) {
 		$headerContent.suplierOpen = false;
 		newSuplier = false;
-
+		editSuplier = suplier
 		suplierSelect = suplier.nama;
 		telpSelect = suplier.telp;
 		alamatSelect = suplier.alamat;
 		gambarSelect = suplier.gambar;
-		mapSelect = suplier.map
+		mapSelect = suplier.map;
 	}
 
 	function newSuplierClick() {
+		newSuplier= true
 		suplierSelect = '';
 		telpSelect = '';
 		alamatSelect = '';
-		mapSelect = '-'
+		mapSelect = '-';
 		gambarSelect = 'logo2023.png';
 	}
 
@@ -336,7 +350,7 @@
 		editPelanggan.nama = pelangganSelect;
 		editPelanggan.telp = telpSelect;
 		editPelanggan.alamat = alamatSelect;
-		editPelanggan.map = mapSelect
+		editPelanggan.map = mapSelect;
 
 		const fileInput = document.getElementById('fileInput');
 		// @ts-ignore
@@ -373,7 +387,47 @@
 		}
 	}
 
-	function simpanSuplier() {}
+	function simpanSuplier() {
+
+		editSuplier.nama = suplierSelect;
+		editSuplier.telp = telpSelect;
+		editSuplier.alamat = alamatSelect;
+		editSuplier.map = mapSelect;
+
+		const fileInput = document.getElementById('fileInput');
+		// @ts-ignore
+		const file = fileInput.files[0];
+
+		if (file) {
+			editSuplier.gambar = file.name;
+		} else {
+			//default gambar
+			editSuplier.gambar = 'logo2023.png';
+		}
+
+		const reader = new FileReader();
+		reader.onload = function (event) {
+			const fileData = {
+				name: file.name,
+				type: file.type,
+				dataSuplier: editSuplier,
+				newSuplier: newSuplier,
+				data0: file
+			};
+
+			io.emit('suplier_upload', fileData, (status) => {
+				console.log(status);
+			});
+			console.log(fileData);
+		};
+
+		reader.readAsDataURL(file);
+
+		if ($newSuplierGlobal) {
+			$newSuplierGlobal = false;
+			goto('/Belanja');
+		}
+	}
 
 	$: if ($headerContent.click) {
 		$headerContent.click = false;
@@ -526,17 +580,15 @@
 							bind:value={hargaSelect}
 						/>
 					</div>
-					
-					
-						<div class="mt-6">
-							<div class="text-xs font-mono">Kategori</div>
-							<Select bind:value={kategoriSelect}>
-								{#each $dataKategoriBahan as kategori}
-									<option value={kategori}>{kategori}</option>
-								{/each}
-							</Select>
-						</div>
-					
+
+					<div class="mt-6">
+						<div class="text-xs font-mono">Kategori</div>
+						<Select bind:value={kategoriSelect}>
+							{#each $dataKategoriBahan as kategori}
+								<option value={kategori}>{kategori}</option>
+							{/each}
+						</Select>
+					</div>
 
 					<div class="grid grid-cols-2 gap-2 mt-4">
 						<div class="w-full h-10">
@@ -556,8 +608,6 @@
 								bind:value={konversiSelect}
 							/>
 						</div>
-						
-						
 					</div>
 					<div class="grid grid-cols-2 gap-2 mt-4">
 						<div class="mt-4">
@@ -593,7 +643,16 @@
 							on:input={() => tampilkanGambar()}
 						/>
 					</div>
+					<div class="mt-14 px-8">
+						<div class="text-xs font-mono">Suplier</div>
+						<Select bind:value={suplierSelect}>
+							{#each $dataSuplier as suplier}
+								<option value={suplier}>{suplier.nama}</option>
+							{/each}
+						</Select>
+					</div>
 				</div>
+
 				{#if bahanSelect && hargaSelect > 0}
 					<div class="col-span-2 mt-8 flex justify-center">
 						<button
@@ -629,7 +688,7 @@
 							bind:value={telpSelect}
 						/>
 					</div>
-					
+
 					<div class="w-full h-10 mt-6">
 						<div class="text-xs text-left ml-2">Alamat</div>
 						<input

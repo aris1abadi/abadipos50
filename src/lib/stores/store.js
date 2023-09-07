@@ -53,7 +53,7 @@ export const n_order = writable({
 	waktuKirim: Date.now(),
 	alamatKirim: '',
 	map: '-,-',
-	status: 'open',
+	status: 'open',	
 	totalTagihan: 0,
 	totalBayar: 0,
 	totalItem: 0,

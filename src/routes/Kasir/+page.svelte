@@ -77,7 +77,8 @@
 							nama: item.nama,
 							harga: item.harga,
 							jml: item.jml,
-							stok: menu.stok
+							stok: menu.stok,
+							
 						};
 						menuItem.push(newData);
 					}
@@ -262,7 +263,8 @@
 				stokId: menu.stokId,
 				nama: menu.nama,
 				harga: menu.harga,
-				jml: menu.jml
+				jml: menu.jml,
+				
 			};
 			simpanItem.push(dt);
 		});
@@ -281,7 +283,7 @@
 		let msg = "Transaksi "
 			msg += $n_order.id
 			msg += " Disimpan"
-		notifications.success("Penjualan",msg,5000)
+		notifications.success("Penjualan",msg,2000)
 		
 	}
 

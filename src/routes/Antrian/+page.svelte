@@ -3,8 +3,7 @@
 
 	import { onMount } from 'svelte';
 
-	import {
-		dataMenuStore,
+	import {		
 		n_order,
 		newOrder,
 		dataPelanggan,

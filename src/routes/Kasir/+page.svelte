@@ -1,7 +1,7 @@
 <script>
 	// @ts-nocheck
 
-	import { onMount } from 'svelte';
+	import { onMount } from "svelte";
 
 	import {
 		dataMenuStore,
@@ -12,24 +12,24 @@
 		dataPelanggan,
 		firstLoad,
 		dataKategoriMenu,
-		newPelangganGlobal
-	} from '$lib/stores/store.js';
-	import { goto } from '$app/navigation';
-	import { tick } from 'svelte';
-	import { io } from '$lib/realtime';
-	import { bikinIdTransaksi, rupiah } from '$lib/myFunction';
-	import { headerContent } from '$lib/stores/store';
+		newPelangganGlobal,
+	} from "$lib/stores/store.js";
+	import { goto } from "$app/navigation";
+	import { tick } from "svelte";
+	import { io } from "$lib/realtime";
+	import { bikinIdTransaksi, rupiah } from "$lib/myFunction";
+	import { headerContent } from "$lib/stores/store";
 	// @ts-ignore
-	import { Dropdown, Avatar, DropdownItem, Drawer } from 'flowbite-svelte';
-	import { sineIn } from 'svelte/easing';	
-	import {notifications} from '$lib/notifications.js'
-	
+	import { Dropdown, Avatar, DropdownItem, Drawer } from "flowbite-svelte";
+	import { sineIn } from "svelte/easing";
+	import { notifications } from "$lib/notifications.js";
+
 	let loginProgress, loginSwipeable, introProgress, zoomOut;
 	tick().then(() => (zoomOut = true));
 
 	//let displayMode = 'penjualan'; //menu & antrian,penjualan,pembayaran
-	let imgdef = '/kopi1.jpeg';
-	let mejaImg = '/meja.png';
+	let imgdef = "/kopi1.jpeg";
+	let mejaImg = "/meja.png";
 
 	/**
 	 * @type {any[]}
@@ -44,7 +44,7 @@
 	let transitionParams = {
 		y: 320,
 		duration: 200,
-		easing: sineIn
+		easing: sineIn,
 	};
 
 	//let waktuOrder = String(new Date());
@@ -56,16 +56,16 @@
 		//initTE({ Datepicker, Input });
 		menuItem = [];
 		if ($firstLoad) {
-			goto('/');
-			$headerContent.mode = 'Home';
+			goto("/");
+			$headerContent.mode = "Home";
 		} else {
-			$headerContent.mode = 'Kasir';
+			$headerContent.mode = "Kasir";
 		}
 
 		//kirimKeServer('getMenu');
 
 		if ($newOrder) {
-			kirimKeServer('getTransaksiJualCount');
+			kirimKeServer("getTransaksiJualCount");
 			hapusOrder();
 		} else {
 			$n_order.item.itemDetil.forEach((item, index) => {
@@ -74,18 +74,19 @@
 						//update data stok
 						let newData = {
 							id: item.id,
+							stokId: menu.stokId,
 							nama: item.nama,
 							harga: item.harga,
 							jml: item.jml,
 							stok: menu.stok,
-							
+							isReady: item.isReady,
 						};
 						menuItem.push(newData);
 					}
 				});
 			});
 		}
-		io.on('myMenu', (msg) => {
+		io.on("myMenu", (msg) => {
 			if (menuItem.length > 0) {
 				msg.forEach((menu) => {
 					menuItem.forEach((item, index) => {
@@ -97,22 +98,22 @@
 			}
 		});
 
-		io.on('paymentStatus', (msg) => {
+		io.on("paymentStatus", (msg) => {
 			console.log(msg);
 		});
 
-		io.on('myTransaksiJual', (msg) => {
+		io.on("myTransaksiJual", (msg) => {
 			$dataTransaksiJual = msg;
 		});
 
-		io.on('myTransaksiJualCount', (msg) => {
+		io.on("myTransaksiJualCount", (msg) => {
 			$transaksiJualCount = msg;
-			$n_order.id = bikinIdTransaksi('J', $transaksiJualCount);
+			$n_order.id = bikinIdTransaksi("J", $transaksiJualCount);
 			$headerContent.idTransaksi = $n_order.id;
 			//console.log('id transaksi jual: ' + $n_order.id);
 		});
 
-		io.on('myStok', (msg) => {
+		io.on("myStok", (msg) => {
 			//console.log(msg);
 			$dataMenuStore.forEach((mn, index) => {
 				$dataMenuStore[index].stok = msg[index];
@@ -122,20 +123,20 @@
 		//$n_order.pelanggan = $dataPelanggan[0];
 	});
 
-	function kirimKeServer(msg = '') {
-		io.emit('fromClient', msg);
+	function kirimKeServer(msg = "") {
+		io.emit("fromClient", msg);
 	}
 
 	function hapusOrder() {
-		$n_order.id = bikinIdTransaksi('J', $transaksiJualCount);
+		$n_order.id = bikinIdTransaksi("J", $transaksiJualCount);
 		$n_order.pelanggan = $dataPelanggan[0];
-		$n_order.jenisOrder = 'Bungkus';
+		$n_order.jenisOrder = "Bungkus";
 		$n_order.meja = 1;
-		$n_order.alamatKirim = '';
-		$n_order.map = '';
+		$n_order.alamatKirim = "";
+		$n_order.map = "";
 		$n_order.waktuOrder = Date.now();
 		$n_order.waktuKirim = Date.now();
-		$n_order.status = 'open';
+		$n_order.status = "open";
 		$n_order.totalItem = 0;
 		$n_order.totalBayar = 0;
 		$n_order.totalTagihan = 0;
@@ -149,22 +150,23 @@
 				$dataMenuStore[index].stok = stok;
 			}
 		});
-		menuItem.forEach((item, index) => {
-			if (item.stokId === stokId) {
-				menuItem[index].stok = stok;
-			}
-		});
+		
+		//menuItem.forEach((item, index) => {
+		//	if (item.stokId === stokId) {
+		//		menuItem[index].stok = stok;
+		//	}
+		//});
 	}
 
 	function pilihMenuClick(menu) {
 		//tesTxt = JSON.stringify(menu)
 		let newItem = {
-			id: '',
-			stokId: '',
-			nama: '',
+			id: "",
+			stokId: "",
+			nama: "",
 			harga: 0,
 			jml: 0,
-			stok: 0
+			stok: 0,
 		};
 		menuHide = true;
 		if (menuItem.length > 0) {
@@ -173,9 +175,13 @@
 				if (item.id === menu.id) {
 					isSama = true;
 					menuItem[index].jml += 1;
-					if (menuItem[index].stokId !== '-') {
+					if (menuItem[index].stokId !== "-") {
 						menuItem[index].stok -= 1;
-						updateLocalStok(menuItem[index].stokId, menuItem[index].stok);
+						updateLocalStok(
+							menuItem[index].stokId,
+							menuItem[index].stok,
+							
+						);
 					}
 				}
 			});
@@ -185,7 +191,7 @@
 				newItem.harga = menu.harga;
 				newItem.stokId = menu.stokId;
 				newItem.jml = 1;
-				if (menu.stokId !== '-') {
+				if (menu.stokId !== "-") {
 					newItem.stok = menu.stok - 1;
 					updateLocalStok(menu.stokId, newItem.stok);
 				} else {
@@ -202,7 +208,7 @@
 			newItem.stokId = menu.stokId;
 			newItem.jml = 1;
 
-			if (menu.stokId !== '-') {
+			if (menu.stokId !== "-") {
 				newItem.stok = menu.stok - 1;
 				updateLocalStok(menu.stokId, newItem.stok);
 			} else {
@@ -215,7 +221,7 @@
 		updateTotal();
 	}
 	function hapusItemOrder(idx) {
-		if (menuItem[idx].stokId !== '-') {
+		if (menuItem[idx].stokId !== "-") {
 			menuItem[idx].stok += 1;
 			updateLocalStok(menuItem[idx].stokId, menuItem[idx].stok);
 		}
@@ -234,11 +240,14 @@
 	}
 
 	function tambahItemClick(idx) {
-		if (menuItem[idx].stokId !== '-') {
+		if (menuItem[idx].stokId !== "-") {
 			menuItem[idx].stok -= 1;
 			updateLocalStok(menuItem[idx].stokId, menuItem[idx].stok);
 		}
 		menuItem[idx].jml += 1;
+		menuItem[idx].isReady = false;
+		//console.log(menuItem[idx])
+
 		updateTotal();
 	}
 
@@ -264,27 +273,26 @@
 				nama: menu.nama,
 				harga: menu.harga,
 				jml: menu.jml,
-				
+				isReady: menu.isReady,
 			};
 			simpanItem.push(dt);
 		});
 
 		let itemNow = {
 			time: Date.now(),
-			itemDetil: simpanItem
+			itemDetil: simpanItem,
 		};
 		$n_order.item = itemNow;
 		//console.log('simpan ', $n_order);
 		if ($newOrder) {
-			io.emit('simpanTransaksiJual', $n_order);
+			io.emit("simpanTransaksiJual", $n_order);
 		} else {
-			io.emit('updateTransaksiJual', $n_order);
+			io.emit("updateTransaksiJual", $n_order);
 		}
-		let msg = "Transaksi "
-			msg += $n_order.id
-			msg += " Disimpan"
-		notifications.success("Penjualan",msg,2000)
-		
+		let msg = "Transaksi ";
+		msg += $n_order.id;
+		msg += " Disimpan";
+		notifications.success("Penjualan", msg, 2000);
 	}
 
 	function btnSimpanPenjualan() {
@@ -318,7 +326,7 @@
 			$n_order.totalBayar = $n_order.totalTagihan;
 			bayarOpen = false;
 			simpanTransaksi();
-			io.emit('closeTransaksiJual', $n_order);
+			io.emit("closeTransaksiJual", $n_order);
 			//sendToServer('getTransaksiJualOpen');
 			hapusSemua();
 		}
@@ -340,7 +348,7 @@
 						{item.nama}
 						<div class="text-xs">
 							Stok:
-							{#if item.stok === -1}
+							{#if item.stokId === "-"}
 								-
 							{:else}
 								{item.stok}
@@ -434,20 +442,31 @@
 				</button>
 
 				<Dropdown bind:open={bayarOpen}>
-					<div class="grid grid-cols-5 gap-2 border-gray-800 bg-gray-100 p-2">
-						<DropdownItem class="col-span-5 w-full h-16 border-b border-black justify-end">
+					<div
+						class="grid grid-cols-5 gap-2 border-gray-800 bg-gray-100 p-2"
+					>
+						<DropdownItem
+							class="col-span-5 w-full h-16 border-b border-black justify-end"
+						>
 							<div class="grid grid-cols-6 w-full h-full">
 								<div class="col-span-2 w-full h-full">
 									{#if totalBayar >= $n_order.totalTagihan - $n_order.totalBayar}
 										<button
 											on:click={() => ambilClick()}
-											class="w-full h-full rounded bg-orange-500 text-white">Ambil</button
+											class="w-full h-full rounded bg-orange-500 text-white"
+											>Ambil</button
 										>
 									{/if}
 								</div>
-								<div class="col-span-2 text-right">Kembalian:</div>
+								<div class="col-span-2 text-right">
+									Kembalian:
+								</div>
 								<div class="col-span-2 text-right font-bold">
-									{rupiah(totalBayar - ($n_order.totalTagihan - $n_order.totalBayar))}
+									{rupiah(
+										totalBayar -
+											($n_order.totalTagihan -
+												$n_order.totalBayar)
+									)}
 								</div>
 							</div>
 						</DropdownItem>
@@ -456,49 +475,58 @@
 							on:click={() => {
 								totalBayar += 2000;
 							}}
-							class="border border-gray-400 rounded-lg">2.000</DropdownItem
+							class="border border-gray-400 rounded-lg"
+							>2.000</DropdownItem
 						>
 						<DropdownItem
 							on:click={() => {
 								totalBayar += 5000;
 							}}
-							class="border border-gray-400 rounded">5.000</DropdownItem
+							class="border border-gray-400 rounded"
+							>5.000</DropdownItem
 						>
 						<DropdownItem
 							on:click={() => {
 								totalBayar += 10000;
 							}}
-							class="border border-gray-400 rounded">10rb</DropdownItem
+							class="border border-gray-400 rounded"
+							>10rb</DropdownItem
 						>
 						<DropdownItem
 							on:click={() => {
-								totalBayar += $n_order.totalTagihan - $n_order.totalBayar;
+								totalBayar +=
+									$n_order.totalTagihan - $n_order.totalBayar;
 							}}
-							class="border border-gray-400 rounded">Pas</DropdownItem
+							class="border border-gray-400 rounded"
+							>Pas</DropdownItem
 						>
 						<DropdownItem
 							on:click={() => {
 								totalBayar = 0;
 							}}
-							class="border border-gray-400 rounded">Hapus</DropdownItem
+							class="border border-gray-400 rounded"
+							>Hapus</DropdownItem
 						>
 						<DropdownItem
 							on:click={() => {
 								totalBayar += 20000;
 							}}
-							class="border border-gray-400 rounded">20rb</DropdownItem
+							class="border border-gray-400 rounded"
+							>20rb</DropdownItem
 						>
 						<DropdownItem
 							on:click={() => {
 								totalBayar += 50000;
 							}}
-							class="border border-gray-400 rounded">50rb</DropdownItem
+							class="border border-gray-400 rounded"
+							>50rb</DropdownItem
 						>
 						<DropdownItem
 							on:click={() => {
 								totalBayar += 100000;
 							}}
-							class="border border-gray-400 rounded">100rb</DropdownItem
+							class="border border-gray-400 rounded"
+							>100rb</DropdownItem
 						>
 						<DropdownItem
 							on:click={() => bayarClick()}
@@ -516,7 +544,9 @@
 					on:click={() => (menuHide = !menuHide)}
 					class="flex justify-right w-full h-8 ml-4 animate-bounce"
 				>
-					<div class="h-6 w-6 rounded rounded-2xl bg-orange-500 flex justify-center items-center">
+					<div
+						class="h-6 w-6 rounded rounded-2xl bg-orange-500 flex justify-center items-center"
+					>
 						<svg
 							class="w-4 h-4 text-white"
 							fill="white"
@@ -540,7 +570,9 @@
 		{/if}
 	</div>
 {:else}
-	<div class="border border-orange-500 shadow rounded-md p-4 max-w-sm w-full mx-auto my-10">
+	<div
+		class="border border-orange-500 shadow rounded-md p-4 max-w-sm w-full mx-auto my-10"
+	>
 		<div class="animate-pulse flex space-x-4">
 			<div class="rounded-full bg-slate-200 h-10 w-10" />
 			<div class="flex-1 space-y-6 py-1">
@@ -568,7 +600,9 @@
 	<div class="grid grid-cols-4 px-2 w-full h-8 my-2">
 		{#each $dataKategoriMenu as kategori}
 			<button
-				class={kategoriNow === kategori ? 'text-white bg-orange-500' : 'text-black bg-white'}
+				class={kategoriNow === kategori
+					? "text-white bg-orange-500"
+					: "text-black bg-white"}
 				on:click={() => (kategoriNow = kategori)}>{kategori}</button
 			>
 		{/each}
@@ -578,13 +612,25 @@
 			{#if $dataMenuStore}
 				{#each $dataMenuStore as menu, index}
 					{#if kategoriNow === menu.kategori}
-						<button class="bg-white rounded ronded-sm" on:click={() => pilihMenuClick(menu)}>
+						<button
+							class="bg-white rounded ronded-sm"
+							on:click={() => pilihMenuClick(menu)}
+						>
 							<div class="flex flex-col items-center p-2">
-								<img class="w-full h-1/2" src={menu.gambar} alt="gambar" />
-								<div class="mb-1 text-xs font-medium text-gray-900 dark:text-white">
+								<img
+									class="w-full h-1/2"
+									src={menu.gambar}
+									alt="gambar"
+								/>
+								<div
+									class="mb-1 text-xs font-medium text-gray-900 dark:text-white"
+								>
 									{menu.nama}
 								</div>
-								<span class="text-xs text-gray-500 dark:text-gray-400">{rupiah(menu.harga)}r</span>
+								<span
+									class="text-xs text-gray-500 dark:text-gray-400"
+									>{rupiah(menu.harga)}r</span
+								>
 							</div>
 						</button>
 					{/if}

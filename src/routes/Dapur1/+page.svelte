@@ -17,7 +17,7 @@
         sendToServer("getTransaksiJualOpen");
         io.on("myTransaksiJualOpen", (msg) => {
             //$dataTransaksiJual = msg;
-            console.log(msg);
+            //console.log(msg);
 
             //reset antian
             antrianDapur = [];
@@ -34,6 +34,7 @@
                             //console.log(wto)
                             if (wto === hariIni) {
                                 let itemDapur = {
+                                    id:antrian.id,
                                     namaPelanggan: antrian.pelanggan.nama,
                                     jenisOrder: antrian.jenisOrder,
                                     waktuOrder: antrian.waktuOrder,
@@ -49,6 +50,7 @@
                                                     nama: item.nama,
                                                     id: item.id,
                                                     jml: item.jml,
+                                                    isReady:item.isReady
                                                 };
 
                                                 itemDapur.item.push(menuDapur);
@@ -68,7 +70,7 @@
                     }
                 );
             }
-            console.log(antrianDapur);
+            //console.log(antrianDapur);
             antrianDapur = antrianDapur;
         });
 
@@ -81,6 +83,20 @@
             $dataPelanggan = msg;
         });
     });
+
+    function itemChange(item,dataAntrian){   
+        //console.log(dataAntrian)
+        dataAntrian.item.forEach((itemChange,index) =>{
+            if(itemChange.id === item.id){
+                dataAntrian.item[index].isReady = item.isReady
+              
+                //kirim data ke server
+                io.emit("antrianChange",dataAntrian)
+                //console.log(dataAntrian)
+
+            }
+        })
+    }
 </script>
 
 <div class="w-full h-24 p-4">
@@ -108,7 +124,7 @@
 
                 <div class="grid grid-cols-2 pl-1 my-4 ">
                     {#each antrian.item as item_detil}
-                        <Checkbox class=" font-mono text-sm text-left  my-2">
+                        <Checkbox bind:checked={item_detil.isReady} on:change={() => itemChange(item_detil,antrian)} class=" font-mono text-sm text-left  my-2">
                             <div>{item_detil.nama}({item_detil.jml})</div>
                         </Checkbox>
                     {/each}

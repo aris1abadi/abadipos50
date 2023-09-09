@@ -17,7 +17,7 @@
         sendToServer("getTransaksiJualOpen");
         io.on("myTransaksiJualOpen", (msg) => {
             //$dataTransaksiJual = msg;
-           // console.log(msg);
+            // console.log(msg);
 
             //reset antian
             antrianDapur = [];
@@ -34,6 +34,7 @@
                             //console.log(wto)
                             if (wto === hariIni) {
                                 let itemDapur = {
+                                    id:antrian.id,
                                     namaPelanggan: antrian.pelanggan.nama,
                                     jenisOrder: antrian.jenisOrder,
                                     waktuOrder: antrian.waktuOrder,
@@ -49,6 +50,7 @@
                                                     nama: item.nama,
                                                     id: item.id,
                                                     jml: item.jml,
+                                                    isReady:item.isReady
                                                 };
 
                                                 itemDapur.item.push(menuDapur);
@@ -57,35 +59,44 @@
                                             }
                                         }
                                     });
-
-                                    
                                 });
                                 if (menuFound) {
-                                        antrianDapur.push(itemDapur);
-                                    }
+                                    antrianDapur.push(itemDapur);
+                                }
                             }
                         }
                     }
                 );
             }
-            console.log(antrianDapur);
+            //console.log(antrianDapur);
             antrianDapur = antrianDapur;
         });
 
         if (!$dataPelanggan) {
             sendToServer("getPelanggan");
         }
-        
 
         io.on("myPelanggan", (msg) => {
             $dataPelanggan = msg;
         });
     });
+    function itemChange(item, dataAntrian) {
+        //console.log(dataAntrian)
+        dataAntrian.item.forEach((itemChange, index) => {
+            if (itemChange.id === item.id) {
+                dataAntrian.item[index].isReady = item.isReady;
+
+                //kirim data ke server
+                io.emit("antrianChange", dataAntrian);
+                //console.log(dataAntrian)
+            }
+        });
+    }
 </script>
 
 <div class="w-full h-24 p-4">
     <div
-        class="border border-orange-500 bg-orange-200 w-full h-full font-mono text-center text-xl flex justify-center items-center"
+        class="border border-orange-500 bg-orange-200 w-full h-full font-mono font-bold text-center text-2xl flex justify-center items-center"
     >
         Dapur {dapurNow}
     </div>
@@ -95,9 +106,11 @@
     {#if antrianDapur.length > 0}
         {#each antrianDapur as antrian, index}
             <div class="bg-gray-100 w-full border border-orange-400 my-2 p-2">
-                <div class="w-full h-10 bg-gray-200 grid grid-cols-2 border-b-2 px-4">
+                <div
+                    class="w-full h-10 bg-gray-200 grid grid-cols-2 border-b-2 px-4"
+                >
                     <div>
-                        <div class="text-xs ">pelanggan</div>
+                        <div class="text-xs">pelanggan</div>
                         <div class="font-bold">{antrian.namaPelanggan}</div>
                     </div>
                     <div>
@@ -106,9 +119,13 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 px-4 my-4 ">
+                <div class="grid grid-cols-2 px-4 my-4">
                     {#each antrian.item as item_detil}
-                        <Checkbox class=" font-mono text-sm text-left ml-2">
+                        <Checkbox
+                            bind:checked={item_detil.isReady}
+                            on:change={() => itemChange(item_detil, antrian)}
+                            class=" font-mono text-sm text-left  my-2"
+                        >
                             <div>{item_detil.nama}({item_detil.jml})</div>
                         </Checkbox>
                     {/each}

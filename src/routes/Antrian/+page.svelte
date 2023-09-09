@@ -66,6 +66,26 @@
 			//console.log("jumlah antrian ",antrianHariIni)
 		});
 
+		io.on("UpdateItemChange",(msg)=>{
+			//console.log(msg)
+			//console.log(antrianHariIni)
+			
+				antrianHariIni.forEach((antrian,index) =>{
+					if(antrian.id === msg.id){
+						antrian.item.itemDetil.forEach((item,idx) =>{
+							msg.item.forEach(itemchange =>{
+								if(item.id === itemchange.id){
+									antrianHariIni[index].item.itemDetil[idx].isReady = itemchange.isReady
+								}
+							})
+						})
+					}
+
+					
+				})
+			
+		})
+
 		if (!$dataPelanggan) {
 			sendToServer('getPelanggan');
 		}
@@ -141,8 +161,8 @@
 						<div class="font-mono font-thin text-xs">{getJam(antrian.item.time)}</div>
 						<div class="col-span-2 w-full">
 							{#each antrian.item.itemDetil as item_detil}
-								<div class="  font-mono text-sm text-left ml-2">
-									<div>{item_detil.nama}({item_detil.jml})</div>
+								<div class={item_detil.isReady?"bg-green-400 text-white font-mono text-sm text-left mt-1":"bg-white text-black font-mono text-sm text-left mt-1"}>
+									<div class="ml-2">{item_detil.nama}({item_detil.jml})</div>
 									{#if item_detil.catatan}
 										<div>
 											{item_detil.catatan}

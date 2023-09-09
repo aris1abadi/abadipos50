@@ -1,9 +1,7 @@
 import ioClient from 'socket.io-client';
 
-const endpoint = 'http://192.168.100.119:3300/';
-//const endpoint = 'http://localhost:3300/';
-//const endpoint = 'https://api.abadinet.my.id/';
-//const endpoint = 'https://abadinet.my.id:3300/';
+//const endpoint = 'http://192.168.100.119:3300/';
+const endpoint = 'http://pos-server.lesehanpundong01.my.id';
 
 
 const socket = ioClient(endpoint);

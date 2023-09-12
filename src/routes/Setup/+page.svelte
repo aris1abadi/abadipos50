@@ -109,6 +109,9 @@
 		} else {
 			$headerContent.mode = "Setup";
 		}
+		io.on("save_Status",(msg)=>{
+			console.log(msg)
+		})
 	});
 
 	/**
@@ -188,9 +191,13 @@
 		const fileInput = document.getElementById("fileInput");
 		// @ts-ignore
 		const file = fileInput.files[0];
+		//console.log(file)
+		//io.emit("save_image", file, (status) => {
+       ///   console.log(status);
+        //});
 
 		if (file) {
-			editMenu.gambar = "/public/" + file.name;
+			editMenu.gambar = "public/" + file.name;
 		} else {
 			if (newMenu) {
 				//default gambar
@@ -223,9 +230,7 @@
 			};
 			fileData.newMenu = newMenu;
 			//io.emit('file-upload', fileData);
-			io.emit("menu_upload", fileData, (status) => {
-				console.log(status);
-			});
+			io.emit("menu_upload", fileData )
 		};
 
 		if (file) {
@@ -292,7 +297,7 @@
 		const file = fileInput.files[0];
 
 		if (file) {
-			editBahan.gambar = "/public/" + file.name;
+			editBahan.gambar = "public/" + file.name;
 		} else {
 			//default gambar
 			if (newBahan) {
@@ -321,9 +326,7 @@
 				data0: file,
 			};
 
-			io.emit("bahan_upload", fileData, (status) => {
-				console.log(status);
-			});
+			io.emit("bahan_upload",fileData )
 			//console.log(fileData);
 		};
 		if (file) {
@@ -394,7 +397,7 @@
 		const file = fileInput.files[0];
 
 		if (file) {
-			editBahan.gambar = "/public/" + file.name;
+			editBahan.gambar = "public/" + file.name;
 		} else {
 			//default gambar
 			if (newPelanggan) {
@@ -414,10 +417,7 @@
 				data0: file,
 			};
 
-			io.emit("pelanggan_upload", fileData, (status) => {
-				console.log(status);
-			});
-			console.log(fileData);
+			io.emit("pelanggan_upload", fileData )
 		};
 
 		if (file) {
@@ -448,7 +448,7 @@
 		const file = fileInput.files[0];
 
 		if (file) {
-			editSuplier.gambar = "/public/" + file.name;
+			editSuplier.gambar = "public/" + file.name;
 		} else {
 			//default gambar
 			if (newSuplier) {
@@ -468,10 +468,7 @@
 				data0: file,
 			};
 
-			io.emit("suplier_upload", fileData, (status) => {
-				console.log(status);
-			});
-			console.log(fileData);
+			io.emit("suplier_upload", fileData )
 		};
 		if (file) {
 			reader.readAsDataURL(file);

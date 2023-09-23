@@ -167,6 +167,7 @@
 			harga: 0,
 			jml: 0,
 			stok: 0,
+			isReady : false,
 		};
 		menuHide = true;
 		if (menuItem.length > 0) {

@@ -76,7 +76,7 @@
 				$dataMenuStore = [];
 				msg.forEach(
 					(
-						/** @type {{ id: string;gambar:string; waId:string;nama: string; harga: number;hargaGojeg:number; stok: any; stokId: any; kategori: Text }} */ menu
+						/** @type {{ id: string;gambar:string; waId:string;nama: string; harga: number;hargaGojeg:number; dapur: string; stok: any; stokId: any; kategori: Text }} */ menu
 					) => {
 						let dt = {
 							id: menu.id,

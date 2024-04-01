@@ -150,7 +150,7 @@
 				$dataMenuStore[index].stok = stok;
 			}
 		});
-		
+
 		//menuItem.forEach((item, index) => {
 		//	if (item.stokId === stokId) {
 		//		menuItem[index].stok = stok;
@@ -167,7 +167,7 @@
 			harga: 0,
 			jml: 0,
 			stok: 0,
-			isReady : false,
+			isReady: false,
 		};
 		menuHide = true;
 		if (menuItem.length > 0) {
@@ -180,8 +180,7 @@
 						menuItem[index].stok -= 1;
 						updateLocalStok(
 							menuItem[index].stokId,
-							menuItem[index].stok,
-							
+							menuItem[index].stok
 						);
 					}
 				}
@@ -390,6 +389,36 @@
 			{/each}
 		</div>
 
+		{#if !$headerContent.jenisOrderOpen && !$headerContent.mejaOpen && !$headerContent.pelangganOpen }
+			<div  class="w-full h-12 px-4 ">
+		<div class="w-full h-full pt-4  bg-orange-100">
+				<button
+					on:click={() => (menuHide = !menuHide)}
+					class="flex justify-right w-full h-8 ml-8 animate-bounce"
+				>
+					<div
+						class="h-6 w-6 rounded rounded-2xl bg-orange-500 flex justify-center items-center"
+					>
+						<svg
+							class="w-4 h-4 text-white"
+							fill="white"
+							viewBox="0 0 20 20"
+							xmlns="http://www.w3.org/2000/svg"
+							aria-hidden="true"
+						>
+							<path
+								clip-rule="evenodd"
+								fill-rule="evenodd"
+								d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+							/>
+						</svg>
+					</div>
+					<div class="text-center ml-4">Tambah</div>
+				</button>
+			</div>
+			</div>
+		{/if}
+
 		{#if $n_order.totalTagihan !== 0}
 			<div class="grid grid-cols-8 px-4 h-8 mb-2">
 				<div class="col-span-1" />
@@ -538,6 +567,7 @@
 				</Dropdown>
 			</div>
 		{/if}
+		<!--
 		{#if !$headerContent.jenisOrderOpen && !$headerContent.mejaOpen && !$headerContent.pelangganOpen && !bayarOpen}
 			<div class="w-full h-8 grid grid-cols-3">
 				<div />
@@ -562,13 +592,14 @@
 							/>
 						</svg>
 					</div>
-					<div class="text-center ml-2">Tambah</div>
+					<div class="text-center ml-4">Tambah</div>
 				</button>
 				<div />
 			</div>
 		{:else}
 			<div class="w-full h-8" />
 		{/if}
+		-->
 	</div>
 {:else}
 	<div
@@ -590,14 +621,21 @@
 	</div>
 {/if}
 
+<!--
+
+	<div class="h-screen w-screen flex justify-center bg-white">
+	<div class="h-full w-full max-w-2xl   bg-white">
+-->
+
 <Drawer
 	placement="bottom"
 	transitionType="fly"
 	{transitionParams}
 	bind:hidden={menuHide}
 	id="sidebar2"
-	class="w-full max-w-xl h-1/2 bg-gray-100 p-0"
+	class="w-full h-1/2 flex justify-center item-center p-0 "
 >
+<div class=" max-w-2xl h-full">
 	<div class="grid grid-cols-4 px-2 w-full h-8 my-2">
 		{#each $dataKategoriMenu as kategori}
 			<button
@@ -638,5 +676,6 @@
 				{/each}
 			{/if}
 		</div>
+	</div>
 	</div>
 </Drawer>

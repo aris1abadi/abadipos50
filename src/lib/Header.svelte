@@ -144,9 +144,9 @@
 
 <div class="w-full h-24 px-2 py-4">
 	<div
-		class="grid grid-cols-12 flex justify-center w-full h-24 border border-orange-500 rounded-xl rounded-b-none"
+		class="grid grid-cols-8 flex justify-center w-full h-24 border border-orange-500 rounded-xl rounded-b-none"
 	>
-		<div class="col-span-2 h-12 bg-orange-500 rounded-xl rounded-b-none rounded-tr-none">
+		<div class=" h-12 bg-orange-500 rounded-xl rounded-b-none rounded-tr-none">
 			<button class="w-full h-full flex justify-center items-center">
 				<Avatar src="logo2023.png" class="w-8 h-8 " />
 			</button>
@@ -173,7 +173,7 @@
 				<DropdownItem on:click={() => setupClick()}>Setup</DropdownItem>
 			</Dropdown>
 		</div>
-		<div class="col-span-8 h-12 p-1 text-white bg-orange-500">
+		<div class="col-span-5 h-12 p-1 text-white bg-orange-500">
 			{#if $headerContent.mode === 'Dashboard'}
 				<div class="font-bold text-xl ml-4">DashBoard</div>
 				<div class="text-xs ml-4 font-bold">{getTanggal(Date.now())}</div>
@@ -253,12 +253,12 @@
 			</svg>
 		</button>
 
-		<div class="col-span-12 h-12 pb-1">
+		<div class="col-span-8 h-12 pb-1">
 			{#if $headerContent.mode === 'Dashboard'}
 				<div class="font-bold text-xl m-4" />
 			{:else if $headerContent.mode === 'Kasir'}
 				<div class="grid grid-cols-2 w-full h-11">
-					<button class="h-full border-r border-orange-500 p-0">
+					<button class="w-full h-full border-r border-orange-500 p-0">
 						<div class="ml-1 text-left font-semibold" style="font-size:10px">Pelanggan</div>
 						<div class="font-bold text-xs">{$n_order.pelanggan.nama}</div>
 					</button>
@@ -280,7 +280,7 @@
 							>Pelanggan Baru</button
 						>
 					</Dropdown>
-					<button class="h-full border-l border-orange-500 p-0">
+					<button class="w-full h-full border-l border-orange-500 p-0">
 						{#if $n_order.jenisOrder === 'Pesan'}
 							<div class="ml-1 text-left font-semibold" style="font-size:10px">Pesanan untuk</div>
 							<div class="font-bold text-xs">
@@ -359,7 +359,8 @@
 						{#each $dataSuplier as suplier}
 							<DropdownItem
 								on:click={() => {
-									$n_beli.suplier = suplier;
+									$n_beli.suplierId = suplier.id;
+									$n_beli.suplierNama = suplier.nama;
 									$headerContent.suplierOpen = false;
 								}}>{suplier.nama}</DropdownItem
 							>

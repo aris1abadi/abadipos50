@@ -142,20 +142,26 @@
 				newItem.stokId = bahan.stokId;
 				newItem.konversi = bahan.konversi;
 				newItem.user = bahan.user;
-
 				newBahan.push(newItem);
 			});
 
 			$n_beli.item = newBahan;
+			$n_beli.totalBayar = totalBayar;
 
 			io.emit('simpanTransaksiBeli', $n_beli);
 			//console.log('simpan transaksi beli ', $n_beli);
 			let msg = 'Transaksi ';
 			msg += $n_beli.id;
 			msg += ' Disimpan';
-			notifications.success('Pembelian', msg, 5000);
+			notifications.success('Pembelian', msg, 2000);
 			belanjaOpen = false;
 			hapusSemua();
+		}else{
+			let msg = 'Belum ada Bahan yang dibeli';
+			
+			notifications.warning('Pembelian', msg, 2000);
+			
+
 		}
 	}
 

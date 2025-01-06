@@ -32,36 +32,36 @@
 	}
 </script>
 
-<div class="grid grid-cols-7 gap-4 text-xl text-center font-mono my-2 mx-4 ">
+<div class="grid grid-cols-7 gap-2 text-xl text-center font-mono my-2 mx-4 ">
 	<button
 		on:click={() => {
 			padClick(1);
 		}}
-		class="border border-orange-500  rounded ">1</button
+		class="border border-orange-500  ">1</button
 	>
 	<button
 		on:click={() => {
 			padClick(2);
 		}}
-		class="border border-orange-500  rounded ">2</button
+		class="border border-orange-500 ">2</button
 	>
 	<button
 		on:click={() => {
 			padClick(3);
 		}}
-		class="border border-orange-500  rounded ">3</button
+		class="border border-orange-500 ">3</button
 	>
 	<button
 		on:click={() => {
 			padClick(4);
 		}}
-		class="border border-orange-500  rounded ">4</button
+		class="border border-orange-500 ">4</button
 	>
 	<button
 		on:click={() => {
 			padClick(5);
 		}}
-		class="border border-orange-500  rounded ">5</button
+		class="border border-orange-500  ">5</button
 	>
 	<button
 		on:click={() => {			
@@ -69,44 +69,44 @@
 			padVal = 0
 			dispatch('eventHapusPad');
 		}}
-		class="col-span-2 border border-orange-500  rounded">Hapus</button
+		class="col-span-2 border border-orange-500 ">Hapus</button
 	>
 	<button
 		on:click={() => {
 			padClick(6);
 		}}
-		class="border border-orange-500  rounded ">6</button
+		class="border border-orange-500   ">6</button
 	>
 	<button
 		on:click={() => {
 			padClick(7);
 		}}
-		class="border border-orange-500  rounded ">7</button
+		class="border border-orange-500 ">7</button
 	>
 	<button
 		
 		on:click={() => {
 			padClick(8);
 		}}
-		class="border border-orange-500  rounded ">8</button
+		class="border border-orange-500 ">8</button
 	>
 	<button
 		on:click={() => {
 			padClick(9);
 		}}
-		class="border border-orange-500  rounded ">9</button
+		class="border border-orange-500">9</button
 	>
 	<button
 		on:click={() => {
 			padClick(0);
 		}}
-		class="border border-orange-500  rounded ">0</button
+		class="border border-orange-500">0</button
 	>
 	<button
 		on:click={() => {
 			padCount = 0
 			dispatch('eventEnterPad');
 		}}
-		class="col-span-2 border border-orange-500  rounded">Enter</button
+		class="col-span-2 border border-orange-500 ">Enter</button
 	>
 </div>

@@ -417,24 +417,24 @@
 	<div class="grid grid-cols-4 px-2 w-full h-8 my-2">
 		{#each $dataKategoriBahan as kategori}
 			<button
-				class={kategoriNow === kategori ? 'text-white bg-orange-500' : 'text-black bg-white'}
+				class={kategoriNow === kategori ? 'text-black text-xs border border-orange-500 bg-white' : 'text-white text-xs bg-orange-500' }
 				on:click={() => (kategoriNow = kategori)}>{kategori}</button
 			>
 		{/each}
 	</div>
 	<div class="h-3/4 overflow-y-auto w-full">
-		<div class="grid grid-cols-4 gap-2">
+		<div class="grid grid-cols-3 gap-2">
 			{#if $dataBahanStore}
 				{#each $dataBahanStore as bahan, index}
 					{#if kategoriNow === bahan.kategori}
-						<button class="bg-white rounded ronded-sm" on:click={() => pilihBahanClick(bahan)}>
-							<div class="flex flex-col items-center p-2">
-								<img class="w-full h-1/2" src={bahan.gambar} alt="gambar" />
-								<div class="mb-1 text-xs font-medium text-gray-900 dark:text-white">
+						<button class="bg-white border ronded-sm" on:click={() => pilihBahanClick(bahan)}>
+							
+								<img class="w-full h-3/4" src={bahan.gambar} alt="gambar" />
+								<div class="text-xs font-medium text-gray-900 dark:text-white">
 									{bahan.nama}
 								</div>
-								<span class="text-xs text-gray-500 dark:text-gray-400">{rupiah(bahan.harga)}r</span>
-							</div>
+								<div class="text-xs text-gray-500 dark:text-gray-400">{rupiah(bahan.harga)}</div>
+							
 						</button>
 					{/if}
 				{/each}

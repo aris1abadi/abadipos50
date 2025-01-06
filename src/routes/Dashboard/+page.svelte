@@ -8,6 +8,8 @@
 		dataTransaksiJual,
 		transaksiJualCount,
 		dataPelanggan,
+		firstLoad,
+		headerContent,
 		
 	} from '$lib/stores/store.js';
 	import { io } from '$lib/realtime';
@@ -35,6 +37,14 @@
 	onMount(() => {
 		//sendToServer('getMenu');
 		//sendToServer('getBahan');
+		if ($firstLoad) {
+			goto('/');
+			$headerContent.mode = 'Home';
+			sendToServer('getMenu');
+			sendToServer('getBahan');
+		}
+
+		
 
 		//sendToServer('getTransaksiJual');
 		sendToServer('getCloseTransaksiNow');
@@ -62,7 +72,7 @@
 
 		io.on('myCloseTransaksiNow', (msg) => {
 			closeTransaksiNow = msg;
-			//console.log('Close transaksi ', msg);
+			console.log('Close transaksi ', msg);
 			jmlTransaksi.forEach((tr, index) => {
 				jmlTransaksi[index] = 0;
 			});
@@ -110,14 +120,14 @@
 	});
 </script>
 
-<div class=" w-full h-5/6 mt-8 pl-4 pr-4 overflow-y-auto">
-	<div class="w-full border border-orange-600 rounded-lg">
+<div class=" w-full h-5/6 mt-8 px-2 overflow-y-auto">
+	<div class="w-full border border-orange-600 ">
 		<div
-			class="w-full h-10 border-b border-orange-500 rounded-lg rounded-bl-none rounded-br-none bg-orange-500 text-center font-mono font-bold text-xl text-white pt-2"
+			class="w-full h-8 border-b border-orange-500 bg-orange-500 text-center font-mono font-bold text-sm text-white pt-2"
 		>
 			Penjualan Hari Ini
 		</div>
-		<div class="pl-4 font-mono pb-4">
+		<div class="pl-4 font-mono text-xs pb-4">
 			<ul>
 				{#if jmlTransaksi.length > 0}
 					{#each $dataMenuStore as menu, idx}
@@ -162,13 +172,13 @@
 			</ul>
 		</div>
 	</div>
-	<div class="w-full border border-orange-600 rounded-lg mt-6">
+	<div class="w-full border border-orange-600  mt-6">
 		<div
-			class="w-full h-10 border-b border-orange-500 rounded-lg rounded-bl-none rounded-br-none bg-orange-500 text-center font-mono font-bold text-xl text-white pt-2"
+			class="w-full h-8 border-b border-orange-500  bg-orange-500 text-center font-mono font-bold text-sm text-white pt-2"
 		>
 			Pengeluaran Hari Ini
 		</div>
-		<div class="pl-4 font-mono pb-4">
+		<div class="pl-4 font-mono text-xs pb-4">
 			<ul>
 				{#if jmlTransaksiBeli.length > 0}
 					{#each $dataBahanStore as bahan, idx}

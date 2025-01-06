@@ -197,7 +197,7 @@
         //});
 
 		if (file) {
-			editMenu.gambar = "public/" + file.name;
+			editMenu.gambar = "/public/" + file.name;
 		} else {
 			if (newMenu) {
 				//default gambar
@@ -297,7 +297,7 @@
 		const file = fileInput.files[0];
 
 		if (file) {
-			editBahan.gambar = "public/" + file.name;
+			editBahan.gambar = "/public/" + file.name;
 		} else {
 			//default gambar
 			if (newBahan) {
@@ -397,7 +397,7 @@
 		const file = fileInput.files[0];
 
 		if (file) {
-			editBahan.gambar = "public/" + file.name;
+			editBahan.gambar = "/public/" + file.name;
 		} else {
 			//default gambar
 			if (newPelanggan) {
@@ -448,7 +448,7 @@
 		const file = fileInput.files[0];
 
 		if (file) {
-			editSuplier.gambar = "public/" + file.name;
+			editSuplier.gambar = "/public/" + file.name;
 		} else {
 			//default gambar
 			if (newSuplier) {

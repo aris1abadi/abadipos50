@@ -81,6 +81,11 @@ export function getJam(tm){
 	return today.toLocaleTimeString('id-ID',{"timeZone":"Asia/jakarta"})
 }
 
+export function getWaktu(waktu){
+    const today = new Date(waktu);
+	return today.toLocaleDateString('id-ID',{"timeZone":"Asia/jakarta"}) + ' ' + today.toLocaleTimeString('id-ID',{"timeZone":"Asia/jakarta"})
+}
+
 export function rupiah(number = 0) {
     return new Intl.NumberFormat('id-ID', {
         style: 'currency',

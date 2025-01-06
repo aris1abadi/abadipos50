@@ -334,7 +334,7 @@
 </script>
 
 {#if $dataMenuStore.length > 0 && $dataPelanggan.length > 0}
-	<div>
+	<div class="w-full">
 		<div class="max-h-80 w-full p-4 overflow-y-auto">
 			{#each menuItem as item, index}
 				<div class="grid grid-cols-8 pl-4 h-12 border-b-2">
@@ -389,33 +389,33 @@
 			{/each}
 		</div>
 
-		{#if !$headerContent.jenisOrderOpen && !$headerContent.mejaOpen && !$headerContent.pelangganOpen }
-			<div  class="w-full h-12 px-4 ">
-		<div class="w-full h-full pt-4  bg-orange-100">
-				<button
-					on:click={() => (menuHide = !menuHide)}
-					class="flex justify-right w-full h-8 ml-8 animate-bounce"
-				>
-					<div
-						class="h-6 w-6 rounded rounded-2xl bg-orange-500 flex justify-center items-center"
+		{#if !$headerContent.jenisOrderOpen && !$headerContent.mejaOpen && !$headerContent.pelangganOpen}
+			<div class="w-full h-12 px-4">
+				<div class="w-full h-full pt-4 bg-orange-100">
+					<button
+						on:click={() => (menuHide = !menuHide)}
+						class="flex justify-right w-full h-8 ml-8 animate-bounce"
 					>
-						<svg
-							class="w-4 h-4 text-white"
-							fill="white"
-							viewBox="0 0 20 20"
-							xmlns="http://www.w3.org/2000/svg"
-							aria-hidden="true"
+						<div
+							class="h-6 w-6 rounded rounded-2xl bg-orange-500 flex justify-center items-center"
 						>
-							<path
-								clip-rule="evenodd"
-								fill-rule="evenodd"
-								d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-							/>
-						</svg>
-					</div>
-					<div class="text-center ml-4">Tambah</div>
-				</button>
-			</div>
+							<svg
+								class="w-4 h-4 text-white"
+								fill="white"
+								viewBox="0 0 20 20"
+								xmlns="http://www.w3.org/2000/svg"
+								aria-hidden="true"
+							>
+								<path
+									clip-rule="evenodd"
+									fill-rule="evenodd"
+									d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+								/>
+							</svg>
+						</div>
+						<div class="text-center ml-4">Tambah</div>
+					</button>
+				</div>
 			</div>
 		{/if}
 
@@ -635,47 +635,57 @@
 	id="sidebar2"
 	class="w-full h-1/2 flex justify-center item-center p-0 "
 >
-<div class=" max-w-2xl h-full">
-	<div class="grid grid-cols-4 px-2 w-full h-8 my-2">
-		{#each $dataKategoriMenu as kategori}
-			<button
-				class={kategoriNow === kategori
-					? "text-white bg-orange-500"
-					: "text-black bg-white"}
-				on:click={() => (kategoriNow = kategori)}>{kategori}</button
-			>
-		{/each}
-	</div>
-	<div class="overflow-y-auto w-full h-3/4">
-		<div class="grid grid-cols-4 gap-2">
-			{#if $dataMenuStore}
-				{#each $dataMenuStore as menu, index}
-					{#if kategoriNow === menu.kategori}
-						<button
-							class="bg-white rounded ronded-sm"
-							on:click={() => pilihMenuClick(menu)}
-						>
-							<div class="flex flex-col items-center p-2">
+	<div class=" w-full h-full">
+		<div class="grid grid-cols-4 px-2 w-full h-8 my-2">
+			{#each $dataKategoriMenu as kategori}
+				<button
+					class={kategoriNow === kategori
+						? "text-black bg-white text-sm font-bold w-full h-full border border-orange-500"
+						: "text-white bg-orange-500 text-sm font-bold w-full h-full"}
+					on:click={() => (kategoriNow = kategori)}>{kategori}</button
+				>
+			{/each}
+		</div>
+		<div class="overflow-y-auto max-w-2xl h-3/4">
+			{#if kategoriNow === "Nasi Boks"}
+				<div class="grid grid-cols-4 bg-gray-400">
+					<div >tes 123</div>
+					<div></div>
+					<div >tes 123</div>
+					<div></div>
+				</div>
+			{:else if $dataMenuStore}
+				<div class="grid grid-cols-3 gap-2 p-2">
+					{#each $dataMenuStore as menu, index}
+						{#if kategoriNow === menu.kategori}
+							{#if kategoriNow !== "Nasi Boks"}
+								<button
+									class="bg-white rounded rounded-sm border"
+									on:click={() => pilihMenuClick(menu)}
+								>
 								<img
-									class="w-full h-1/2"
-									src={menu.gambar}
-									alt="gambar"
-								/>
-								<div
-									class="mb-1 text-xs font-medium text-gray-900 dark:text-white"
-								>
-									{menu.nama}
-								</div>
-								<span
-									class="text-xs text-gray-500 dark:text-gray-400"
-									>{rupiah(menu.harga)}r</span
-								>
-							</div>
-						</button>
-					{/if}
-				{/each}
+											class="w-full h-3/4"
+											src={menu.gambar}
+											alt="gambar"
+										/>
+									
+										<div
+											class="mb-0 text-xs font-medium text-gray-900 dark:text-white"
+										>
+											{menu.nama}
+										</div>
+										<div
+											class="text-black dark:text-gray-400"
+											style="font-size: 8px;"
+											>{rupiah(menu.harga)}</div
+										>
+									
+								</button>
+							{/if}
+						{/if}
+					{/each}
+				</div>
 			{/if}
 		</div>
-	</div>
 	</div>
 </Drawer>

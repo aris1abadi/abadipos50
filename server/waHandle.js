@@ -6,7 +6,7 @@ import ioClient from 'socket.io-client';
 import qrcode from "qrcode-terminal"
 
 //const endpoint = 'http://192.168.100.119:3000/';
-const endpoint = 'http://localhost:3000/';
+const endpoint = 'http://localhost:3300/';
 //const endpoint = 'https://api.abadinet.my.id/';
 
 const socket = ioClient(endpoint);

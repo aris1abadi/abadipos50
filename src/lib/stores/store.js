@@ -33,6 +33,8 @@ export const prosesCount = writable(0)
 
 export const totalTagihan = writable(0);
 export const totalBayar = writable(0);
+export const totalHutang = writable(0);
+export const totalClick = writable(false);
 
 export const totalItem = writable(0);
 export const totalItemBelanja = writable(0)

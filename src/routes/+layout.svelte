@@ -173,7 +173,7 @@
 </script>
 
 <div class="h-screen w-screen flex justify-center bg-white">
-	<div class="h-full w-full max-w-2xl   bg-white">
+	<div class="h-full w-full max-w-4xl   bg-white">
 		<Modal title="Setup" bind:open={modalOpen} outsideclose>
 			<div>WA QRCODE</div>
 			<div class="flex justify-center">

@@ -110,12 +110,12 @@
 	}
 </script>
 
-<div class="max-h-full w-full px-5 mt-4 overflow-y-auto">
+<div class="max-h-full w-full px-2 mt-4 overflow-y-auto">
 	{#if $headerContent.antrianSelect === 1}
 		{#if antrianHariIni.length > 0}
 			{#each antrianHariIni as antrian, index}
 				<div
-					class="bg-white w-full border border-orange-400 rounded-xl rounded-tl-none rounded-br-none my-2 p-2"
+					class="bg-white w-full border border-orange-400 rounded-xl rounded-tl-none rounded-br-none my-2 p-1"
 				>
 					<div class="grid grid-cols-5 gap-2 bg-gray-200 pl-4 pt-2 w-full h-14 mt-1 mb-2">
 						<div class="col-span-3">

@@ -147,6 +147,8 @@
 
 			$n_beli.item = newBahan;
 			$n_beli.totalBayar = totalBayar;
+			$n_beli.waktuBeli = Date.now();
+			$n_beli.waktuTerima= Date.now();
 
 			io.emit('simpanTransaksiBeli', $n_beli);
 			//console.log('simpan transaksi beli ', $n_beli);

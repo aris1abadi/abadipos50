@@ -149,16 +149,37 @@
 
 	let totalBayar = 0;
 
-	function bayarHutangClick() {}
+	function bayarHutangClick() {
+		if(totalBayar > 0){
+			const ht = {
+				suplierId:$n_beli.suplierId,
+				userId:$n_beli.userId,
+				waktu:Date.now(),
+				bayar:totalBayar
+			}
+			io.emit("bayarHutang", ht);
+			bayarOpen = false
+			totalBayar = 0
+		}
+	}
 
 	function lastWeekHistoryClick() {
 		io.emit("getLastWeekHutang", $n_beli.suplierId);
+	}
+
+	function numClick(val){
+		totalBayar += val
+		if(totalBayar > $totalHutang){
+			totalBayar = $totalHutang
+			console.log("kelebihan bayar")
+		}
 	}
 </script>
 
 
 <div class=" w-full h-full mt-8 px-2 overflow-y-auto">
-	<div class="grid grid-cols-2 px-1">
+	{#if $totalHutang > 0}
+	<div class="grid grid-cols-2 px-1 mb-4">
 		<div class="text-right font-bold font-mono mr-4">Bayar</div>
 		<button on:click={() => {bayarOpen = !bayarOpen}} class="border h-full w-full "><div class="font-bold  text-right mr-2">{rupiah(totalBayar)}</div></button>
 	</div>
@@ -168,25 +189,29 @@
 
 			<DropdownItem
 				on:click={() => {
-					totalBayar += 2000;
+					numClick(2000)
+					//totalBayar += 2000;
 				}}
 				class="border border-gray-400 rounded-lg">2.000</DropdownItem
 			>
 			<DropdownItem
 				on:click={() => {
-					totalBayar += 5000;
+					//totalBayar += 5000;
+					numClick(5000)
 				}}
 				class="border border-gray-400 rounded">5.000</DropdownItem
 			>
 			<DropdownItem
 				on:click={() => {
-					totalBayar += 10000;
+					//totalBayar += 10000;
+					numClick(10000)
 				}}
 				class="border border-gray-400 rounded">10rb</DropdownItem
 			>
 			<DropdownItem
 				on:click={() => {
-					totalBayar = $totalHutang;
+					//totalBayar = $totalHutang;
+					numClick($totalHutang)
 				}}
 				class="border border-gray-400 rounded">Pas</DropdownItem
 			>
@@ -198,19 +223,22 @@
 			>
 			<DropdownItem
 				on:click={() => {
-					totalBayar += 20000;
+					//totalBayar += 20000;
+					numClick(20000)
 				}}
 				class="border border-gray-400 rounded">20rb</DropdownItem
 			>
 			<DropdownItem
 				on:click={() => {
-					totalBayar += 50000;
+					//totalBayar += 50000;
+					numClick(50000)
 				}}
 				class="border border-gray-400 rounded">50rb</DropdownItem
 			>
 			<DropdownItem
 				on:click={() => {
-					totalBayar += 100000;
+					//totalBayar += 100000;
+					numClick(100000)
 				}}
 				class="border border-gray-400 rounded">100rb</DropdownItem
 			>
@@ -224,11 +252,11 @@
 	<div class="grid grid-cols-3 text-xs font-mono px-2">
 		{#if lastWeekHutang}
 			{#each lastWeekHutang as hutang, index}
-				<div>{getTanggal(hutang.waktu)}</div>
-				<div>Hutang</div>
-				<div class="text-right">{rupiah(hutang.lastHutang)}</div>
+				<div class="bg-gray-200 pl-2">{getTanggal(hutang.waktu)}</div>
+				<div class="bg-gray-200">Hutang</div>
+				<div class="text-right bg-gray-200">{rupiah(hutang.lastHutang)}</div>
 
-				<div>{getJam(hutang.waktu)}</div>
+				<div class="pl-2">{getJam(hutang.waktu)}</div>
 				<div>Tagihan</div>
 				<div class="text-right">{rupiah(hutang.totalTagihan)}</div>
 
@@ -236,10 +264,14 @@
 				<div>Bayar</div>
 				<div class="text-right">{rupiah(hutang.totalBayar)}</div>
 
-				<hr class="col-span-3 " />
+				
 			{/each}
+			<div></div>
+			<div class="font-bold font-mono  mt-4 ">Total Hutang</div>
+			<div class="font-bold font-mono text-right mt-4">{rupiah($totalHutang)}</div>
 		{/if}
 	</div>
 
+	{/if}
 	
 </div>

@@ -633,7 +633,7 @@
 	{transitionParams}
 	bind:hidden={menuHide}
 	id="sidebar2"
-	class="w-full h-1/2 flex justify-center item-center p-0 "
+	class="w-full h-3/4 flex justify-center item-center p-0 "
 >
 	<div class=" w-full h-full">
 		<div class="grid grid-cols-4 px-2 w-full h-8 my-2">
@@ -646,14 +646,53 @@
 				>
 			{/each}
 		</div>
-		<div class="overflow-y-auto max-w-2xl h-3/4">
-			{#if kategoriNow === "Nasi Boks"}
-				<div class="grid grid-cols-4 bg-gray-400">
-					<div >tes 123</div>
-					<div></div>
-					<div >tes 123</div>
-					<div></div>
+		<div class="overflow-y-auto max-w-2xl h-full">
+			{#if $dataMenuStore}
+				<div class="grid grid-cols-3 gap-2 p-2">
+					{#each $dataMenuStore as menu, index}
+						{#if kategoriNow === menu.kategori}
+							
+								<button
+									class="bg-white rounded rounded-sm border"
+									on:click={() => pilihMenuClick(menu)}
+								>
+								<img
+											class="w-full h-3/4"
+											src={menu.gambar}
+											alt="gambar"
+										/>
+									
+										<div
+											class="mb-0 text-xs font-medium text-gray-900 dark:text-white"
+										>
+											{menu.nama}
+										</div>
+										<div
+											class="text-black dark:text-gray-400"
+											style="font-size: 8px;"
+											>{rupiah(menu.harga)}</div
+										>
+									
+								</button>
+							
+						{/if}
+					{/each}
 				</div>
+			{/if}
+			<!--
+			{#if kategoriNow === "Nasi Boks"}
+				<div class="w-full h-1/4 px-2 ">
+					<div class="w-full h-full rounded border border-gray-800"></div>
+					
+				</div>
+				<div class="overflow-y-auto w-full h-3/4">
+
+
+				</div>
+
+				
+
+				
 			{:else if $dataMenuStore}
 				<div class="grid grid-cols-3 gap-2 p-2">
 					{#each $dataMenuStore as menu, index}
@@ -686,6 +725,7 @@
 					{/each}
 				</div>
 			{/if}
+			-->
 		</div>
 	</div>
 </Drawer>

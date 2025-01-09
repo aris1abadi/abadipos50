@@ -10,7 +10,7 @@
 		dataBahanStore,
 		dataKategoriMenu,
 		dataKategoriBahan,
-		dataKategoriUser,
+		dataKategoriUser,		
 		dataSatuan,
 		newBahanGlobal,
 		dataPelanggan,
@@ -19,6 +19,9 @@
 		headerContent,
 		firstLoad,
 		newSuplierGlobal,
+		prosesCount,
+		n_beli,
+		n_order,
 	} from "$lib/stores/store";
 	import {
 		FloatingLabelInput,
@@ -27,6 +30,7 @@
 		Select,
 		Radio,
 	} from "flowbite-svelte";
+	import {sendToServer} from "$lib/myFunction"
 
 	import { notifications } from "$lib/notifications.js";
 
@@ -112,6 +116,85 @@
 		io.on("save_Status",(msg)=>{
 			console.log(msg)
 		})
+
+		io.on('myMenu', (msg) => {
+			//if (typeof $dataMenuStore !== 'undefined' && $dataMenuStore.length > 0) {
+			//	$dataMenuStore.forEach((menu, index) => {
+			//		$dataMenuStore[index].stok = msg[index].stok;
+			//	});
+			//} else {
+				$dataMenuStore = [];
+				msg.forEach(
+					(
+						/** @type {{ id: string;gambar:string; waId:string;nama: string; harga: number;hargaGojeg:number; dapur: string; stok: any; stokId: any; kategori: Text }} */ menu
+					) => {
+						let dt = {
+							id: menu.id,
+							nama: menu.nama,
+							harga: menu.harga,
+							hargaGojeg : menu.hargaGojeg,
+							dapur : menu.dapur,
+							stok: menu.stok,
+							waId: menu.waId,
+							stokId: menu.stokId,
+							orderCount: 0,
+							kategori: menu.kategori,
+							stokUse: 0,
+							gambar: menu.gambar
+						};
+						$dataMenuStore.push(dt);
+					}
+				);
+				//console.log('Menu', $dataMenuStore);
+				$prosesCount += 20
+				if($prosesCount > 100){
+					$prosesCount = 100
+				}
+			//}
+		});
+
+		io.on('myBahan', (msg) => {
+			$dataBahanStore = msg;
+			//console.log('Bahan: ', $dataBahanStore);
+			$prosesCount += 20
+			if($prosesCount > 100){
+					$prosesCount = 100
+				}
+		});
+
+		io.on('myPelanggan', (msg) => {
+			$dataPelanggan = msg;
+			//console.log('pelanggan: ', $dataPelanggan);
+			$n_order.pelanggan = $dataPelanggan[0];	
+			$prosesCount += 20	
+			if($prosesCount > 100){
+					$prosesCount = 100
+				}	
+			
+		});
+
+		io.on('mySuplier', (msg) => {
+			$dataSuplier = msg;
+			//console.log('suplier: ', $dataSuplier);
+			$n_beli.suplier = $dataSuplier[11];
+			$prosesCount += 20
+			if($prosesCount > 100){
+					$prosesCount = 100
+				}
+		});
+
+		io.on('myKategori', (msg) => {
+			$dataKategoriMenu = msg[0].menu;
+			$dataKategoriBahan = msg[0].bahan;
+			$dataKategoriUser = msg[0].user;
+			$dataSatuan = msg[0].satuan;
+			//console.log("kategori ",msg)
+			$prosesCount += 10
+			if($prosesCount > 100){
+					$prosesCount = 100
+				}
+			//console.log("kategori menu ",$dataKategoriMenu)
+		});
 	});
 
 	/**
@@ -197,7 +280,7 @@
         //});
 
 		if (file) {
-			editMenu.gambar = "/public/" + file.name;
+			editMenu.gambar = "/Images/" + file.name;
 		} else {
 			if (newMenu) {
 				//default gambar
@@ -257,6 +340,7 @@
 		stokSelect = "-";
 		gambarSelect = "logo2023.png";
 		kategoriSelect = $dataKategoriMenu[0];
+		sendToServer('getMenu');
 	}
 
 	//bahan handle
@@ -273,6 +357,7 @@
 		stokIdSelect = "-";
 		kategoriSelect = $dataKategoriBahan[0];
 		gambarSelect = "logo2023.png";
+		sendToServer('getBahan');
 	}
 	function editBahanClick(bahan) {
 		$headerContent.bahanOpen = false;
@@ -297,7 +382,7 @@
 		const file = fileInput.files[0];
 
 		if (file) {
-			editBahan.gambar = "/public/" + file.name;
+			editBahan.gambar = "/Images/" + file.name;
 		} else {
 			//default gambar
 			if (newBahan) {
@@ -353,6 +438,7 @@
 		alamatSelect = "";
 		mapSelect = "-";
 		gambarSelect = "logo2023.png";
+		sendToServer('getPelanggan');
 	}
 
 	function editPelangganClick(pelanggan) {
@@ -384,6 +470,7 @@
 		alamatSelect = "";
 		mapSelect = "-";
 		gambarSelect = "logo2023.png";
+		sendToServer('getSuplier');
 	}
 
 	function simpanPelanggan() {
@@ -397,7 +484,7 @@
 		const file = fileInput.files[0];
 
 		if (file) {
-			editBahan.gambar = "/public/" + file.name;
+			editBahan.gambar = "/Images/" + file.name;
 		} else {
 			//default gambar
 			if (newPelanggan) {
@@ -448,7 +535,7 @@
 		const file = fileInput.files[0];
 
 		if (file) {
-			editSuplier.gambar = "/public/" + file.name;
+			editSuplier.gambar = "/Images/" + file.name;
 		} else {
 			//default gambar
 			if (newSuplier) {
@@ -632,7 +719,7 @@
 						>
 					</div>
 				</div>
-				{#if namaSelect && waIdSelect && hargaSelect > 0}
+				{#if namaSelect && hargaSelect > 0}
 					<div class="col-span-2 mt-8 flex justify-center">
 						<button
 							on:click={() => simpanMenu()}

@@ -614,7 +614,7 @@
 						>
 							Suplier
 						</div>
-						<div class="font-bold text-right">
+						<div class="font-bold text-center">
 							{$n_beli.suplierNama}
 						</div>
 					</button>
